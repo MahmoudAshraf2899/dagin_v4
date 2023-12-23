@@ -8,7 +8,8 @@ export const MainPage = () => {
       <div className="sm:w-full sm:max-w-[18rem]">
         <input
           type="checkbox"
-          id="sidebar-mobile-fixed"
+          id="sidebar-mobile-fixed"   
+          
           className="sidebar-state"
         />
         <label
