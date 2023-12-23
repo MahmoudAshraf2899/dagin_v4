@@ -47,6 +47,8 @@ export const InProgressMission = () => {
       if (res) {
         if (res.status === 403) {
           toast.error(" عفوا انت ليس لديك صلاحية الوصول لهذه الصفحة ");
+          setIsLoading(false);
+
         } else {
           setData(res.data.items);
           setTotalRows(res.data.totalCount);
@@ -57,6 +59,11 @@ export const InProgressMission = () => {
   }, [setData]);
   return (
     <div className="grid grid-cols-1 my-4 InProgressMission">
+      {isLoading === true ? (
+        <>
+          <Loading />
+        </>
+      ) : null}
       {data.map((item: any) => {
         const createdAtDate = moment(item.created_at);
         const dueDate = moment(item.due_at == null ? new Date() : item.due_at);
