@@ -21,7 +21,7 @@ export const ModuleHeader = () => {
   };
   return (
     <div className="grid grid-cols-2 xs:grid-col-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 p-4  ModuleHeader">
-      <div className="col-start-1 flex col-end-1 sm:col-start-1">
+      <div className="col-start-1 flex col-span-2 sm:col-start-1">
         <div
           onClick={() => handleActiveElement(1)}
           className={
@@ -62,8 +62,18 @@ export const ModuleHeader = () => {
         >
           مهمة تامة
         </div>
+
+        <div
+          onClick={() => handleActiveElement(6)}
+          className={
+            activeElement === 6 ? "main-element-active" : "main-element"
+          }
+        >
+            مهمة مرفوضة
+        </div>
+         
       </div>
-      <div className="col-start-2 flex justify-end">
+      <div className="col-start-2 col-end-5 flex justify-end">
         <div className="flex">
           {/* Filter Btn */}
           <div className="filter-section flex">

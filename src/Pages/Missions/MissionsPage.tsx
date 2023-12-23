@@ -14,6 +14,8 @@ import { InProgressMission } from "../../Components/Missions/InProgressMission/I
 import { LateMissions } from "../../Components/Missions/LateMissions/LateMissions";
 import { EvaluationMission } from "../../Components/Missions/EvaluationMission/EvaluationMission";
 import { FinishedMission } from "../../Components/Missions/FinishedMission/FinishedMission";
+import { RefusedMissionPopUp } from "../../Components/Missions/RefusedMission/RefusedMissionPopUp";
+ import { RefusedMission } from "../../Components/Missions/RefusedMission/RefusedMission";
 
 export const MissionsPage = () => {
   const stateFromMission = useSelector((state: any) => state.missions);
@@ -47,7 +49,12 @@ export const MissionsPage = () => {
             <FinishedPopUp />
           )}
         </>
-      ) : null}
+      ) : stateFromMission.selectedMission === 6 ? (
+        <>
+          {stateFromMission.showDetailsPopUp === false ? null : (
+            <RefusedMissionPopUp />
+          )}
+        </>):null}
       <div className="sm:w-full sm:max-w-[18rem]">
         <input
           type="checkbox"
@@ -119,9 +126,13 @@ export const MissionsPage = () => {
                 <>
                   <FinishedMission />
                 </>
-              ) : (
-                <PendingMission />
-              )}
+              ) : stateFromMission.selectedMission === 6 ?   (
+                <>
+                <RefusedMission />
+                </>
+              ):<>
+              <PendingMission />
+            </>}
             </div>
           </>
         )}

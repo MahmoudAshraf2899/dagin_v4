@@ -33,6 +33,8 @@ API.interceptors.response.use(
   (error) => {
     if (error.response.status === 401) {
       console.log("Unauthorized Request!");
+      localStorage.removeItem('token');
+      window.location.reload();
     }
     return Promise.reject(error.response.data || error);
   }
