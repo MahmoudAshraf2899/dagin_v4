@@ -1,0 +1,102 @@
+.Login{
+    direction: rtl;
+    .first-market{
+        color: #FFF;
+        text-align: center;
+        font-family: MadaniArabic-Medium;
+        font-size: 31.079px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 39.257px; /* 126.316% */
+        margin-top: -2.5rem;
+        text-wrap: nowrap;
+        left: 61%;
+        }
+        .arab-world{
+        color: #F3EFA1;
+        font-family: MadaniArabic-Medium;
+        font-size: 31.079px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 39.257px;
+        }
+        .needs{
+        color: #FFF;
+        text-align: center;
+        font-family: MadaniArabic-ExtraLight;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 22px; 
+        margin-top: -45px;
+        
+        }
+        .login-phone{
+        display: flex;
+        width: 427px;
+        padding: 10px 35px 16px 30px;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 9px;
+        border-radius: 15px;
+        border: 1px solid var(--greyscale-300, #E2E8F0);
+        background-image: url('../../Assets/Icons/phone.jpg');
+        background-position: 400px center;
+        background-size: 4%;  
+        background-repeat: no-repeat;
+        margin-top: 25px;
+        }
+        .toggle-password{
+        position: absolute;
+        left: 125px;
+        margin-top: 5px;
+        }
+        .login-password{
+        width: 427px;
+        height: 56px;
+        padding: 10px 35px 16px 30px;
+        flex-shrink: 0;
+        border-radius: 15px;
+        border: 1px solid var(--greyscale-300, #E2E8F0);
+        
+        }
+        .welcome-banner{
+        color: var(--greyscale-900, #1A202C);
+        text-align: center;
+        font-family: MadaniArabic-SemiBold;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 125%; /* 40px */
+        letter-spacing: 0.2px;
+        }
+        .dagin{
+        color: #05A357;
+        font-family: MadaniArabic-SemiBold;
+        font-size: 32px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 152%;
+        letter-spacing: 0.2px;
+        }
+        .log-to-acc{
+        color: var(--greyscale-600, #718096);
+        text-align: center;
+        font-family: MadaniArabic-Light;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%; /* 24px */
+        letter-spacing: 0.3px;
+        }
+        .forget-pw{
+        color: #05A357;
+        text-align: right;
+        font-family: MadaniArabic-Medium;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%; /* 24px */
+        letter-spacing: 0.2px;
+        }
+}

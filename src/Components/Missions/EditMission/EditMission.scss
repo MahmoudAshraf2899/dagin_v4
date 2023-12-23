@@ -1,0 +1,175 @@
+.EditMission{
+    background: var(--Greyscale-50, #F8FAFC);
+    .add-section{ 
+        height: 581px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        background: var(--White-General, #FFF);
+        box-shadow: 0px 4px 120px 0px rgba(169, 173, 180, 0.15);
+    }
+    .add-reward-section{
+        height: 410px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        background: var(--White-General, #FFF);
+        box-shadow: 0px 4px 120px 0px rgba(169, 173, 180, 0.15);
+    }
+    .mission-details{
+        width: 50%;
+        display: flex;
+        height: 40px;
+        padding: 8px 12px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        border-radius: 8px;
+        background: #F9F9F9;
+        color: var(--Greyscale-500, #64748B);
+        text-align: right;
+        font-family: MadaniArabic-Regular;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%; /* 19.2px */
+    }
+    .mission-type{
+        color: #333;
+        font-family: MadaniArabic-Regular;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+    .select-mission-type{
+        color: #333;
+        text-align: right;
+        font-family: MadaniArabic-Regular;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+    .select-mission-container{
+        display: inline-flex;
+        height: 55px;
+        padding: 17px 23px 17px 19.5px;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 881.5px;
+        flex-shrink: 0;
+        border-radius: 15px;
+        border: 1px solid #E2E2E2;
+        background: #FFF;
+    }
+    .mission-map-input{
+        display: flex;
+        width: 100%;
+        height: 55px;
+        padding: 17px 23px 17px 385px;
+        justify-content: flex-end;
+        align-items: center;
+        flex-shrink: 0; 
+        border-radius: 15px;
+        border: 1px solid #E2E2E2;
+        background: #FFF;
+    }
+    .mission-map-input:focus{
+        outline: none;
+    }
+    .mission-map-input::placeholder{
+        color: #9BA0B1;
+        text-align: right;
+        font-family: MadaniArabic-Regular;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+    .mission-address-input{
+        display: flex;
+        width: 490px;
+        height: 55px;
+        /* padding: 17px 23px 17px 385px; */
+        /* justify-content: flex-end; */
+        /* align-items: center; */
+        flex-shrink: 0;
+        border-radius: 15px;
+        border: 1px solid #E2E2E2;
+        background: #FFF;
+    }
+    .mission-address-input:focus{
+        outline: none;
+    }
+    .mission-address-input::placeholder{
+        color: #9BA0B1;
+        text-align: right;
+        font-family: MadaniArabic-Regular;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+    .mission-text-area{
+        display: flex;            
+        padding: 22px 23px 60px 24px;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        border-radius: 15px;
+        border: 1px solid #E2E2E2;
+        background: #FFF;
+    }
+    .mission-text-area:focus{
+        outline: none;
+    }
+    .bonus-text{
+        color: #333;
+        font-family: MadaniArabic-Regular;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+    .add-actions{
+        width: 1128px;
+        height: 88px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        background: var(--White-General, #FFF);
+        box-shadow: 0px 4px 120px 0px rgba(169, 173, 180, 0.15);
+    }
+    .add-btn{
+        display: inline-flex;
+        padding: 8px 37.5px 9px 37.5px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 15px;
+        background: #124734;
+        color: #FFF;
+        font-family: MadaniArabic-Medium;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px;  
+        cursor: pointer;
+    }
+    .cancel-btn{
+        display: flex;
+        width: 135px;
+        height: 53px;
+        padding: 8px 44px 9px 41px;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        border-radius: 15px;
+        border: 1px solid #EEE;
+        background: #FFF;
+        display: flex;
+        padding: 10px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+
+    }
+}

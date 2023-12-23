@@ -1,0 +1,62 @@
+.DeleteMission{
+    width: 140px;
+    .mission-type-txt{
+        display: flex;
+        height: 40px;
+        padding: 8px 12px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        border-radius: 8px;
+        background: #F9F9F9;
+        color: var(--Greyscale-500, #64748B);
+        text-align: right;
+        font-family: MadaniArabic-Regular;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%; /* 19.2px */
+    }
+    .done{
+        display: flex;
+        width: 142px;
+        padding: 8px 0px 9px 0px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 15px;
+        background: #124734;
+        color: #FFF;
+        font-family: MadaniArabic-Medium;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px; /* 114.286% */
+        cursor: pointer;
+    }
+    .cancel{
+        display: flex;
+        width: 135px;
+        height: 37px;
+        padding: 8px 44px 9px 41px;
+        justify-content: center;
+        align-items: center;
+        flex-shrink: 0;
+        border-radius: 15px;
+        border: 1px solid #EEE;
+        background: #FFF;
+        display: flex;        
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+    }
+    .are-you-sure{
+        color: var(--black-01, #2C3659);
+        text-align: right; 
+        font-family: MadaniArabic-SemiBold;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%;
+    }
+}

@@ -1,0 +1,108 @@
+.MainHeader{
+    
+    .Module-name{
+        color: var(--Greyscale-900, #0F172A);
+        text-align: right;
+        font-family: MadaniArabic-SemiBold;
+        font-size: 24px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 125%; /* 30px */
+        letter-spacing: 0.2px;
+    }
+    .search-input{
+        padding-right: 40px;
+    }
+    .search-input::placeholder{
+        color: var(--Greyscale-500, #64748B);
+        text-align: right;
+        font-family: MadaniArabic-Regular;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%; /* 22.4px */
+    }
+    .icon {
+        border-radius: 1000px;
+        height: 40px;        
+        
+    }
+    
+    .icon .overlap-group {
+        background-image: url('../../Assets/Icons/Group.svg');
+        
+        background-size: 100% 100%;
+        height: 24px;
+        /* left: 8px; */
+        top: 7px;
+        position: relative;
+        width: 24px;
+    }
+    
+    .icon .ellipse {
+        background: linear-gradient(180deg, rgb(36.62, 118.14, 88.91) 0%, rgb(18, 71, 52) 100%);
+        border: 1px solid;
+        border-color: var(--additionalwhite);
+        border-radius: 4px;
+        height: 8px;
+        left: 2px;
+        position: relative;
+        top: 2px;
+        width: 8px;
+    }
+    .user-name{
+        color: var(--Greyscale-900, #0F172A);
+        text-align: right;
+        font-family: MadaniArabic-SemiBold;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%;  
+    }
+    .user-role{
+        color: var(--Greyscale-500, #64748B);
+        text-align: right; 
+        font-family: MadaniArabic-Regular;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%; /* 19.2px */
+    }
+    .arrow:focus{
+        outline: none;
+    }
+    .popover-bottom-left{
+        background-color: white;
+        left: 0;
+        right: auto;
+        transform: translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+        transform-origin: top right;
+    }
+    .popover-bottom-left .popover-arrow{
+        display: none;
+    }
+    .three-dots-li{
+        display: flex;
+        justify-content: start;
+        color: #64748B;
+        text-align: right;
+        font-family: MadaniArabic-Regular;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%; /* 18px */
+        margin-bottom: 15px;
+    }
+    .three-dots-li-delete{
+        display: flex;
+        justify-content: start;
+        color: #EB4335;
+        text-align: right;
+        font-family: MadaniArabic-Regular;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%;  
+        margin-bottom: 15px;
+    }
+}

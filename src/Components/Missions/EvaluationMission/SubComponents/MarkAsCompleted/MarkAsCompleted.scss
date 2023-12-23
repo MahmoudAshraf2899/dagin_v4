@@ -1,0 +1,69 @@
+.MarkAsCompleted{
+    .mission-details{
+        display: flex;
+        height: 40px;
+        padding: 8px 12px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        border-radius: 8px;
+        background: #F9F9F9;
+        color: var(--Greyscale-500, #64748B);
+        text-align: right;
+        font-family: MadaniArabic-Regular;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%; /* 19.2px */
+    }
+    .sure-completed{
+        color: var(--Black-01, #2C3659);
+        text-align: right;                  
+        font-family: MadaniArabic-SemiBold;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%; 
+    }
+    .yes-btn{
+        display: inline-flex;
+        padding: 8px 32px 9px 32px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 15px;
+        background: #124734;
+        color: #FFF;
+        font-family: MadaniArabic-Medium;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px; /* 114.286% */
+        cursor: pointer;
+        text-align: center;
+    }
+    .no-btn{
+        background: #C11818;
+        display: inline-flex;
+        padding: 8px 32px 9px 32px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 15px;        
+        color: #FFF;
+        font-family: MadaniArabic-Medium;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px; /* 114.286% */
+        cursor: pointer;
+        text-align: center;
+    }
+    .sure-completed{
+        color: var(--Black-01, #2C3659);
+        text-align: right;                  
+        font-family: MadaniArabic-SemiBold;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%; 
+    }
+}
