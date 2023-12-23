@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/dagin_v1/static/css/main.b99f6aab.css",
-    "main.js": "/dagin_v1/static/js/main.962c7f74.js",
-    "static/js/787.aeaa6d49.chunk.js": "/dagin_v1/static/js/787.aeaa6d49.chunk.js",
-    "static/media/alfont_com_Madani-Arabic-Semi-Bold.ttf": "/dagin_v1/static/media/alfont_com_Madani-Arabic-Semi-Bold.2fa121d1ab7b3156c65f.ttf",
-    "static/media/alfont_com_Madani-Arabic-Medium.ttf": "/dagin_v1/static/media/alfont_com_Madani-Arabic-Medium.6f3cfceb8644d1131c4e.ttf",
-    "static/media/alfont_com_Madani-Arabic-Regular.ttf": "/dagin_v1/static/media/alfont_com_Madani-Arabic-Regular.c161142bca18b7d2b49e.ttf",
-    "static/media/alfont_com_Madani-Arabic-Light.ttf": "/dagin_v1/static/media/alfont_com_Madani-Arabic-Light.091e0bdebdf7445c5a62.ttf",
-    "static/media/alfont_com_Madani-Arabic-Extra-Light.ttf": "/dagin_v1/static/media/alfont_com_Madani-Arabic-Extra-Light.6d28cd860b9a2951baab.ttf",
-    "static/media/din-next-lt-w23-regular.ttf": "/dagin_v1/static/media/din-next-lt-w23-regular.d215eb8db524d88ae951.ttf",
-    "static/media/40px.svg": "/dagin_v1/static/media/40px.418d529ea14197a77bc51777e0e0f37f.svg",
-    "static/media/Vector (Stroke).png": "/dagin_v1/static/media/Vector (Stroke).9770c80041938e541d22.png",
-    "static/media/Group.svg": "/dagin_v1/static/media/Group.4481fe772a5980d1d5e4.svg",
-    "static/media/eye.svg": "/dagin_v1/static/media/eye.95af804d847f464ab7bf0a72096add20.svg",
-    "index.html": "/dagin_v1/index.html",
-    "static/media/closeicon.svg": "/dagin_v1/static/media/closeicon.123e26606a26f70d4d8b02b580c9dc12.svg",
-    "main.b99f6aab.css.map": "/dagin_v1/static/css/main.b99f6aab.css.map",
-    "main.962c7f74.js.map": "/dagin_v1/static/js/main.962c7f74.js.map",
-    "787.aeaa6d49.chunk.js.map": "/dagin_v1/static/js/787.aeaa6d49.chunk.js.map"
+    "main.css": "/dagin_v4/static/css/main.9261f46f.css",
+    "main.js": "/dagin_v4/static/js/main.ef0447ba.js",
+    "static/js/787.aeaa6d49.chunk.js": "/dagin_v4/static/js/787.aeaa6d49.chunk.js",
+    "static/media/alfont_com_Madani-Arabic-Semi-Bold.ttf": "/dagin_v4/static/media/alfont_com_Madani-Arabic-Semi-Bold.2fa121d1ab7b3156c65f.ttf",
+    "static/media/alfont_com_Madani-Arabic-Medium.ttf": "/dagin_v4/static/media/alfont_com_Madani-Arabic-Medium.6f3cfceb8644d1131c4e.ttf",
+    "static/media/alfont_com_Madani-Arabic-Regular.ttf": "/dagin_v4/static/media/alfont_com_Madani-Arabic-Regular.c161142bca18b7d2b49e.ttf",
+    "static/media/alfont_com_Madani-Arabic-Light.ttf": "/dagin_v4/static/media/alfont_com_Madani-Arabic-Light.091e0bdebdf7445c5a62.ttf",
+    "static/media/alfont_com_Madani-Arabic-Extra-Light.ttf": "/dagin_v4/static/media/alfont_com_Madani-Arabic-Extra-Light.6d28cd860b9a2951baab.ttf",
+    "static/media/din-next-lt-w23-regular.ttf": "/dagin_v4/static/media/din-next-lt-w23-regular.d215eb8db524d88ae951.ttf",
+    "static/media/40px.svg": "/dagin_v4/static/media/40px.418d529ea14197a77bc51777e0e0f37f.svg",
+    "static/media/Vector (Stroke).png": "/dagin_v4/static/media/Vector (Stroke).9770c80041938e541d22.png",
+    "static/media/Group.svg": "/dagin_v4/static/media/Group.4481fe772a5980d1d5e4.svg",
+    "static/media/eye.svg": "/dagin_v4/static/media/eye.95af804d847f464ab7bf0a72096add20.svg",
+    "index.html": "/dagin_v4/index.html",
+    "static/media/closeicon.svg": "/dagin_v4/static/media/closeicon.123e26606a26f70d4d8b02b580c9dc12.svg",
+    "main.9261f46f.css.map": "/dagin_v4/static/css/main.9261f46f.css.map",
+    "main.ef0447ba.js.map": "/dagin_v4/static/js/main.ef0447ba.js.map",
+    "787.aeaa6d49.chunk.js.map": "/dagin_v4/static/js/787.aeaa6d49.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b99f6aab.css",
-    "static/js/main.962c7f74.js"
+    "static/css/main.9261f46f.css",
+    "static/js/main.ef0447ba.js"
   ]
 }
