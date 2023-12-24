@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectedUsersType } from "../../../redux/Slices/UsersSlice";
+import { selectedUsersType, toggleShowAddUser } from "../../../redux/Slices/UsersSlice";
 import './Header.scss'
 
 export const Header = ()=>{
@@ -12,6 +12,10 @@ export const Header = ()=>{
         let type = id;
           dispatch(selectedUsersType({ type }));
       };
+      const showAddUser = ()=>{
+        let visible= true;
+        dispatch(toggleShowAddUser({visible}))
+      }
     return (
         <div className="grid grid-cols-2 xs:grid-col-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 p-4  Header">
   
@@ -39,8 +43,8 @@ export const Header = ()=>{
          
         {/* Add Button */}
         <div className="add-user-btn" 
-        //onClick={() => showAddMission()}
-        //Todo :Make It Refer to Add New User
+        onClick={() => showAddUser()}
+       
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

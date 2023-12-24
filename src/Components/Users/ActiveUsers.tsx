@@ -125,10 +125,7 @@ export const ActiveUsers =()=>{
                                 </div>
                             </div>
                     </div>
-                 
-
-                
-                    
+                  
                 </div>
             </div>
     );

@@ -4,6 +4,8 @@ import { MainHeader } from "../../Components/MainHeader/MainHeader";
 import { ModuleHeader } from "../../Components/ModuleHeader/ModuleHeader";
 import { ActiveUsers } from "../../Components/Users/ActiveUsers";
 import { DisableUsers } from "../../Components/Users/DisableUsers";
+import { AddUser } from "../../Components/Users/Add/AddUser";
+import { EditUser } from "../../Components/Users/Edit/EditUser";
 export const Users = ()=>{
   const stateFromUserSlice = useSelector((state: any) => state.users);
 
@@ -36,29 +38,41 @@ export const Users = ()=>{
           <div className="page-container">
             <div className="col-span-12 row-span-1">
               <MainHeader />
-              {/* Second Header */}
                
+               {stateFromUserSlice.showAddUser === true ? null :
                 <>
                   <ModuleHeader />
                 </>
+                }
               
             </div>
           </div>
           {/* Content Will Be Here */}
+          {stateFromUserSlice.showAddUser === true ? (
+          <>
            
+            <AddUser />
+          </>
+        ) : stateFromUserSlice.showEditUser === true ? (
+          <>
+            <EditUser />
+          </>
+        ) : (
             <>
               <div
                 className="h-full"
                 style={{ backgroundColor: "var(--Greyscale-50, #F8FAFC)" }}
               >
+                <>
                 {stateFromUserSlice.selectedUserType === 1 ?<>
                 
                   <ActiveUsers />
                 </>:<>
                 <DisableUsers />
                 </>}
+                </>
               </div>
-            </>
+            </>)}
            
         </div>
       </div>
