@@ -8,6 +8,8 @@ import { setMainHeaderName } from '../../../redux/Slices/MainHeaderSlice';
 import { toggleShowAddUser } from '../../../redux/Slices/UsersSlice';
 import { useEffect, useState } from "react";
 import arrow from "../../../Assets/Icons/arrow.jpeg";
+import { Stages } from '../SubComponents/Stages/StagesPopUp';
+import { Specialization } from '../SubComponents/Specialization/Specialization';
 const userData = {
     type_id: 0,
     name: "",
@@ -26,6 +28,9 @@ const userData = {
 export const AddUser = () => {
     const [isLoading, setIsLoading] = useState(false);
     const stateFromUserSlice = useSelector((state: any) => state.users);
+    const [showStagesPopUp, setShowStagesPopUp] = useState(false);
+    const [showSpecialtiesPopUp, setShowSpecialtiesPopUp] = useState(false);
+
     const dispatch = useDispatch();
     const handleShowAddComponent = () => {
         let visible = false;
@@ -40,6 +45,12 @@ export const AddUser = () => {
         },
         []
     );
+    const handleShowStagesPopUp = () => {
+        setShowStagesPopUp(!showStagesPopUp);
+    };
+    const handleShowSpecialtiesPopUp = () => {
+        setShowSpecialtiesPopUp(!showSpecialtiesPopUp)
+    }
 
     return (
         <div className="AddUser">
@@ -48,6 +59,9 @@ export const AddUser = () => {
                     <Loading />
                 </>
             ) : null}
+            {showStagesPopUp === true ? <Stages /> : null}
+            {showSpecialtiesPopUp === true ? <Specialization /> : null}
+
             <div className="add-section mb-4">
                 <div className="grid grid-cols-2">
                     <div className="col-start-1 mt-4 mb-4 pr-4">
@@ -129,13 +143,15 @@ export const AddUser = () => {
                         <label htmlFor="modal-8">
                             <div className="flex justify-between select-stage-container">
                                 <div className="select-stage pr-4">
-                                    قم بأختيار المرحلة
+                                    {stateFromUserSlice.levelId !== 0
+                                        ? stateFromUserSlice.levelName
+                                        : "قم بأختيار المرحلة"}
                                 </div>
                                 <div className="arrow">
                                     <img
                                         src={arrow}
                                         alt="arrow"
-                                    // onClick={() => handleShowStagePopUp()}
+                                        onClick={() => handleShowStagesPopUp()}
                                     />
                                 </div>
                             </div>
@@ -149,13 +165,15 @@ export const AddUser = () => {
                         <label htmlFor="modal-9">
                             <div className="flex justify-between select-stage-container">
                                 <div className="select-stage pr-4">
-                                    قم بأختيار التخصص
+                                    {stateFromUserSlice.specialtiesId !== 0
+                                        ? stateFromUserSlice.specialtiesName
+                                        : "قم بأختيار التخصص"}
                                 </div>
                                 <div className="arrow">
                                     <img
                                         src={arrow}
                                         alt="arrow"
-                                    // onClick={() => handleShowStagePopUp()}
+                                        onClick={() => handleShowSpecialtiesPopUp()}
                                     />
                                 </div>
                             </div>
