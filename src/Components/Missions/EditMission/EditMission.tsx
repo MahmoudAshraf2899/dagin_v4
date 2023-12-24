@@ -192,8 +192,8 @@ export const EditMission = () => {
           stateFromMissionSlice.assignedIds.length === 0
             ? apiResponse?.assignedUsers.map((item) => Number(item.id))
             : stateFromMissionSlice.assignedIds.map((item: any) =>
-                Number(item)
-              ),
+              Number(item)
+            ),
       },
       due_at: moment(stateFromMissionSlice.dueDate).format("YYYY-MM-DD"),
       name: apiResponse?.name,
@@ -241,6 +241,7 @@ export const EditMission = () => {
   };
   return (
     <div className="EditMission">
+
       <Formik
         onSubmit={() => handleEditMission()}
         initialValues={{ apiResponse: apiResponse || null }} // Handle null case
@@ -474,7 +475,7 @@ export const EditMission = () => {
                   </div>
 
                   {apiResponse?.early_bonus !== 0 &&
-                  apiResponse?.early_bonus != null ? (
+                    apiResponse?.early_bonus != null ? (
                     <>
                       <div className="col-start-2 mt-4  pr-4">
                         <div className="bonus flex gap-4 items-center">

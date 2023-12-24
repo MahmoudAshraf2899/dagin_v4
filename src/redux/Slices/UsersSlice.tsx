@@ -6,7 +6,8 @@ const initialState = {
   levelId: 0,
   levelName: "",
   specialtiesId: 0,
-  specialtiesName: ""
+  specialtiesName: "",
+  userId: null
 };
 export const UsersSlice = createSlice({
   name: "Users",
@@ -28,10 +29,13 @@ export const UsersSlice = createSlice({
     setSelectedSpecialties: (state, action) => {
       state.specialtiesId = action.payload.specialtiesId;
       state.specialtiesName = action.payload.specialtiesName
+    },
+    setUserId: (state, action) => {
+      state.userId = action.payload.userId;
     }
 
   },
 });
-export const { selectedUsersType, toggleShowAddUser, setSelectedStage, setSelectedSpecialties } = UsersSlice.actions;
+export const { selectedUsersType, toggleShowAddUser, toggleShowEditUser, setSelectedStage, setSelectedSpecialties, setUserId } = UsersSlice.actions;
 
 export default UsersSlice.reducer;
