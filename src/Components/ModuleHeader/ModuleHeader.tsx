@@ -5,9 +5,12 @@ import {
   selectedMissionType,
   toggleShowAddMission,
 } from "../../redux/Slices/MissionSlice";
+import { Header } from "../Users/Header/Header";
 
 export const ModuleHeader = () => {
   const dispatch = useDispatch();
+  const stateFromSidebarSlice = useSelector((state: any) => state.sideBar);
+
 
   const [activeElement, setActiveElement] = useState(1);
   const handleActiveElement = (id: number) => {
@@ -20,7 +23,16 @@ export const ModuleHeader = () => {
     dispatch(toggleShowAddMission({ visible }));
   };
   return (
-    <div className="grid grid-cols-2 xs:grid-col-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 p-4  ModuleHeader">
+    <div className="ModuleHeader" >
+   
+        {/* ادارة المستخدمين */}
+        {stateFromSidebarSlice.currentActiveModule === 5 ? 
+        <Header />
+        :
+        <>
+        {/* Missions Header */}
+         <div className="grid grid-cols-2 xs:grid-col-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 p-4  ">
+        
       <div className="col-start-1 flex col-span-2 sm:col-start-1">
         <div
           onClick={() => handleActiveElement(1)}
@@ -112,6 +124,9 @@ export const ModuleHeader = () => {
           </div>
         </div>
       </div>
+      </div>
+      </>}
+    
     </div>
   );
 };

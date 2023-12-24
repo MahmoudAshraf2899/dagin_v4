@@ -1,0 +1,55 @@
+.Users{
+    background: #F1F5F9;    
+    .userCard{
+        
+        height: 176px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        background: var(--White-General, #FFF);
+        box-shadow: 0px 4px 120px 0px rgba(169, 173, 180, 0.15);
+    }
+    .user-name{
+        color: var(--Greyscale-900, #0F172A);
+        text-align: right;        
+        font-family: MadaniArabic-SemiBold;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%; 
+        letter-spacing: 0.2px;
+    }
+    .typeOfSpecialization{
+        color: #70D44B;
+        text-align: right; 
+        font-family: MadaniArabic-Medium;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400; /* 19.2px */
+    }
+    .type-status{
+        color: var(--Greyscale-500, #64748B); 
+        font-family: MadaniArabic-Medium;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%;
+    }
+    .de-active-btn{
+        display: flex;
+        width: 496px;
+        height: 48px;
+        padding: 8px;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+        border-radius: 15px;
+        background: #124734;
+        color: #FFF; 
+        font-family: MadaniArabic-SemiBold;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%;  
+    }
+}

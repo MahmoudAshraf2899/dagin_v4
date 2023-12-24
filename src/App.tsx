@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
  import { MissionsPage } from "./Pages/Missions/MissionsPage";
 import { MainPage } from "./Pages/MainPage/MainPage";
+import { Users } from "./Pages/Users/Users";
 function App() {
    const stateFromSidebar = useSelector((state: any) => state.sideBar);
   const token = localStorage.getItem("token");
@@ -18,9 +19,9 @@ function App() {
         <>
           {stateFromSidebar.currentActiveModule === 1 ? (
             <MissionsPage />
-          ) : (
-            <MainPage />
-          )}
+          ) :stateFromSidebar.currentActiveModule ===5 ? (
+            <Users />
+          ): <MainPage />}
           <ToastContainer rtl />
         </>
       ) : (

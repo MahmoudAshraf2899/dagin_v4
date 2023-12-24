@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./Sidebar.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { setActiveModule } from "../../redux/Slices/SidebarSlice";
+import { setMainHeaderName } from "../../redux/Slices/MainHeaderSlice";
 
 export const Sidebar = () => {
   const dispatch = useDispatch();
@@ -11,6 +12,47 @@ export const Sidebar = () => {
   const handleActiveLi = (id: number) => {
     setActiveLi(id);
     let currentActiveModule = id;
+    let mainHeaderName = "الداش بورد"
+    switch (id) {
+      case 0:
+        mainHeaderName="الداش بورد"
+        break;
+
+        case 1:
+          mainHeaderName="المهام"
+          break;
+
+          case 2:
+            mainHeaderName="الأختبارات"
+            break;
+            case 3:
+              mainHeaderName="المسابقات "
+              break;
+              case 4:
+                mainHeaderName="الكورسات "
+                break;
+                case 5:
+                mainHeaderName="ادارة المستخدمين"
+                break;
+                case 6:
+                mainHeaderName="ادارة المحافظ"
+                break;
+                case 7:
+                mainHeaderName="التقارير"
+                break;
+                case 8:
+                  mainHeaderName="الأعدادات"
+                  break;
+                  case 9:
+                  mainHeaderName="اعدادات الأشعارات"
+                  break;
+    
+      default:
+        mainHeaderName="الداش بورد"
+
+        break;
+    }
+    dispatch(setMainHeaderName({mainHeaderName}))
     dispatch(setActiveModule({ currentActiveModule }));
   };
   return (
