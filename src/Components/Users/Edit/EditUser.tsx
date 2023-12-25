@@ -1,7 +1,7 @@
 import './EditUser.scss';
 import moment from "moment";
 import { toast } from "react-toastify";
-import API from '../../../Api';
+import API, { URL } from '../../../Api';
 import { Loading } from '../../Loading/Loading';
 import { useSelector, useDispatch } from "react-redux";
 import { setMainHeaderName } from '../../../redux/Slices/MainHeaderSlice';
@@ -12,47 +12,15 @@ import { useEffect, useState } from "react";
 import arrow from "../../../Assets/Icons/arrow.jpeg";
 import { Stages } from '../SubComponents/Stages/StagesPopUp';
 import { Specialization } from '../SubComponents/Specialization/Specialization';
-
+import axios from 'axios';
 interface ApiResponse {
     id: string;
     created_at: string;
-    updated_at: string;
-    full_address: string;
-    latitude: string;
-    longitude: string;
-    maps_url: string;
     name: string;
-    audience: string;
-    status: string;
-    details: string;
-    reward: number;
-    due_at: string;
-    early_bonus: number;
-    early_bonus_due_at: string;
-    accepted_at: string | null;
-    req_review_at: string | null;
-    completed_at: string | null;
-    salesman_id: string | null;
-    housing_id: string | null;
-    farm_id: string | null;
-    farmer_id: string | null;
-    trader_id: string | null;
-    salesman: string | null;
-    type: {
-        id: string;
-        name: string;
-    };
-    workAreas: {
-        id: string;
-        name: string;
-    }[];
-    assignedUsers: {
-        id: string;
-        name: string;
-    }[];
-    assignedSpecialties: any[]; // Adjust the type accordingly
-    breeder: any; // Adjust the type accordingly
-    farm: any; // Adjust the type accordingly
+    national_id: string;
+    specialty_id: string;
+    level_id: string;
+    mobile_number: string;
 }
 export const EditUser = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -60,11 +28,32 @@ export const EditUser = () => {
     const stateFromUserSlice = useSelector((state: any) => state.users);
     const [showStagesPopUp, setShowStagesPopUp] = useState(false);
     const [showSpecialtiesPopUp, setShowSpecialtiesPopUp] = useState(false);
+    const [data, setData] = useState<{}>({});
+
+
     const dispatch = useDispatch();
     useEffect(
         () => {
+            setIsLoading(true);
             let mainHeaderName = "تعديل مستخدم";
             dispatch(setMainHeaderName({ mainHeaderName }));
+            API.get(`dashboard/salesman/${stateFromUserSlice.userId}`).then(
+                (res) => {
+                    if (res) {
+                        if (res.status === 403) {
+                            toast.error(" عفوا انت ليس لديك صلاحية الوصول لهذه الصفحة ");
+                            setIsLoading(false);
+                        } else {
+                            // Set the locale to Arabic
+                            moment.locale("ar");
+
+                            setApiResponse(res.data);
+                            setData(res.data);
+                            setIsLoading(false);
+                        }
+                    }
+                }
+            );
         },
         []
     );
@@ -107,8 +96,69 @@ export const EditUser = () => {
     };
     const handleEditUser = () => {
         setIsLoading(true);
+        if (stateFromUserSlice.specialtiesId === 0) {
+            toast.error("من فضلك قم بأختيار التخصص")
+            setIsLoading(false);
+
+        } else if (stateFromUserSlice.levelId === 0) {
+            toast.error("من فضلك قم بأختيار المرحلة")
+            setIsLoading(false);
+
+        } else {
+
+            submitEditUser();
+        }
 
     };
+    const submitEditUser = () => {
+        if (apiResponse != null) {
+
+            apiResponse.specialty_id = stateFromUserSlice.specialtiesId
+            apiResponse.level_id = stateFromUserSlice.levelId
+        }
+        const FormData = require('form-data');
+        let data = new FormData();
+        data.append('name', apiResponse?.name);
+        data.append('mobile_number', apiResponse?.mobile_number);
+
+        data.append('whatsapp_number', apiResponse?.mobile_number);
+        data.append('national_id', apiResponse?.national_id);
+        data.append('specialty_id', apiResponse?.specialty_id);
+        data.append('level_id', apiResponse?.level_id);
+
+
+        let config = {
+            method: 'patch',
+            maxBodyLength: Infinity,
+            url: `${URL}dashboard/salesman/${stateFromUserSlice.userId}`,
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Content-type': 'multipart/form-data', // Set the Content-Type for FormData
+                'Accept': 'multipart/form-data', // Set the Accept header if needed
+                'Access-Control-Allow-Credentials': true,
+                'Access-Control-Allow-Origin': URL,
+            },
+            data: data
+        };
+
+        axios.request(config)
+            .then((response) => {
+                if (response.status === 200) {
+                    toast.success("تمت تعديل المستخدم بنجاح")
+                    setIsLoading(false);
+                    handleShowEditComponent();
+                } else if (response.status === 400) {
+                    toast.error("هذا المستخدم موجود من قبل")
+                    setIsLoading(false);
+                }
+                else {
+                    toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين")
+                    setIsLoading(false);
+                    handleShowEditComponent();
+                }
+            })
+
+    }
     return (
         <div className='EditUser'>
             {isLoading === true ? (
@@ -146,36 +196,26 @@ export const EditUser = () => {
                                         <div className="divider"></div>
                                     </div>
                                     {/* الاسم الاول */}
-                                    <div className="col-start-1 mt-4 mb-4 pr-4">
-                                        <h3 className="first-name"> الاسم الاول</h3>
-                                    </div>
-                                    <div className="col-start-2 mt-4 mb-4 pr-4">
-                                        <h3 className="last-name"> الاسم الأخير</h3>
+                                    <div className="col-span-full mt-4 mb-4 pr-4">
+                                        <h3 className="first-name"> اسم المستخدم</h3>
                                     </div>
 
-                                    {/*First Name Input*/}
+
+                                    {/*Name Input*/}
                                     <div className="col-start-1  mb-4 pr-4">
                                         <div>
                                             <input
                                                 type="text"
-                                                placeholder="الاسم الأول"
+                                                placeholder="اسم المستخدم"
                                                 className="first-name-input"
-                                            // onChange={(e) => handleChangeMission(e.target.value, "name")}
+                                                onChange={(e) => handleChangeUser(e.target.value, "name", setValues)}
+                                                value={apiResponse?.name}
+                                                required
                                             />
                                         </div>
                                     </div>
 
-                                    {/*Last Name input */}
-                                    <div className="col-start-2  mb-4 pr-4">
-                                        <div>
-                                            <input
-                                                type="text"
-                                                placeholder="الاسم الأخير"
-                                                className="first-name-input"
-                                            // onChange={(e) => handleChangeMission(e.target.value, "name")}
-                                            />
-                                        </div>
-                                    </div>
+
 
                                     <div className='col-start-1 mt-4 mb-4 pr-4'>
                                         <h3 className="last-name"> الرقم القومي</h3>
@@ -189,10 +229,12 @@ export const EditUser = () => {
                                     <div className="col-start-1  mb-4 pr-4">
                                         <div>
                                             <input
-                                                type="text"
+                                                type="number"
                                                 placeholder="الرقم القومي"
                                                 className="first-name-input"
-                                            // onChange={(e) => handleChangeMission(e.target.value, "name")}
+                                                value={apiResponse?.national_id}
+                                                onChange={(e) => handleChangeUser(e.target.value, "national_id", setValues)}
+                                                required
                                             />
                                         </div>
                                     </div>
@@ -201,10 +243,13 @@ export const EditUser = () => {
                                     <div className="col-start-2  mb-4 pr-4">
                                         <div>
                                             <input
-                                                type="text"
+                                                type="number"
                                                 placeholder="رقم الهاتف"
                                                 className="first-name-input"
-                                            // onChange={(e) => handleChangeMission(e.target.value, "name")}
+                                                value={apiResponse?.mobile_number}
+                                                onChange={(e) => handleChangeUser(e.target.value, "mobile_number", setValues)}
+                                                required
+
                                             />
                                         </div>
                                     </div>
@@ -255,16 +300,15 @@ export const EditUser = () => {
 
                                 </div>
                             </div>
-
+                            {/* Actions */}
                             <div className="add-actions mt-4 mb-4 p-5">
                                 <div className="grid grid-cols-2">
                                     <div className="col-start-1">
                                         <div className="flex gap-4">
-                                            <div className="add-btn"
-                                            //   onClick={() => handleAddNewMission()}
+                                            <button type="submit" className="add-btn"
                                             >
-                                                اضافة
-                                            </div>
+                                                تعديل
+                                            </button>
                                             <div
                                                 className="cancel-btn"
                                                 onClick={() => handleShowEditComponent()}
