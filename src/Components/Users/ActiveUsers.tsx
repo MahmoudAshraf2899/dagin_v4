@@ -3,20 +3,25 @@ import userIcon from '../../Assets/Icons/40px.svg';
 import { useEffect, useState } from 'react';
 import API from '../../Api';
 import { Loading } from '../Loading/Loading';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleShowEditMission } from '../../redux/Slices/MissionSlice';
-import { setUserId, toggleShowEditUser } from '../../redux/Slices/UsersSlice';
+import { setActiveUserData, setUserId, toggleShowEditUser } from '../../redux/Slices/UsersSlice';
+import { SuspendPopUp } from './SubComponents/suspend/SuspendPopUp';
 export const ActiveUsers = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [users, setUsers] = useState([]);
+    const [showSuspendPopUp, setShowSuspendPopUp] = useState(false);
     const dispatch = useDispatch();
+    const stateFromUserSlice = useSelector((state: any) => state.users);
 
 
     useEffect(() => {
         setIsLoading(true);
         API.get('dashboard/salesman?account_status=2').then((res) => {
             if (res) {
-                setUsers(res.data.items)
+                setUsers(res.data.items);
+                let activeUserData = res.data.items
+                dispatch(setActiveUserData({ activeUserData }))
                 setIsLoading(false);
             }
         })
@@ -26,6 +31,10 @@ export const ActiveUsers = () => {
         dispatch(toggleShowEditUser({ visible }))
         dispatch(setUserId({ userId }))
     }
+    const handleShowSuspendPopUp = (userId: number) => {
+        dispatch(setUserId({ userId }));
+        setShowSuspendPopUp(!showSuspendPopUp);
+    }
     return (
         <div className="Users">
             {isLoading === true ? (
@@ -34,9 +43,11 @@ export const ActiveUsers = () => {
                 </>
             ) : null}
             <div className='grid grid-cols-2'>
-                {users.map((user: any, index) => (
+                {stateFromUserSlice.activeUserData.map((user: any, index: any) => (
                     <div key={index} className={`grid col-start-${index % 2 === 0 ? 1 : 2} p-4`}>
+
                         <div className='userCard pr-4 pt-8'>
+                            {showSuspendPopUp === true ? <SuspendPopUp /> : null}
 
                             <div className='flex justify-between'>
                                 <div className='flex gap-4'>
@@ -96,8 +107,14 @@ export const ActiveUsers = () => {
                             </div>
 
                             <div className='col-span-full mt-8'>
-                                <div className='de-active-btn'>الغاء تفعيل الحساب</div>
+                                <label htmlFor='modal-454'>
+                                    <div className='de-active-btn'
+                                        onClick={() => handleShowSuspendPopUp(Number(user.id))}
+
+                                    >الغاء تفعيل الحساب</div>
+                                </label>
                             </div>
+
                         </div>
                     </div>
                 ))}
