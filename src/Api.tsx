@@ -1,22 +1,23 @@
 import axios from "axios";
 const token = localStorage.getItem("token");
 
-const productionUrl = "https://nestjs-api.dajin-platform.com/";
-const testUrl = "https://dajintest.environ-adapt.tk/";
+const URL = "https://dajintest.environ-adapt.tk/";
+//  testUrl : "https://dajintest.environ-adapt.tk/";
+//Production Url : "https://nestjs-api.dajin-platform.com/"
 
 const API = axios.create({
-  baseURL: productionUrl,
+  baseURL: URL,
   timeout: 5000,
   headers: {
     Authorization: `Bearer ${token}`,
     "Content-type": "application/json",
     Accept: "*/*",
     "Access-Control-Allow-Credentials": true,
-    "Access-Control-Allow-Origin": productionUrl,
+    "Access-Control-Allow-Origin": URL,
   },
 });
 export const APISUBMIT = axios.create({
-  baseURL: productionUrl,
+  baseURL: URL,
   timeout: 5000,
   headers: {
     // 'Content-Type': '*/*',
@@ -24,7 +25,7 @@ export const APISUBMIT = axios.create({
     "Content-Type": "multipart/form-data",
     Accept: "*/*",
     "Access-Control-Allow-Credentials": true,
-    "Access-Control-Allow-Origin": productionUrl,
+    "Access-Control-Allow-Origin": URL,
   },
 });
 

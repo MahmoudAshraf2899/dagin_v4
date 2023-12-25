@@ -6,6 +6,7 @@ import { ActiveUsers } from "../../Components/Users/ActiveUsers";
 import { DisableUsers } from "../../Components/Users/DisableUsers";
 import { AddUser } from "../../Components/Users/Add/AddUser";
 import { EditUser } from "../../Components/Users/Edit/EditUser";
+import { StoppedUsers } from "../../Components/Users/StoppedUsers";
 export const Users = () => {
   const stateFromUserSlice = useSelector((state: any) => state.users);
 
@@ -67,9 +68,9 @@ export const Users = () => {
                 {stateFromUserSlice.selectedUserType === 1 ? <>
 
                   <ActiveUsers />
-                </> : <>
+                </> : stateFromUserSlice.selectedUserType === 2 ? (<>
                   <DisableUsers />
-                </>}
+                </>) : <StoppedUsers />}
               </>
             </div>
           </>)}

@@ -14,7 +14,7 @@ export const ActiveUsers = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        API.get('salesman/').then((res) => {
+        API.get('dashboard/salesman?account_status=2').then((res) => {
             if (res) {
                 setUsers(res.data.items)
                 setIsLoading(false);
@@ -101,8 +101,6 @@ export const ActiveUsers = () => {
                         </div>
                     </div>
                 ))}
-
-
             </div>
         </div>
     );
