@@ -59,9 +59,7 @@ export const AddMission = () => {
       let mainHeaderName = "اضافة مهمة";
       dispatch(setMainHeaderName({ mainHeaderName }));
     },
-    [
-      /* dependency array */
-    ]
+    []
   );
   const handleChangeMission = (e: any, field: string) => {
     if (field === "name") {

@@ -1,7 +1,7 @@
 import './AddUser.scss'
 import moment from "moment";
 import { toast } from "react-toastify";
-import API from '../../../Api';
+import API, { URL } from '../../../Api';
 import { Loading } from '../../Loading/Loading';
 import { useSelector, useDispatch } from "react-redux";
 import { setMainHeaderName } from '../../../redux/Slices/MainHeaderSlice';
@@ -10,23 +10,20 @@ import { useEffect, useState } from "react";
 import arrow from "../../../Assets/Icons/arrow.jpeg";
 import { Stages } from '../SubComponents/Stages/StagesPopUp';
 import { Specialization } from '../SubComponents/Specialization/Specialization';
+import axios from 'axios';
 const userData = {
-    type_id: 0,
     name: "",
-    due_at: "",
-    details: "",
-    reward: 0,
-    maps_url: "",
-    early_bonus_due_at: new Date(),
-    early_bonus: 0,
-    work_area_ids: [],
-    assignment: {
-        type: [],
-        ids: [],
-    },
+    mobile: "",
+    email: "",
+    national_id: "",
+    specialty_id: "",
+    level_id: "",
+
 };
 export const AddUser = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const stateFromUserSlice = useSelector((state: any) => state.users);
     const [showStagesPopUp, setShowStagesPopUp] = useState(false);
     const [showSpecialtiesPopUp, setShowSpecialtiesPopUp] = useState(false);
@@ -40,16 +37,107 @@ export const AddUser = () => {
     };
     useEffect(
         () => {
+            setIsLoading(true);
             let mainHeaderName = "اضافة مستخدم";
             dispatch(setMainHeaderName({ mainHeaderName }));
+            setIsLoading(false);
         },
         []
     );
+
     const handleShowStagesPopUp = () => {
         setShowStagesPopUp(!showStagesPopUp);
     };
     const handleShowSpecialtiesPopUp = () => {
         setShowSpecialtiesPopUp(!showSpecialtiesPopUp)
+    }
+    const handleChangeUser = (e: any, field: string) => {
+        if (field === "firstName") {
+            setFirstName(e);
+
+        } else if (field === "lastName") {
+            setLastName(e);
+        }
+        else if (field === "national_id") {
+            userData.national_id = e;
+        } else if (field === "mobile") {
+            userData.mobile = e;
+        }
+    };
+
+    const handleAddUser = () => {
+        /* Validations */
+        setIsLoading(true);
+        if (firstName === "") {
+            toast.error("من فضلك قم بأدخال الأسم الأول")
+            setIsLoading(false);
+
+        } else if (lastName === "") {
+            toast.error("من فضلك قم بأدخال الأسم الأخير")
+            setIsLoading(false);
+        }
+        else if (userData.national_id === "") {
+            toast.error("من فضلك قم بأدخال الرقم القومي")
+            setIsLoading(false);
+        }
+        else if (userData.mobile === "") {
+            toast.error("من فضلك قم بأدخال رقم الهاتف");
+            setIsLoading(false);
+        } else if (stateFromUserSlice.levelId === 0) {
+            toast.error("من فضلك قم بأختيار المرحلة")
+            setIsLoading(false);
+        } else if (stateFromUserSlice.specialtiesId === 0) {
+            toast.error("من فضلك قم بأختيارالتخصص")
+            setIsLoading(false);
+        } else {
+            confirmAddUser();
+        }
+
+    }
+    const confirmAddUser = () => {
+        setIsLoading(true);
+
+        userData.level_id = stateFromUserSlice.levelId;
+        userData.specialty_id = stateFromUserSlice.specialtiesId;
+
+        const FormData = require('form-data');
+        let data = new FormData();
+        data.append('name', `${firstName}-${lastName}`);
+        data.append('mobile', userData.mobile);
+
+        data.append('whatsapp', userData.mobile);
+        data.append('national_id', userData.national_id);
+        data.append('specialty_id', userData.specialty_id);
+        data.append('level_id', userData.level_id);
+
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'https://dajintest.environ-adapt.tk/dashboard/salesman',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Content-type': 'multipart/form-data', // Set the Content-Type for FormData
+                'Accept': 'multipart/form-data', // Set the Accept header if needed
+                'Access-Control-Allow-Credentials': true,
+                'Access-Control-Allow-Origin': URL,
+            },
+            data: data
+        };
+
+        axios.request(config)
+            .then((response) => {
+                if (response.status === 201) {
+                    toast.success("تمت اضافة المستخدم بنجاح")
+                    setIsLoading(false);
+                } else if (response.status === 400) {
+                    toast.error("هذا المستخدم موجود من قبل")
+                    setIsLoading(false);
+                }
+                else {
+                    toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين")
+                    setIsLoading(false);
+                }
+            })
     }
 
     return (
@@ -87,7 +175,7 @@ export const AddUser = () => {
                                 type="text"
                                 placeholder="الاسم الأول"
                                 className="first-name-input"
-                            // onChange={(e) => handleChangeMission(e.target.value, "name")}
+                                onChange={(e) => handleChangeUser(e.target.value, "firstName")}
                             />
                         </div>
                     </div>
@@ -99,7 +187,8 @@ export const AddUser = () => {
                                 type="text"
                                 placeholder="الاسم الأخير"
                                 className="first-name-input"
-                            // onChange={(e) => handleChangeMission(e.target.value, "name")}
+                                onChange={(e) => handleChangeUser(e.target.value, "lastName")}
+
                             />
                         </div>
                     </div>
@@ -116,10 +205,10 @@ export const AddUser = () => {
                     <div className="col-start-1  mb-4 pr-4">
                         <div>
                             <input
-                                type="text"
+                                type="number"
                                 placeholder="الرقم القومي"
                                 className="first-name-input"
-                            // onChange={(e) => handleChangeMission(e.target.value, "name")}
+                                onChange={(e) => handleChangeUser(e.target.value, "national_id")}
                             />
                         </div>
                     </div>
@@ -128,10 +217,11 @@ export const AddUser = () => {
                     <div className="col-start-2  mb-4 pr-4">
                         <div>
                             <input
-                                type="text"
+                                type="number"
                                 placeholder="رقم الهاتف"
                                 className="first-name-input"
-                            // onChange={(e) => handleChangeMission(e.target.value, "name")}
+                                onChange={(e) => handleChangeUser(e.target.value, "mobile")}
+
                             />
                         </div>
                     </div>
@@ -182,13 +272,13 @@ export const AddUser = () => {
 
                 </div>
             </div>
-
+            {/* Actions */}
             <div className="add-actions mt-4 mb-4 p-5">
                 <div className="grid grid-cols-2">
                     <div className="col-start-1">
                         <div className="flex gap-4">
                             <div className="add-btn"
-                            //   onClick={() => handleAddNewMission()}
+                                onClick={() => handleAddUser()}
                             >
                                 اضافة
                             </div>
