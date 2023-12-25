@@ -71,11 +71,17 @@ export const DisableUsers = () => {
                                         >
                                             <ul>
                                                 <label
-                                                    className="three-dots-li"
+                                                    className="three-dots-li flex justify-between"
                                                 // htmlFor="modal-1"
                                                 //   onClick={() => ShowMissionDetailsPopUp(item.id)}
                                                 >
-                                                    تصفح الحساب
+                                                    <span>تصفح الحساب</span>
+                                                    <div>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                                            <path d="M8.00033 8.00004C9.84127 8.00004 11.3337 6.50766 11.3337 4.66671C11.3337 2.82576 9.84127 1.33337 8.00033 1.33337C6.15938 1.33337 4.66699 2.82576 4.66699 4.66671C4.66699 6.50766 6.15938 8.00004 8.00033 8.00004Z" stroke="#9C9CA4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                            <path d="M13.7268 14.6667C13.7268 12.0867 11.1601 10 8.0001 10C4.8401 10 2.27344 12.0867 2.27344 14.6667" stroke="#9C9CA4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                        </svg>
+                                                    </div>
                                                 </label>
                                                 <input
                                                     className="modal-state"
@@ -83,11 +89,16 @@ export const DisableUsers = () => {
                                                     type="checkbox"
                                                 />
                                                 <label
-                                                    className="three-dots-li"
+                                                    className="three-dots-li-edit flex justify-between"
                                                     htmlFor="modal-2"
                                                     onClick={() => showEditUser(Number(user.id))}
                                                 >
-                                                    تعديل الحساب
+                                                    <span> تعديل الحساب</span>
+                                                    <div>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                                            <path d="M22 12V18C22 20.2091 20.2091 22 18 22H6C3.79086 22 2 20.2091 2 18V6C2 3.79086 3.79086 2 6 2H12M15.6864 4.02275C15.6864 4.02275 15.6864 5.45305 17.1167 6.88334C18.547 8.31364 19.9773 8.31364 19.9773 8.31364M9.15467 15.9896L12.1583 15.5605C12.5916 15.4986 12.9931 15.2978 13.3025 14.9884L21.4076 6.88334C22.1975 6.09341 22.1975 4.81268 21.4076 4.02275L19.9773 2.59245C19.1873 1.80252 17.9066 1.80252 17.1167 2.59245L9.01164 10.6975C8.70217 11.0069 8.50142 11.4084 8.43952 11.8417L8.01044 14.8453C7.91508 15.5128 8.4872 16.0849 9.15467 15.9896Z" stroke="#28303F" stroke-width="1.5" stroke-linecap="round" />
+                                                        </svg>
+                                                    </div>
                                                 </label>
 
                                             </ul>
