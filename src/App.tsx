@@ -1,15 +1,16 @@
 import React from "react";
- 
+
 import { useSelector } from "react-redux";
- 
- import { Login } from "./Components/Login/Login";
- import { ToastContainer, toast } from "react-toastify";
+
+import { Login } from "./Components/Login/Login";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
- import { MissionsPage } from "./Pages/Missions/MissionsPage";
+import { MissionsPage } from "./Pages/Missions/MissionsPage";
 import { MainPage } from "./Pages/MainPage/MainPage";
 import { Users } from "./Pages/Users/Users";
+import { Wallets } from "./Pages/Wallets/Wallets";
 function App() {
-   const stateFromSidebar = useSelector((state: any) => state.sideBar);
+  const stateFromSidebar = useSelector((state: any) => state.sideBar);
   const token = localStorage.getItem("token");
 
   return (
@@ -19,9 +20,11 @@ function App() {
         <>
           {stateFromSidebar.currentActiveModule === 1 ? (
             <MissionsPage />
-          ) :stateFromSidebar.currentActiveModule ===5 ? (
+          ) : stateFromSidebar.currentActiveModule === 5 ? (
             <Users />
-          ): <MainPage />}
+          ) : stateFromSidebar.currentActiveModule === 6 ? (
+            <Wallets />
+          ) : <MainPage />}
           <ToastContainer rtl />
         </>
       ) : (
