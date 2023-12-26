@@ -11,6 +11,7 @@ import arrow from "../../../Assets/Icons/arrow.jpeg";
 import { Stages } from '../SubComponents/Stages/StagesPopUp';
 import { Specialization } from '../SubComponents/Specialization/Specialization';
 import axios from 'axios';
+import { WorkRange } from '../SubComponents/work-range/WorkRange';
 const userData = {
     name: "",
     mobile: "",
@@ -27,6 +28,7 @@ export const AddUser = () => {
 
     const stateFromUserSlice = useSelector((state: any) => state.users);
     const [showStagesPopUp, setShowStagesPopUp] = useState(false);
+    const [showWorkRangePopUp, setShowWorkRangePopUp] = useState(false);
     const [showSpecialtiesPopUp, setShowSpecialtiesPopUp] = useState(false);
 
     const dispatch = useDispatch();
@@ -49,6 +51,9 @@ export const AddUser = () => {
     const handleShowStagesPopUp = () => {
         setShowStagesPopUp(!showStagesPopUp);
     };
+    const handleShowWorkRangePopup = () => {
+        setShowWorkRangePopUp(!showWorkRangePopUp)
+    }
     const handleShowSpecialtiesPopUp = () => {
         setShowSpecialtiesPopUp(!showSpecialtiesPopUp)
     }
@@ -65,7 +70,7 @@ export const AddUser = () => {
         } else if (field === "whatsapp") {
             userData.whatsapp = e;
         } else if (field === "ewallet_number") {
-            userData.ewallet_number = "e";
+            userData.ewallet_number = e;
         }
     };
 
@@ -88,6 +93,10 @@ export const AddUser = () => {
             setIsLoading(false);
         } else if (stateFromUserSlice.specialtiesId === 0) {
             toast.error("من فضلك قم بأختيارالتخصص")
+            setIsLoading(false);
+        }
+        else if (stateFromUserSlice.workAreas_ids.length === 0) {
+            toast.error("من فضلك قم بأختيار نطاق العمل")
             setIsLoading(false);
         }
         else if (userData.whatsapp === "") {
@@ -115,6 +124,10 @@ export const AddUser = () => {
 
         const FormData = require('form-data');
         let data = new FormData();
+        for (let index = 0; index < stateFromUserSlice.workAreas_ids.length; index++) {
+            const element = stateFromUserSlice.workAreas_ids[index];
+            data.append('work_area_ids', element);
+        }
         data.append('name', userData.name);
         data.append('mobile', userData.mobile);
         data.append('whatsapp', userData.whatsapp);
@@ -127,7 +140,7 @@ export const AddUser = () => {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'https://dajintest.environ-adapt.tk/dashboard/salesman',
+            url: `${URL}dashboard/salesman`,
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
                 'Content-type': 'multipart/form-data', // Set the Content-Type for FormData
@@ -152,7 +165,10 @@ export const AddUser = () => {
                     toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين")
                     setIsLoading(false);
                 }
-            })
+            }).catch((error) => {
+                toast.error("هذا المستخدم موجود من قبل")
+                setIsLoading(false);
+            });
     }
 
     return (
@@ -164,6 +180,7 @@ export const AddUser = () => {
             ) : null}
             {showStagesPopUp === true ? <Stages /> : null}
             {showSpecialtiesPopUp === true ? <Specialization /> : null}
+            {showWorkRangePopUp === true ? <WorkRange /> : null}
 
             <div className="add-section mb-4">
                 <div className="grid grid-cols-2">
@@ -312,6 +329,29 @@ export const AddUser = () => {
                                         src={arrow}
                                         alt="arrow"
                                         onClick={() => handleShowSpecialtiesPopUp()}
+                                    />
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+
+                    {/* نطاق العمل */}
+                    <div className='col-start-1 mt-4 mb-4 pr-4'>
+                        <h3 className="last-name"> نطاق العمل</h3>
+                    </div>
+                    <div className='col-span-full pr-4'>
+                        <label htmlFor="modal-784">
+                            <div className="flex justify-between select-stage-container">
+                                <div className="select-stage pr-4">
+                                    {stateFromUserSlice.workAreas_ids.length !== 0
+                                        ? stateFromUserSlice.workAreas_text
+                                        : "قم بأختيار نطاق العمل"}
+                                </div>
+                                <div className="arrow">
+                                    <img
+                                        src={arrow}
+                                        alt="arrow"
+                                        onClick={() => handleShowWorkRangePopup()}
                                     />
                                 </div>
                             </div>

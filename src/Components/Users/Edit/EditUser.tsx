@@ -13,6 +13,7 @@ import arrow from "../../../Assets/Icons/arrow.jpeg";
 import { Stages } from '../SubComponents/Stages/StagesPopUp';
 import { Specialization } from '../SubComponents/Specialization/Specialization';
 import axios from 'axios';
+import { WorkRange } from '../SubComponents/work-range/WorkRange';
 interface ApiResponse {
     id: string;
     created_at: string;
@@ -31,6 +32,7 @@ export const EditUser = () => {
     const stateFromUserSlice = useSelector((state: any) => state.users);
     const [showStagesPopUp, setShowStagesPopUp] = useState(false);
     const [showSpecialtiesPopUp, setShowSpecialtiesPopUp] = useState(false);
+    const [showWorkRangePopUp, setShowWorkRangePopUp] = useState(false);
     const [data, setData] = useState<{}>({});
 
 
@@ -69,6 +71,9 @@ export const EditUser = () => {
     const handleShowStagesPopUp = () => {
         setShowStagesPopUp(!showStagesPopUp);
     };
+    const handleShowWorkRangePopup = () => {
+        setShowWorkRangePopUp(!showWorkRangePopUp)
+    }
     const handleShowSpecialtiesPopUp = () => {
         setShowSpecialtiesPopUp(!showSpecialtiesPopUp)
     }
@@ -107,8 +112,10 @@ export const EditUser = () => {
             toast.error("من فضلك قم بأختيار المرحلة")
             setIsLoading(false);
 
+        } else if (stateFromUserSlice.workAreas_ids.length === 0) {
+            toast.error("من فضلك قم بأختيار نطاق العمل");
+            setIsLoading(false);
         } else {
-
             submitEditUser();
         }
 
@@ -171,6 +178,8 @@ export const EditUser = () => {
             ) : null}
             {showStagesPopUp === true ? <Stages /> : null}
             {showSpecialtiesPopUp === true ? <Specialization /> : null}
+            {showWorkRangePopUp === true ? <WorkRange /> : null}
+
             <Formik
                 onSubmit={() => handleEditUser()}
                 initialValues={{ apiResponse: apiResponse || null }} // Handle null case
@@ -347,6 +356,30 @@ export const EditUser = () => {
                                                         src={arrow}
                                                         alt="arrow"
                                                         onClick={() => handleShowSpecialtiesPopUp()}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </div>
+
+
+                                    {/* نطاق العمل */}
+                                    <div className='col-start-1 mt-4 mb-4 pr-4'>
+                                        <h3 className="last-name"> نطاق العمل</h3>
+                                    </div>
+                                    <div className='col-span-full pr-4'>
+                                        <label htmlFor="modal-784">
+                                            <div className="flex justify-between select-stage-container">
+                                                <div className="select-stage pr-4">
+                                                    {stateFromUserSlice.workAreas_ids.length !== 0
+                                                        ? stateFromUserSlice.workAreas_text
+                                                        : "قم بأختيار نطاق العمل"}
+                                                </div>
+                                                <div className="arrow">
+                                                    <img
+                                                        src={arrow}
+                                                        alt="arrow"
+                                                        onClick={() => handleShowWorkRangePopup()}
                                                     />
                                                 </div>
                                             </div>
