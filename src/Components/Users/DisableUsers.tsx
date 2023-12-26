@@ -14,7 +14,7 @@ export const DisableUsers = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        API.get('dashboard/salesman?account_status=1').then((res) => {
+        API.get('dashboard/salesman?account_status=1&limit=50000000').then((res) => {
             if (res) {
                 setUsers(res.data.items)
                 setIsLoading(false);

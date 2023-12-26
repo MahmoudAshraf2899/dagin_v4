@@ -13,7 +13,7 @@ export const StoppedUsers = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        API.get('dashboard/salesman?account_status=3').then((res) => {
+        API.get('dashboard/salesman?account_status=3&limit=50000000').then((res) => {
             if (res) {
                 setUsers(res.data.items)
                 setIsLoading(false);
@@ -106,9 +106,9 @@ export const StoppedUsers = () => {
                                 </div>
                             </div>
 
-                            <div className='col-span-full mt-8'>
+                            {/* <div className='col-span-full mt-8'>
                                 <div className='de-active-btn'>الغاء تفعيل الحساب</div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 ))}

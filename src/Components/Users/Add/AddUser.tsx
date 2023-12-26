@@ -15,15 +15,16 @@ const userData = {
     name: "",
     mobile: "",
     email: "",
+    whatsapp: "",
     national_id: "",
     specialty_id: "",
     level_id: "",
+    ewallet_number: ""
 
 };
 export const AddUser = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+
     const stateFromUserSlice = useSelector((state: any) => state.users);
     const [showStagesPopUp, setShowStagesPopUp] = useState(false);
     const [showSpecialtiesPopUp, setShowSpecialtiesPopUp] = useState(false);
@@ -52,28 +53,27 @@ export const AddUser = () => {
         setShowSpecialtiesPopUp(!showSpecialtiesPopUp)
     }
     const handleChangeUser = (e: any, field: string) => {
-        if (field === "firstName") {
-            setFirstName(e);
-
-        } else if (field === "lastName") {
-            setLastName(e);
+        if (field === "name") {
+            userData.name = e;
         }
         else if (field === "national_id") {
             userData.national_id = e;
         } else if (field === "mobile") {
             userData.mobile = e;
+        } else if (field === 'email') {
+            userData.email = e;
+        } else if (field === "whatsapp") {
+            userData.whatsapp = e;
+        } else if (field === "ewallet_number") {
+            userData.ewallet_number = "e";
         }
     };
 
     const handleAddUser = () => {
         /* Validations */
         setIsLoading(true);
-        if (firstName === "") {
-            toast.error("من فضلك قم بأدخال الأسم الأول")
-            setIsLoading(false);
-
-        } else if (lastName === "") {
-            toast.error("من فضلك قم بأدخال الأسم الأخير")
+        if (userData.name === "") {
+            toast.error("من فضلك قم بأدخال الأسم ")
             setIsLoading(false);
         }
         else if (userData.national_id === "") {
@@ -89,7 +89,20 @@ export const AddUser = () => {
         } else if (stateFromUserSlice.specialtiesId === 0) {
             toast.error("من فضلك قم بأختيارالتخصص")
             setIsLoading(false);
-        } else {
+        }
+        else if (userData.whatsapp === "") {
+            toast.error("من فضلك قم بأدخال رقم الواتساب");
+            setIsLoading(false);
+        }
+        else if (userData.email === "") {
+            toast.error("من فضلك قم بأدخال البريد الألكتروني");
+            setIsLoading(false);
+        }
+        else if (userData.ewallet_number === "") {
+            toast.error("من فضلك قم بأدخال رقم المحفظة");
+            setIsLoading(false);
+        }
+        else {
             confirmAddUser();
         }
 
@@ -102,10 +115,11 @@ export const AddUser = () => {
 
         const FormData = require('form-data');
         let data = new FormData();
-        data.append('name', `${firstName}-${lastName}`);
+        data.append('name', userData.name);
         data.append('mobile', userData.mobile);
-
-        data.append('whatsapp', userData.mobile);
+        data.append('whatsapp', userData.whatsapp);
+        data.append('ewallet_number', userData.ewallet_number);
+        data.append('email', userData.email);
         data.append('national_id', userData.national_id);
         data.append('specialty_id', userData.specialty_id);
         data.append('level_id', userData.level_id);
@@ -127,7 +141,8 @@ export const AddUser = () => {
         axios.request(config)
             .then((response) => {
                 if (response.status === 201) {
-                    toast.success("تمت اضافة المستخدم بنجاح")
+                    toast.success("تمت اضافة المستخدم بنجاح");
+                    handleShowAddComponent();
                     setIsLoading(false);
                 } else if (response.status === 400) {
                     toast.error("هذا المستخدم موجود من قبل")
@@ -162,33 +177,32 @@ export const AddUser = () => {
                     </div>
                     {/* الاسم الاول */}
                     <div className="col-start-1 mt-4 mb-4 pr-4">
-                        <h3 className="first-name"> الاسم الاول</h3>
+                        <h3 className="first-name">اسم المستخدم</h3>
                     </div>
                     <div className="col-start-2 mt-4 mb-4 pr-4">
-                        <h3 className="last-name"> الاسم الأخير</h3>
+                        <h3 className="first-name"> البريد الألكتروني </h3>
                     </div>
 
-                    {/*First Name Input*/}
+
+                    {/*Name Input*/}
                     <div className="col-start-1  mb-4 pr-4">
                         <div>
                             <input
                                 type="text"
-                                placeholder="الاسم الأول"
+                                placeholder="الاسم"
                                 className="first-name-input"
-                                onChange={(e) => handleChangeUser(e.target.value, "firstName")}
+                                onChange={(e) => handleChangeUser(e.target.value, "name")}
                             />
                         </div>
                     </div>
-
-                    {/*Last Name input */}
+                    {/* Email Input */}
                     <div className="col-start-2  mb-4 pr-4">
                         <div>
                             <input
-                                type="text"
-                                placeholder="الاسم الأخير"
+                                type="email"
+                                placeholder="البريد الألكتروني"
                                 className="first-name-input"
-                                onChange={(e) => handleChangeUser(e.target.value, "lastName")}
-
+                                onChange={(e) => handleChangeUser(e.target.value, "email")}
                             />
                         </div>
                     </div>
@@ -221,6 +235,40 @@ export const AddUser = () => {
                                 placeholder="رقم الهاتف"
                                 className="first-name-input"
                                 onChange={(e) => handleChangeUser(e.target.value, "mobile")}
+
+                            />
+                        </div>
+                    </div>
+                    <div className='col-start-1 mt-4 mb-4 pr-4'>
+                        <h3 className="last-name"> رقم الواتساب</h3>
+                    </div>
+
+                    <div className='col-start-2 mt-4 mb-4 pr-4'>
+                        <h3 className="last-name"> رقم المحفظة</h3>
+                    </div>
+
+
+                    {/* What's app number input */}
+                    <div className="col-start-1  mb-4 pr-4">
+                        <div>
+                            <input
+                                type="number"
+                                placeholder="رقم الواتساب"
+                                className="first-name-input"
+                                onChange={(e) => handleChangeUser(e.target.value, "whatsapp")}
+
+                            />
+                        </div>
+                    </div>
+
+                    {/* Wallet Number Input */}
+                    <div className="col-start-2  mb-4 pr-4">
+                        <div>
+                            <input
+                                type="number"
+                                placeholder="رقم المحفظة"
+                                className="first-name-input"
+                                onChange={(e) => handleChangeUser(e.target.value, "ewallet_number")}
 
                             />
                         </div>

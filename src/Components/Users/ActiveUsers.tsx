@@ -17,7 +17,7 @@ export const ActiveUsers = () => {
 
     useEffect(() => {
         setIsLoading(true);
-        API.get('dashboard/salesman?account_status=2').then((res) => {
+        API.get('dashboard/salesman?account_status=2&limit=50000000').then((res) => {
             if (res) {
                 setUsers(res.data.items);
                 let activeUserData = res.data.items

@@ -21,6 +21,9 @@ interface ApiResponse {
     specialty_id: string;
     level_id: string;
     mobile_number: string;
+    email: string;
+    whatsapp_number: string;
+    ewallet_number: string;
 }
 export const EditUser = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -196,8 +199,11 @@ export const EditUser = () => {
                                         <div className="divider"></div>
                                     </div>
                                     {/* الاسم الاول */}
-                                    <div className="col-span-full mt-4 mb-4 pr-4">
+                                    <div className="col-start-1 mt-4 mb-4 pr-4">
                                         <h3 className="first-name"> اسم المستخدم</h3>
+                                    </div>
+                                    <div className="col-start-2 mt-4 mb-4 pr-4">
+                                        <h3 className="first-name"> البريد الألكتروني </h3>
                                     </div>
 
 
@@ -210,6 +216,20 @@ export const EditUser = () => {
                                                 className="first-name-input"
                                                 onChange={(e) => handleChangeUser(e.target.value, "name", setValues)}
                                                 value={apiResponse?.name}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/*Email Input*/}
+                                    <div className="col-start-2  mb-4 pr-4">
+                                        <div>
+                                            <input
+                                                type="text"
+                                                placeholder="البريد الألكتروني"
+                                                className="first-name-input"
+                                                onChange={(e) => handleChangeUser(e.target.value, "email", setValues)}
+                                                value={apiResponse?.email}
                                                 required
                                             />
                                         </div>
@@ -250,6 +270,41 @@ export const EditUser = () => {
                                                 onChange={(e) => handleChangeUser(e.target.value, "mobile_number", setValues)}
                                                 required
 
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className='col-start-1 mt-4 mb-4 pr-4'>
+                                        <h3 className="last-name"> رقم الواتساب</h3>
+                                    </div>
+
+                                    <div className='col-start-2 mt-4 mb-4 pr-4'>
+                                        <h3 className="last-name"> رقم المحفظة</h3>
+                                    </div>
+                                    {/* What's app number input */}
+                                    <div className="col-start-1  mb-4 pr-4">
+                                        <div>
+                                            <input
+                                                type="number"
+                                                placeholder="رقم الواتساب"
+                                                className="first-name-input"
+
+                                                value={apiResponse?.whatsapp_number}
+                                                onChange={(e) => handleChangeUser(e.target.value, "whatsapp_number", setValues)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {/* Wallet Number Input */}
+                                    <div className="col-start-2  mb-4 pr-4">
+                                        <div>
+                                            <input
+                                                type="number"
+                                                placeholder="رقم المحفظة"
+                                                className="first-name-input"
+                                                value={apiResponse?.ewallet_number}
+                                                onChange={(e) => handleChangeUser(e.target.value, "ewallet_number", setValues)}
+                                                required
                                             />
                                         </div>
                                     </div>
