@@ -6,6 +6,7 @@ import { AllTransactions } from "../../Components/Wallets/All-Transactions/AllTr
 import { CreditTransactions } from "../../Components/Wallets/Credit-transactions/CreditTransactions";
 import { DepitTransactions } from "../../Components/Wallets/Depit-Transactions/DepitTransactions";
 import { CreditBalanceOnly } from "../../Components/Wallets/Credit-Balance-Only/CreditBalanceOnly";
+import { Settlements } from "../../Components/Wallets/Settlements/Settlements";
 
 export const Wallets = () => {
     const stateFromWalletsSlice = useSelector((state: any) => state.wallets);
@@ -40,31 +41,39 @@ export const Wallets = () => {
                     <div className="col-span-12 row-span-1">
                         <MainHeader />
 
-
-                        <ModuleHeader />
+                        {stateFromWalletsSlice.showSettlements === true ? null : <>
+                            <ModuleHeader />
+                        </>}
 
 
                     </div>
                 </div>
                 {/* Content Will Be Here */}
+                {stateFromWalletsSlice.showSettlements === true ? (
+                    <>
 
-                <>
-                    <div
-                        className="h-full"
-                        style={{ backgroundColor: "var(--Greyscale-50, #F8FAFC)" }}
-                    >
-                        <>
-                            {stateFromWalletsSlice.selectedWalletType === 1 ? <>
+                        <Settlements />
+                    </>
+                ) : (
+                    <>
+                        <div
+                            className="h-full"
+                            style={{ backgroundColor: "var(--Greyscale-50, #F8FAFC)" }}
+                        >
+                            <>
+                                {stateFromWalletsSlice.selectedWalletType === 1 ?
 
-                                <AllTransactions />
-                            </> : stateFromWalletsSlice.selectedWalletType === 2 ?
-                                <DepitTransactions />
-                                : stateFromWalletsSlice.selectedWalletType === 3 ?
-                                    <CreditTransactions /> :
-                                    <CreditBalanceOnly />}
-                        </>
-                    </div>
-                </>
+                                    <AllTransactions />
+                                    : stateFromWalletsSlice.selectedWalletType === 2 ?
+                                        <DepitTransactions />
+                                        : stateFromWalletsSlice.selectedWalletType === 3 ?
+                                            <CreditTransactions />
+                                            :
+                                            <CreditBalanceOnly />}
+                            </>
+                        </div>
+                    </>)
+                }
 
             </div>
         </div>

@@ -6,7 +6,10 @@ import { Loading } from '../../Loading/Loading';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import userIcon from "../../../Assets/Icons/user.jpeg";
+import { setUserId, toggleShowSettlementsComponent } from '../../../redux/Slices/WalletsSlice';
+import { setMainHeaderName } from '../../../redux/Slices/MainHeaderSlice';
 export const CreditBalanceOnly = () => {
+    const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState([]);
     const stateFromWalletsSlice = useSelector((state: any) => state.wallets);
@@ -19,6 +22,14 @@ export const CreditBalanceOnly = () => {
             }
         })
     }, []);
+    const handleShowSettlementComponent = (userId: number) => {
+        let isVisible = true;
+        dispatch(setUserId({ userId }))
+        dispatch(toggleShowSettlementsComponent({ isVisible }))
+        let mainHeaderName = "التسوية";
+        dispatch(setMainHeaderName({ mainHeaderName }));
+
+    }
     return (
         <div className='CreditBalanceOnly'>
             {isLoading === true ? (
@@ -56,7 +67,7 @@ export const CreditBalanceOnly = () => {
                             <div className='col-span-full mt-8'>
                                 <label htmlFor='modal-454'>
                                     <div className='de-active-btn'
-                                    // onClick={() => handleShowSuspendPopUp(Number(user.id))}
+                                        onClick={() => handleShowSettlementComponent(Number(item.id))}
 
                                     >تسوية</div>
                                 </label>
