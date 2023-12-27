@@ -73,4 +73,46 @@
                     box-shadow: 0 0 3px #8798ad;
                     color: #fff;
                 }
+                .report{
+                    width: 182px;
+                    height: 103px;
+                    flex-shrink: 0;
+                    border-radius: 9.794px;
+                    border: 1px solid #E2E8F0;
+                    background: #FFF;
+                }
+                .amount{
+                    color: var(--Greyscale-900, #0F172A);
+                    text-align: right;
+
+                    /* Heading/H3 */
+                    font-family: MadaniArabic-SemiBold;
+                    font-size: 24px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 125%; /* 30px */
+                    letter-spacing: 0.2px;
+                }
+                .coin{
+                    color: #70D44B;
+                    text-align: right;
+
+                    /* body/small/medium */
+                    font-family: MadaniArabic-Medium;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 160%; /* 19.2px */
+                }
+                .report-title{
+                    color: var(--Greyscale-500, #64748B);
+                    text-align: right;
+                                    
+                    /* body/small/regular */
+                    font-family: MadaniArabic-Regular;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 160%; /* 19.2px */
+                }
 }

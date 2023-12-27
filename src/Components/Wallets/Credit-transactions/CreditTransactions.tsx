@@ -46,6 +46,27 @@ export const CreditTransactions = () => {
                     <Loading />
                 </>
             ) : null}
+            {/* Reports */}
+            <div className='flex gap-4 mb-4'>
+                <div className='report p-8 '>
+                    <div className='flex items-center gap-4'>
+                        <h3 className='amount'>
+                            ١٣٠،٠٠٠
+                        </h3>
+                        <span className='coin'>جنيه</span>
+                    </div>
+                    <div className='report-title'>إجمالي المديونية</div>
+                </div>
+                <div className='report p-8 '>
+                    <div className='flex items-center gap-4'>
+                        <h3 className='amount'>
+                            ١٣٠،٠٠٠
+                        </h3>
+                        <span className='coin'>جنيه</span>
+                    </div>
+                    <div className='report-title'>إجمالي المبالغ المدفوعة</div>
+                </div>
+            </div>
             <table
                 style={{
                     width: "100%",

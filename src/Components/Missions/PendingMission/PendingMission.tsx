@@ -57,7 +57,7 @@ export const PendingMission = () => {
     dispatch(toggleShowEditMission({ editIsVisible }));
   };
   return (
-    <div className="grid grid-cols-1 my-4 PendingMission">
+    <div className="grid grid-cols-1  my-4 PendingMission">
       {isLoading === true ? (
         <>
           <Loading />
@@ -72,7 +72,7 @@ export const PendingMission = () => {
         const createdAtDate_Arabic = createdAtDate.format("DD MMM YYYY");
         const dueDate_Arabic = dueDate.format("DD MMMM YYYY");
         return (
-          <div className="grid grid-cols-2 mb-4 mission-content">
+          <div className="grid grid-cols-2 mb-4 animate_animated animate_fadeIn mission-content">
             {showDeletePopUp === true ? <DeleteMission /> : null}
 
             <div className="col-start-1">
