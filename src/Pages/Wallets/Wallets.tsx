@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { AllTransactions } from "../../Components/Wallets/All-Transactions/AllTransactions";
 import { CreditTransactions } from "../../Components/Wallets/Credit-transactions/CreditTransactions";
 import { DepitTransactions } from "../../Components/Wallets/Depit-Transactions/DepitTransactions";
+import { CreditBalanceOnly } from "../../Components/Wallets/Credit-Balance-Only/CreditBalanceOnly";
 
 export const Wallets = () => {
     const stateFromWalletsSlice = useSelector((state: any) => state.wallets);
@@ -58,7 +59,9 @@ export const Wallets = () => {
                                 <AllTransactions />
                             </> : stateFromWalletsSlice.selectedWalletType === 2 ?
                                 <DepitTransactions />
-                                : <CreditTransactions />}
+                                : stateFromWalletsSlice.selectedWalletType === 3 ?
+                                    <CreditTransactions /> :
+                                    <CreditBalanceOnly />}
                         </>
                     </div>
                 </>

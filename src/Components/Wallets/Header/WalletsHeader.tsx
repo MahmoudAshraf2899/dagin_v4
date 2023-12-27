@@ -42,7 +42,7 @@ export const WalletsHeader = () => {
                         activeElement === 2 ? "main-element-active" : "main-element"
                     }
                 >
-                    الحركات المدينه فقط
+                    الحركات المدينة فقط
                 </div>
 
                 <div
@@ -51,7 +51,7 @@ export const WalletsHeader = () => {
                         activeElement === 3 ? "main-element-active" : "main-element"
                     }
                 >
-                    الحركات الدائنه فقط
+                    الحركات الدائنة فقط
                 </div>
                 <div
                     onClick={() => handleActiveElement(4)}
@@ -59,22 +59,24 @@ export const WalletsHeader = () => {
                         activeElement === 4 ? "main-element-active" : "main-element"
                     }
                 >
-                    الأرصدة الدائنه فقط
+                    الأرصدة الدئنة فقط
                 </div>
             </div>
             <div className="col-start-2  flex justify-end">
-                <div className="flex">
-                    <DatePicker
-                        inputClass="filterWallet"
-                        value={values}
-                        dateSeparator="الي"
-                        onChange={handleDateChange}
-                        range
-                        rangeHover
-                        format="YYYY-MM-DD"
-                    // animations={[opacity(), transition({ from: 35, duration: 800 })]}
-                    />
-                </div>
+                {activeElement === 4 ? null : <>
+                    <div className="flex">
+                        <DatePicker
+                            inputClass="filterWallet"
+                            value={values}
+                            dateSeparator="الي"
+                            onChange={handleDateChange}
+                            range
+                            rangeHover
+                            format="YYYY-MM-DD"
+                        // animations={[opacity(), transition({ from: 35, duration: 800 })]}
+                        />
+                    </div>
+                </>}
             </div>
 
         </div>
