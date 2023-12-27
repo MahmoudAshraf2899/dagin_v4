@@ -1,12 +1,50 @@
 import './AllTransactions.scss'
-
+import { useEffect, useState } from 'react';
+import API from '../../../Api';
 import moment from "moment";
-import { useState } from 'react';
+import { Loading } from '../../Loading/Loading';
+import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const AllTransactions = () => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [transactions, setTransactions] = useState([]);
+    const stateFromWalletsSlice = useSelector((state: any) => state.wallets);
 
+
+    useEffect(() => {
+        setIsLoading(true);
+        if (stateFromWalletsSlice.startDate === null || stateFromWalletsSlice.finishDate === null) {
+
+            API.get('dashboard/wallets/transactions').then((res) => {
+                if (res) {
+                    setTransactions(res.data.items);
+                    setIsLoading(false);
+                } else {
+                    toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين");
+                    setIsLoading(false);
+                }
+            })
+        } else {
+
+            API.get(`dashboard/wallets/transactions?date_from=${stateFromWalletsSlice.startDate}&date_to=${stateFromWalletsSlice.finishDate}`).then((res) => {
+                if (res) {
+                    setTransactions(res.data.items);
+                    setIsLoading(false);
+                } else {
+                    toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين");
+                    setIsLoading(false);
+                }
+            })
+        }
+    }, [stateFromWalletsSlice]);
     return (
         <div className="AllTransactions">
+            {isLoading === true ? (
+                <>
+                    <Loading />
+                </>
+            ) : null}
             <table
                 style={{
                     width: "100%",
@@ -38,34 +76,40 @@ export const AllTransactions = () => {
                     }}
                 ></div>
                 <tbody>
+                    {transactions.map((item: any) => {
+                        return (
+                            <div
+                                style={{
+                                    display: "flex",
+                                    justifyContent: "space-evenly",
+                                    backgroundColor: "white",
+                                    borderRadius: "20px",
+                                    height: "70px",
+                                    alignItems: "center",
+                                    marginBottom: "10px",
+                                }}
+                            >
+                                <span className="wallet-date">
+                                    {moment(item.created_at).format("YYYY/MM/DD")}
+                                </span>
+                                <span className="wallet-client-name"> {item.user !== null ? item.user.name : ""}</span>
+                                {/* مبلغ دائن */}
+                                <span className="wallet-price">  {item.type === 'مدينة' ? item.amount : "٠"} جم</span>
+                                {/* مبلغ مدين */}
+                                <span className="wallet-price">   {item.type === 'دائنة' ? item.amount : "٠"} جم</span>
+                                <span className="wallet-price">  ١000 جم</span>
+                                <span className="wallet-price">
 
-                    <div
-                        style={{
-                            display: "flex",
-                            justifyContent: "space-evenly",
-                            backgroundColor: "white",
-                            borderRadius: "20px",
-                            height: "70px",
-                            alignItems: "center",
-                            marginBottom: "10px",
-                        }}
-                    >
-                        <span className="wallet-date">
-                            ١٢\١٠\٢٠٢٣
-                        </span>
-                        <span className="wallet-client-name"> رحمة محمد</span>
-                        <span className="wallet-price">  400 جم</span>
-                        <span className="wallet-price">    400 جم</span>
-                        <span className="wallet-price">  ١000 جم</span>
-                        <span className="wallet-price">
-
-                            <span className="mission-number">
-                                قيمة مهمة رقم 123
-                            </span>
-                        </span>
+                                    <span className="mission-number">
+                                        قيمة مهمة <span className='number'>رقم</span> {item.mission !== null ? item.mission.id : "٠"}
+                                    </span>
+                                </span>
 
 
-                    </div>
+                            </div>
+                        )
+                    })}
+
                 </tbody>
             </table>
         </div>

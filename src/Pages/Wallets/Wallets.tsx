@@ -57,8 +57,8 @@ export const Wallets = () => {
 
                                 <AllTransactions />
                             </> : stateFromWalletsSlice.selectedWalletType === 2 ?
-                                <CreditTransactions />
-                                : <DepitTransactions />}
+                                <DepitTransactions />
+                                : <CreditTransactions />}
                         </>
                     </div>
                 </>

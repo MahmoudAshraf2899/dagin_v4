@@ -23,41 +23,54 @@
     //   tr th:nth-child(1) {
     //     border-radius: 0.625rem 0 0 0.625rem;
     //   }
-
-    .bannerText{
-        color: #64748B;
-        font-family: MadaniArabic-Regular;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
-        }
-        .wallet-date{
-            color: #28303F;
-            text-align: right;
-            font-family: MadaniArabic-Medium;
-            font-size: 14px;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 160%; 
-            }
-            .wallet-client-name{
-                color: var(--Greyscale-900, #0F172A);
-                text-align: right;
-                font-family: MadaniArabic-SemiBold;
+    padding-top: 20px;
+        .bannerText{
+                color: #64748B;
+                font-family: MadaniArabic-Regular;
                 font-size: 14px;
                 font-style: normal;
                 font-weight: 400;
-                line-height: 160%; 
-                letter-spacing: 0.2px;
-                }
-                .wallet-price{
+                line-height: normal;
+           }
+        .wallet-date{
                 color: #28303F;
                 text-align: right;
                 font-family: MadaniArabic-Medium;
                 font-size: 14px;
                 font-style: normal;
                 font-weight: 400;
-                line-height: 160%;  
+                line-height: 160%; 
+            }
+            .wallet-client-name{
+                     color: var(--Greyscale-900, #0F172A);
+                     text-align: right;
+                     font-family: MadaniArabic-SemiBold;
+                     font-size: 14px;
+                     font-style: normal;
+                     font-weight: 400;
+                     line-height: 160%; 
+                     letter-spacing: 0.2px;
+                }
+                .wallet-price{
+                    color: #28303F;
+                    text-align: right;
+                    font-family: MadaniArabic-Medium;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 160%;  
+                }
+                .number{
+                    color: #70D44B;
+                    font-family: MadaniArabic-Medium;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 160%;
+                }
+                .rmdp-range {
+                    background-color: #70D44B;
+                    box-shadow: 0 0 3px #8798ad;
+                    color: #fff;
                 }
 }

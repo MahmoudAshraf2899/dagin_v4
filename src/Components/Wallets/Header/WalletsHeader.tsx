@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { selectedWalletType } from "../../../redux/Slices/WalletsSlice";
+import { selectedWalletType, setFilterDate } from "../../../redux/Slices/WalletsSlice";
 import { DateObject } from "react-multi-date-picker";
 import DatePicker from "react-multi-date-picker";
 import './WalletsHeader.scss'
@@ -14,6 +14,16 @@ export const WalletsHeader = () => {
         let type = id;
         dispatch(selectedWalletType({ type }));
     };
+    const handleDateChange = (newValues: any) => {
+        // Handle newValues as needed
+        setValues(newValues);
+        let fromDate = newValues[0];
+        let toDate = newValues[1];
+        if (toDate !== undefined) {
+            dispatch(setFilterDate({ fromDate, toDate }))
+        }
+    };
+
     return (
         <div className="grid grid-cols-2 xs:grid-col-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 p-4  WalletsHeader">
 
@@ -58,7 +68,7 @@ export const WalletsHeader = () => {
                         inputClass="filterWallet"
                         value={values}
                         dateSeparator="الي"
-                        // onChange={setValues}
+                        onChange={handleDateChange}
                         range
                         rangeHover
                         format="YYYY-MM-DD"
