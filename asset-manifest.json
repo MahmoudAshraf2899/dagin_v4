@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/dagin_v4/static/css/main.377443a3.css",
-    "main.js": "/dagin_v4/static/js/main.057a7b56.js",
+    "main.css": "/dagin_v4/static/css/main.2bd8782f.css",
+    "main.js": "/dagin_v4/static/js/main.02edd91f.js",
     "static/js/787.aeaa6d49.chunk.js": "/dagin_v4/static/js/787.aeaa6d49.chunk.js",
     "static/media/alfont_com_Madani-Arabic-Semi-Bold.ttf": "/dagin_v4/static/media/alfont_com_Madani-Arabic-Semi-Bold.2fa121d1ab7b3156c65f.ttf",
     "static/media/alfont_com_Madani-Arabic-Medium.ttf": "/dagin_v4/static/media/alfont_com_Madani-Arabic-Medium.6f3cfceb8644d1131c4e.ttf",
@@ -15,12 +15,12 @@
     "static/media/eye.svg": "/dagin_v4/static/media/eye.95af804d847f464ab7bf0a72096add20.svg",
     "index.html": "/dagin_v4/index.html",
     "static/media/closeicon.svg": "/dagin_v4/static/media/closeicon.123e26606a26f70d4d8b02b580c9dc12.svg",
-    "main.377443a3.css.map": "/dagin_v4/static/css/main.377443a3.css.map",
-    "main.057a7b56.js.map": "/dagin_v4/static/js/main.057a7b56.js.map",
+    "main.2bd8782f.css.map": "/dagin_v4/static/css/main.2bd8782f.css.map",
+    "main.02edd91f.js.map": "/dagin_v4/static/js/main.02edd91f.js.map",
     "787.aeaa6d49.chunk.js.map": "/dagin_v4/static/js/787.aeaa6d49.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.377443a3.css",
-    "static/js/main.057a7b56.js"
+    "static/css/main.2bd8782f.css",
+    "static/js/main.02edd91f.js"
   ]
 }
