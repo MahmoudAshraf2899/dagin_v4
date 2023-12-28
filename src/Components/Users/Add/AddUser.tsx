@@ -12,6 +12,7 @@ import { Stages } from '../SubComponents/Stages/StagesPopUp';
 import { Specialization } from '../SubComponents/Specialization/Specialization';
 import axios from 'axios';
 import { WorkRange } from '../SubComponents/work-range/WorkRange';
+import eye from '../../../Assets/Icons/eye.svg'
 const userData = {
     name: "",
     mobile: "",
@@ -20,12 +21,13 @@ const userData = {
     national_id: "",
     specialty_id: "",
     level_id: "",
-    ewallet_number: ""
+    ewallet_number: "",
+    password: ""
 
 };
 export const AddUser = () => {
     const [isLoading, setIsLoading] = useState(false);
-
+    const [showPassword, setShowPassword] = useState(false);
     const stateFromUserSlice = useSelector((state: any) => state.users);
     const [showStagesPopUp, setShowStagesPopUp] = useState(false);
     const [showWorkRangePopUp, setShowWorkRangePopUp] = useState(false);
@@ -47,6 +49,9 @@ export const AddUser = () => {
         },
         []
     );
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    }
 
     const handleShowStagesPopUp = () => {
         setShowStagesPopUp(!showStagesPopUp);
@@ -71,6 +76,9 @@ export const AddUser = () => {
             userData.whatsapp = e;
         } else if (field === "ewallet_number") {
             userData.ewallet_number = e;
+        }
+        else if (field === "password") {
+            userData.password = e
         }
     };
 
@@ -110,6 +118,10 @@ export const AddUser = () => {
         else if (userData.ewallet_number === "") {
             toast.error("من فضلك قم بأدخال رقم المحفظة");
             setIsLoading(false);
+        } else if (userData.password === "") {
+            toast.error("من فضلك قم بأدخال كلمة المرور");
+            setIsLoading(false);
+
         }
         else {
             confirmAddUser();
@@ -136,6 +148,7 @@ export const AddUser = () => {
         data.append('national_id', userData.national_id);
         data.append('specialty_id', userData.specialty_id);
         data.append('level_id', userData.level_id);
+        data.append('password', userData.password);
 
         let config = {
             method: 'post',
@@ -288,6 +301,41 @@ export const AddUser = () => {
                                 onChange={(e) => handleChangeUser(e.target.value, "ewallet_number")}
 
                             />
+                        </div>
+                    </div>
+                    {/* Password */}
+                    <div className='col-start-1 mb-4 pr-4'>
+                        <h3 className="first-name">كلمة المرور</h3>
+                    </div>
+                    {/* Password Input */}
+                    <div className='col-start-1   mb-4 pr-4'>
+                        {/* <div>
+                            <input
+                                id="password-user"
+                                type="password"
+                                placeholder="كلمة المرور"
+                                className="first-name-input"
+                                onChange={(e) => handleChangeUser(e.target.value, "password")}
+
+                            />
+                        </div> */}
+                        <div className="form-field">
+                            <input
+                                type={showPassword === true ? "text" : "password"}
+                                className="input input-lg max-w-full first-name-input"
+                                placeholder="كلمة المرور"
+                                onChange={(e) => handleChangeUser(e.target.value, "password")}
+                                id="password-user"
+                            />
+
+                            <span
+                                className="relative inset-y-0  inline-flex items-center"
+                                style={{ marginTop: "-40px", right: "28rem" }}
+                            >
+                                <img src={eye} alt="eye-pw"
+                                    onClick={() => togglePasswordVisibility()}
+                                />
+                            </span>
                         </div>
                     </div>
                     {/* المرحلة */}
