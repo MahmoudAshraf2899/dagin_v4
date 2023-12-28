@@ -86,7 +86,7 @@ export const EvaluationMission = () => {
             <div className="col-start-2 flex justify-end">
               <div className="popover" style={{ backgroundColor: "white" }}>
                 <svg
-                  className="popover-trigger"
+                  className="popover-trigger arrow"
                   tabIndex={0}
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

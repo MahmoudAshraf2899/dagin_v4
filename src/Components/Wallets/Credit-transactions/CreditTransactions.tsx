@@ -47,7 +47,7 @@ export const CreditTransactions = () => {
                 </>
             ) : null}
             {/* Reports */}
-            <div className='flex gap-4 mb-4'>
+            <div className='flex gap-4 mb-4 pr-10'>
                 <div className='report p-8 '>
                     <div className='flex items-center gap-4'>
                         <h3 className='amount'>

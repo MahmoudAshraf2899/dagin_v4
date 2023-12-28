@@ -84,6 +84,9 @@
         line-height: 150%; /* 18px */
         margin-bottom: 15px;
     }
+    .arrow:focus{
+        outline: none;
+    }
     .three-dots-li-delete{
         display: flex;
         justify-content: start;

@@ -107,6 +107,9 @@
     .popover-bottom-left .popover-arrow{
         display: none;
     }
+    .arrow:focus{
+        outline: none;
+    }
     .three-dots-li{
         display: flex;
         justify-content: start;
