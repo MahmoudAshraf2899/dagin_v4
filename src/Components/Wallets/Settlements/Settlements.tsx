@@ -87,7 +87,7 @@ export const Settlements = () => {
             let config = {
                 method: 'post',
                 maxBodyLength: Infinity,
-                url: `${link}wallets/settlements`,
+                url: `${link}dashboard/wallets/settlements`,
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,
                     'Content-type': 'multipart/form-data', // Set the Content-Type for FormData
@@ -105,7 +105,7 @@ export const Settlements = () => {
                         setIsLoading(false);
                         handleCancelSettlement();
                     } else if (response.status === 400) {
-                        toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين")
+                        toast.error("غير مسموح بأن المبلغ المتاح للتسوية يساوي صفر")
                         setIsLoading(false);
                         handleCancelSettlement();
 
@@ -115,9 +115,10 @@ export const Settlements = () => {
                         setIsLoading(false);
                         handleCancelSettlement();
 
+
                     }
                 }).catch((error) => {
-                    toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين")
+                    toast.error("غير مسموح بأن المبلغ المتاح للتسوية يساوي صفر")
                     setIsLoading(false);
                     handleCancelSettlement();
                 });

@@ -44,6 +44,11 @@ export const Login = () => {
       setLoginObj(obj);
     }
   };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  }
+
   const handleLoginSubmit = () => {
     setIsLoading(true);
     let obj = {
@@ -164,7 +169,7 @@ export const Login = () => {
                       </div>
                       <div className="form-field" style={{ width: "427px" }}>
                         <input
-                          type="password"
+                          type={showPassword === true ? "text" : "password"}
                           className="input input-lg max-w-full login-password"
                           placeholder="كلمة المرور"
                           onChange={(e) =>
@@ -177,7 +182,9 @@ export const Login = () => {
                           className="relative inset-y-0  right-96 inline-flex items-center"
                           style={{ marginTop: "-40px" }}
                         >
-                          <img src={eye} alt="eye-pw" />
+                          <img src={eye} alt="eye-pw"
+                            onClick={() => togglePasswordVisibility()}
+                          />
                         </span>
                       </div>
                       <div className="form-field" style={{ marginTop: "20px" }}>
