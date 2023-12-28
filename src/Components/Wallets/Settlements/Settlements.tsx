@@ -8,7 +8,8 @@ import { useSelector, useDispatch } from "react-redux";
 import axios from 'axios';
 
 import { useState } from "react";
-import { toggleShowSettlementsComponent } from "../../../redux/Slices/WalletsSlice";
+import { selectedWalletType, toggleShowSettlementsComponent } from "../../../redux/Slices/WalletsSlice";
+import { setMainHeaderName } from "../../../redux/Slices/MainHeaderSlice";
 export const Settlements = () => {
     const dispatch = useDispatch();
     const stateFromWalletsSlice = useSelector((state: any) => state.wallets);
@@ -63,7 +64,11 @@ export const Settlements = () => {
     }
     const handleCancelSettlement = () => {
         let isVisible = false;
-        dispatch(toggleShowSettlementsComponent({ isVisible }))
+        dispatch(toggleShowSettlementsComponent({ isVisible }));
+        let mainHeaderName = "ادارة المحافظ";
+        dispatch(setMainHeaderName({ mainHeaderName }));
+        let type = 4;
+        dispatch(selectedWalletType({ type }));
     }
     const handleSubmitSettlement = () => {
         setIsLoading(true);

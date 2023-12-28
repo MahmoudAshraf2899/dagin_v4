@@ -6,6 +6,8 @@ import DatePicker from "react-multi-date-picker";
 import './WalletsHeader.scss'
 export const WalletsHeader = () => {
     const dispatch = useDispatch();
+    const stateFromWalletsSlice = useSelector((state: any) => state.wallets);
+
     const [values, setValues] = useState([new DateObject(), new DateObject()]);
 
     const [activeElement, setActiveElement] = useState(1);
@@ -31,7 +33,7 @@ export const WalletsHeader = () => {
                 <div
                     onClick={() => handleActiveElement(1)}
                     className={
-                        activeElement === 1 ? "main-element-active" : "main-element"
+                        stateFromWalletsSlice.selectedWalletType === 1 ? "main-element-active" : "main-element"
                     }
                 >
                     كل الحركات
@@ -39,7 +41,7 @@ export const WalletsHeader = () => {
                 <div
                     onClick={() => handleActiveElement(2)}
                     className={
-                        activeElement === 2 ? "main-element-active" : "main-element"
+                        stateFromWalletsSlice.selectedWalletType === 2 ? "main-element-active" : "main-element"
                     }
                 >
                     الحركات المدينة فقط
@@ -48,7 +50,7 @@ export const WalletsHeader = () => {
                 <div
                     onClick={() => handleActiveElement(3)}
                     className={
-                        activeElement === 3 ? "main-element-active" : "main-element"
+                        stateFromWalletsSlice.selectedWalletType === 3 ? "main-element-active" : "main-element"
                     }
                 >
                     الحركات الدائنة فقط
@@ -56,14 +58,14 @@ export const WalletsHeader = () => {
                 <div
                     onClick={() => handleActiveElement(4)}
                     className={
-                        activeElement === 4 ? "main-element-active" : "main-element"
+                        stateFromWalletsSlice.selectedWalletType === 4 ? "main-element-active" : "main-element"
                     }
                 >
                     الأرصدة الدئنة فقط
                 </div>
             </div>
             <div className="col-start-2  flex justify-end">
-                {activeElement === 4 ? null : <>
+                {stateFromWalletsSlice.selectedWalletType === 4 ? null : <>
                     <div className="flex">
                         <DatePicker
                             inputClass="filterWallet"
@@ -71,9 +73,8 @@ export const WalletsHeader = () => {
                             dateSeparator="الي"
                             onChange={handleDateChange}
                             range
-                            rangeHover
+                            // rangeHover
                             format="YYYY-MM-DD"
-                        // animations={[opacity(), transition({ from: 35, duration: 800 })]}
                         />
                     </div>
                 </>}

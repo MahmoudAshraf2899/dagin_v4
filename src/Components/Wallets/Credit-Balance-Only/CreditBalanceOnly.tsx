@@ -23,9 +23,12 @@ export const CreditBalanceOnly = () => {
         })
     }, []);
     const handleShowSettlementComponent = (userId: number) => {
+        setIsLoading(true);
+
         let isVisible = true;
         dispatch(setUserId({ userId }))
         dispatch(toggleShowSettlementsComponent({ isVisible }))
+        setIsLoading(false);
         let mainHeaderName = "التسوية";
         dispatch(setMainHeaderName({ mainHeaderName }));
 
