@@ -33,7 +33,8 @@ export const ModuleHeader = () => {
           <WalletsHeader /> :
           <>
             {/* Missions Header */}
-            <div className="grid grid-cols-2 xs:grid-col-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 p-4  ">
+            <div className="grid grid-cols-2 xs:grid-col-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 p-4 "
+              style={{ backgroundColor: "#FFF" }}>
 
               <div className="col-start-1 flex col-span-2 sm:col-start-1">
                 <div
