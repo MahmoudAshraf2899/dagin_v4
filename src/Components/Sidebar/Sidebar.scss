@@ -1,4 +1,6 @@
 .SidebarContainer{
+    background: var(--Additional-white, #FFF);
+    box-shadow: 10px 10px 50px 0px rgba(100, 116, 139, 0.04);
     .menu-title{
         color: var(--Greyscale-400, #94A3B8);
         font-family: MadaniArabic-SemiBold;
