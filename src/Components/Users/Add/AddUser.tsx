@@ -309,16 +309,7 @@ export const AddUser = () => {
                     </div>
                     {/* Password Input */}
                     <div className='col-start-1   mb-4 pr-4'>
-                        {/* <div>
-                            <input
-                                id="password-user"
-                                type="password"
-                                placeholder="كلمة المرور"
-                                className="first-name-input"
-                                onChange={(e) => handleChangeUser(e.target.value, "password")}
 
-                            />
-                        </div> */}
                         <div className="form-field">
                             <input
                                 type={showPassword === true ? "text" : "password"}

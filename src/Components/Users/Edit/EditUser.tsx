@@ -7,13 +7,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { setMainHeaderName } from '../../../redux/Slices/MainHeaderSlice';
 import { toggleShowEditUser } from '../../../redux/Slices/UsersSlice';
 import { Formik, FormikHelpers } from "formik";
-
 import { useEffect, useState } from "react";
 import arrow from "../../../Assets/Icons/arrow.jpeg";
 import { Stages } from '../SubComponents/Stages/StagesPopUp';
 import { Specialization } from '../SubComponents/Specialization/Specialization';
 import axios from 'axios';
 import { WorkRange } from '../SubComponents/work-range/WorkRange';
+import eye from '../../../Assets/Icons/eye.svg'
 interface ApiResponse {
     id: string;
     created_at: string;
@@ -25,10 +25,12 @@ interface ApiResponse {
     email: string;
     whatsapp_number: string;
     ewallet_number: string;
+    password: string;
 }
 export const EditUser = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [apiResponse, setApiResponse] = useState<ApiResponse | null>(null);
+    const [showPassword, setShowPassword] = useState(false);
     const stateFromUserSlice = useSelector((state: any) => state.users);
     const [showStagesPopUp, setShowStagesPopUp] = useState(false);
     const [showSpecialtiesPopUp, setShowSpecialtiesPopUp] = useState(false);
@@ -62,6 +64,9 @@ export const EditUser = () => {
         },
         []
     );
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    }
     const handleShowEditComponent = () => {
         let visible = false;
         let mainHeaderName = "الداش بورد";
@@ -315,6 +320,34 @@ export const EditUser = () => {
                                                 onChange={(e) => handleChangeUser(e.target.value, "ewallet_number", setValues)}
                                                 required
                                             />
+                                        </div>
+                                    </div>
+                                    {/* Password */}
+                                    <div className='col-start-1 mb-4 pr-4'>
+                                        <h3 className="first-name">كلمة المرور</h3>
+                                    </div>
+                                    {/* Password Input */}
+                                    <div className='col-start-1   mb-4 pr-4'>
+
+                                        <div className="form-field">
+                                            <input
+                                                type={showPassword === true ? "text" : "password"}
+                                                className="input input-lg max-w-full first-name-input"
+                                                placeholder="كلمة المرور"
+                                                onChange={(e) => handleChangeUser(e.target.value, "password", setValues)}
+                                                value={apiResponse?.password}
+
+                                                id="password-user"
+                                            />
+
+                                            <span
+                                                className="relative inset-y-0  inline-flex items-center"
+                                                style={{ marginTop: "-40px", right: "28rem" }}
+                                            >
+                                                <img src={eye} alt="eye-pw"
+                                                    onClick={() => togglePasswordVisibility()}
+                                                />
+                                            </span>
                                         </div>
                                     </div>
                                     {/* المرحلة */}

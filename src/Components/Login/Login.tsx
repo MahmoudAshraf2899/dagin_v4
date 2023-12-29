@@ -59,7 +59,6 @@ export const Login = () => {
       .then((response) => {
         if (response) {
           setIsLoading(false);
-          console.log("Logged");
           localStorage.setItem("token", response.data.access_token);
           localStorage.setItem("userName", response.data.name);
           window.location.reload();
@@ -67,7 +66,14 @@ export const Login = () => {
         }
       })
       .catch((error) => {
-        toast.error(error.message);
+        if (error.code === 1) {
+          setIsLoading(false);
+          toast.error("يرجي ادخال رقم هاتف  وكلمة مرور صحيحة")
+
+        } else {
+          console.log(error);
+        }
+
       });
   };
   return (
