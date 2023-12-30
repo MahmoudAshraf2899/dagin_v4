@@ -8,8 +8,8 @@ export const MainPage = () => {
       <div className="sm:w-full sm:max-w-[18rem]">
         <input
           type="checkbox"
-          id="sidebar-mobile-fixed"   
-          
+          id="sidebar-mobile-fixed"
+
           className="sidebar-state"
         />
         <label
@@ -29,7 +29,10 @@ export const MainPage = () => {
             Open Sidebar
           </label>
         </div>
-        <div className="page-container">
+        <div
+          className="page-container"
+          style={{ backgroundColor: "#FFF" }}
+        >
           <div className="col-span-12 row-span-1">
             <MainHeader />
           </div>

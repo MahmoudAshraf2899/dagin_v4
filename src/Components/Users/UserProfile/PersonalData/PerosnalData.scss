@@ -1,0 +1,73 @@
+.PerosnalData{
+
+        margin-top: 20px;
+        padding-right: 20px;
+        padding-left: 20px;
+        border-radius: 10px;
+        background: var(--White-General, #FFF);
+        box-shadow: 0px 4px 120px 0px rgba(169, 173, 180, 0.15);
+        height: 885px;
+        flex-shrink: 0;
+        .title{
+            color: #2C3659;
+            text-align: right;
+            font-family: MadaniArabic-SemiBold;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 150%; 
+        }
+        .first-name{
+            color: #333;
+            font-family: MadaniArabic-Regular;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+        .last-name{
+            color: #333;
+            font-family: MadaniArabic-Regular;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal; 
+        }
+        .first-name-input{
+            display: flex;
+            width: 490px;
+            height: 55px;
+            padding-right: 10px;
+            /* padding: 17px 23px 17px 385px; */
+            /* justify-content: flex-end; */
+            /* align-items: center; */
+            flex-shrink: 0;
+            border-radius: 15px;
+            border: 1px solid #E2E2E2;
+            background: #FFF;
+        }
+        .first-name-input:focus{
+            outline: none;
+        }
+        .select-stage{
+            color: #333;
+            text-align: right;
+            font-family: MadaniArabic-Regular;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+        .select-stage-container{
+            display: inline-flex;
+            height: 55px;
+            padding: 17px 23px 17px 19.5px;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 881.5px;
+            flex-shrink: 0;
+            border-radius: 15px;
+            border: 1px solid #E2E2E2;
+            background: #FFF;
+        }
+}

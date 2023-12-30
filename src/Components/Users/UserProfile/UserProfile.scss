@@ -1,0 +1,78 @@
+.UserProfile{
+    .card-container{
+        padding: 20px;
+        height: 140px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        background: var(--White-General, #FFF);
+        box-shadow: 0px 4px 120px 0px rgba(169, 173, 180, 0.15);
+    }
+    .user-name{
+        color: var(--Greyscale-900, #0F172A);
+        text-align: right;
+
+        /* body/medium/semibold */
+        font-family: MadaniArabic-SemiBold;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%; /* 22.4px */
+        letter-spacing: 0.2px;
+    }
+    .position-type{
+        color: #70D44B;
+        text-align: right; 
+        font-family: MadaniArabic-Medium;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%;  
+    }
+    .user-status{
+          color: var(--Greyscale-500, #64748B);     
+        font-family: MadaniArabic-Medium;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%;
+    }
+    .menu-element-active{
+        display: inline-flex;
+        height: 40px;
+        padding: 8px 12px;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        border-radius: 8px;
+        background: #F1FAEE;
+        color: #70D44B;
+        text-align: right;  
+        font-family: MadaniArabic-SemiBold;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%; 
+        cursor: pointer;
+
+    }
+    .menu-element{
+        display: inline-flex;
+        height: 40px;
+        padding: 8px 12px;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        border-radius: 8px;
+        color: var(--Greyscale-500, #64748B);
+        text-align: right; 
+        font-family: MadaniArabic-Medium;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%;  
+        letter-spacing: 0.2px;
+        cursor: pointer;
+    }
+}

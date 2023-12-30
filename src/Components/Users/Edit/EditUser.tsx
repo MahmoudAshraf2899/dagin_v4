@@ -31,12 +31,12 @@ export const EditUser = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [apiResponse, setApiResponse] = useState<ApiResponse | null>(null);
     const [showPassword, setShowPassword] = useState(false);
-    const stateFromUserSlice = useSelector((state: any) => state.users);
     const [showStagesPopUp, setShowStagesPopUp] = useState(false);
     const [showSpecialtiesPopUp, setShowSpecialtiesPopUp] = useState(false);
     const [showWorkRangePopUp, setShowWorkRangePopUp] = useState(false);
     const [data, setData] = useState<{}>({});
 
+    const stateFromUserSlice = useSelector((state: any) => state.users);
 
     const dispatch = useDispatch();
     useEffect(

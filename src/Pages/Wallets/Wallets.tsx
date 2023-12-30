@@ -37,7 +37,9 @@ export const Wallets = () => {
                         Open Sidebar
                     </label>
                 </div>
-                <div className="page-container">
+                <div
+                    className="page-container"
+                    style={{ backgroundColor: "#FFF" }}>
                     <div className="col-span-12 row-span-1">
                         <MainHeader />
 

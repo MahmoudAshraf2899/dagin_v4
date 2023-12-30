@@ -7,6 +7,7 @@ import { DisableUsers } from "../../Components/Users/DisableUsers";
 import { AddUser } from "../../Components/Users/Add/AddUser";
 import { EditUser } from "../../Components/Users/Edit/EditUser";
 import { StoppedUsers } from "../../Components/Users/StoppedUsers";
+import { UserProfile } from "../../Components/Users/UserProfile/UserProfile";
 export const Users = () => {
   const stateFromUserSlice = useSelector((state: any) => state.users);
 
@@ -36,11 +37,13 @@ export const Users = () => {
             Open Sidebar
           </label>
         </div>
-        <div className="page-container">
+        <div
+          className="page-container"
+          style={{ backgroundColor: "#FFF" }}>
           <div className="col-span-12 row-span-1">
             <MainHeader />
 
-            {stateFromUserSlice.showAddUser === true || stateFromUserSlice.showEditUser === true ? null :
+            {stateFromUserSlice.showAddUser === true || stateFromUserSlice.showEditUser === true || stateFromUserSlice.showUserProfile === true ? null :
               <>
                 <ModuleHeader />
               </>
@@ -58,6 +61,8 @@ export const Users = () => {
           <>
             <EditUser />
           </>
+        ) : stateFromUserSlice.showUserProfile === true ? (
+          <UserProfile />
         ) : (
           <>
             <div

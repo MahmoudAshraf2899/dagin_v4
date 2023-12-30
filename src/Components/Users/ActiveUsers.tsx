@@ -5,7 +5,7 @@ import API from '../../Api';
 import { Loading } from '../Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleShowEditMission } from '../../redux/Slices/MissionSlice';
-import { setActiveUserData, setUserId, toggleShowEditUser } from '../../redux/Slices/UsersSlice';
+import { setActiveUserData, setUserId, toggleShowEditUser, toggleShowUserProfile } from '../../redux/Slices/UsersSlice';
 import { SuspendPopUp } from './SubComponents/suspend/SuspendPopUp';
 export const ActiveUsers = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -31,7 +31,13 @@ export const ActiveUsers = () => {
         dispatch(toggleShowEditUser({ visible }))
         dispatch(setUserId({ userId }))
     }
+    const showUserDetailsComponent = (userId: Number) => {
+        let isVisible = true;
+        dispatch(setUserId({ userId }))
+        dispatch(toggleShowUserProfile({ isVisible }))
+    }
     const handleShowSuspendPopUp = (userId: number) => {
+
         dispatch(setUserId({ userId }));
         setShowSuspendPopUp(!showSuspendPopUp);
     }
@@ -82,8 +88,8 @@ export const ActiveUsers = () => {
                                             <ul>
                                                 <label
                                                     className="three-dots-li flex justify-between"
-                                                // htmlFor="modal-1"
-                                                //   onClick={() => ShowMissionDetailsPopUp(item.id)}
+
+                                                    onClick={() => showUserDetailsComponent(Number(user.id))}
                                                 >
                                                     <span>تصفح الحساب</span>
                                                     <div>

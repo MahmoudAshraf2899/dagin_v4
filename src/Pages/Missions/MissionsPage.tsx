@@ -15,7 +15,7 @@ import { LateMissions } from "../../Components/Missions/LateMissions/LateMission
 import { EvaluationMission } from "../../Components/Missions/EvaluationMission/EvaluationMission";
 import { FinishedMission } from "../../Components/Missions/FinishedMission/FinishedMission";
 import { RefusedMissionPopUp } from "../../Components/Missions/RefusedMission/RefusedMissionPopUp";
- import { RefusedMission } from "../../Components/Missions/RefusedMission/RefusedMission";
+import { RefusedMission } from "../../Components/Missions/RefusedMission/RefusedMission";
 
 export const MissionsPage = () => {
   const stateFromMission = useSelector((state: any) => state.missions);
@@ -54,7 +54,7 @@ export const MissionsPage = () => {
           {stateFromMission.showDetailsPopUp === false ? null : (
             <RefusedMissionPopUp />
           )}
-        </>):null}
+        </>) : null}
       <div className="sm:w-full sm:max-w-[18rem]">
         <input
           type="checkbox"
@@ -78,12 +78,15 @@ export const MissionsPage = () => {
             Open Sidebar
           </label>
         </div>
-        <div className="page-container">
+        <div
+          className="page-container"
+          style={{ backgroundColor: "#FFF" }}
+        >
           <div className="col-span-12 row-span-1">
             <MainHeader />
             {/* Second Header */}
             {stateFromMission.showAddMission === true ||
-            stateFromMission.showEditMission === true ? null : (
+              stateFromMission.showEditMission === true ? null : (
               <>
                 <ModuleHeader />
               </>
@@ -126,13 +129,13 @@ export const MissionsPage = () => {
                 <>
                   <FinishedMission />
                 </>
-              ) : stateFromMission.selectedMission === 6 ?   (
+              ) : stateFromMission.selectedMission === 6 ? (
                 <>
-                <RefusedMission />
+                  <RefusedMission />
                 </>
-              ):<>
-              <PendingMission />
-            </>}
+              ) : <>
+                <PendingMission />
+              </>}
             </div>
           </>
         )}
