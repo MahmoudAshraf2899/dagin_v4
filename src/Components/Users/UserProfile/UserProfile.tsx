@@ -9,6 +9,7 @@ import { CurrentEvaluation } from './CurrentEvaluation/CurrentEvaluation';
 import { MissionHistory } from './MissionHistory/MissionHistory';
 import { AccountStatement } from './AccountStatement/AccountStatement';
 import { Courses } from './Courses/Courses';
+import { Exams } from './Exams/Exams';
 export const UserProfile = () => {
     const [isActive, setIsActive] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
@@ -103,7 +104,7 @@ export const UserProfile = () => {
                 </div>
             </div>
             <div>
-                {isActive === 1 ? <PersonalData /> : isActive === 2 ? <CurrentEvaluation /> : isActive === 3 ? <MissionHistory /> : isActive === 4 ? <AccountStatement /> : isActive === 5 ? <Courses /> : null}
+                {isActive === 1 ? <PersonalData /> : isActive === 2 ? <CurrentEvaluation /> : isActive === 3 ? <MissionHistory /> : isActive === 4 ? <AccountStatement /> : isActive === 5 ? <Courses /> : isActive === 6 ? <Exams /> : null}
             </div>
 
         </div>
