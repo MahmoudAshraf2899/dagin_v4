@@ -1,0 +1,50 @@
+.CurrentEvaluation{
+    margin-top: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 10px;
+    border-radius: 10px;
+    background: var(--White-General, #FFF);
+    box-shadow: 0px 4px 120px 0px rgba(169, 173, 180, 0.15);     
+    height: 138px;
+    flex-shrink: 0;
+
+    .current-eval{
+        color: #2C3659;
+        text-align: right;
+        font-family: MadaniArabic-SemiBold;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 150%; /* 24px */
+    }
+    .number{
+        color: #2C3659;
+        text-align: right;
+        font-family: MadaniArabic-Regular;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 200%;  
+    }
+    .eval-status{
+        cursor: pointer;
+        display: flex;
+        width: 98px;
+        height: 34.432px;
+        padding: 10.595px 15.892px;
+        justify-content: center;
+        align-items: center;
+        gap: 13.243px;
+        flex-shrink: 0;
+        border-radius: 66.216px;
+        background: rgba(112, 212, 75, 0.11);
+        color: #70D44B;
+        text-align: center;
+        font-family: MadaniArabic-Regular;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%; 
+    }
+}

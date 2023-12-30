@@ -5,6 +5,7 @@ import { PersonalData } from './PersonalData/PersonalData';
 import { useDispatch } from 'react-redux';
 import { setMainHeaderName } from '../../../redux/Slices/MainHeaderSlice';
 import { Loading } from '../../Loading/Loading';
+import { CurrentEvaluation } from './CurrentEvaluation/CurrentEvaluation';
 export const UserProfile = () => {
     const [isActive, setIsActive] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +20,9 @@ export const UserProfile = () => {
         []
     );
     const handleSelectActiveElement = (id: number) => {
+        setIsLoading(true);
         setIsActive(id)
+        setIsLoading(false);
     }
     return (
         <div className="UserProfile grid-cols-1 pt-10">
@@ -94,7 +97,7 @@ export const UserProfile = () => {
                 </div>
             </div>
             <div>
-                {isActive === 1 ? <PersonalData /> : null}
+                {isActive === 1 ? <PersonalData /> : isActive === 2 ? <CurrentEvaluation /> : null}
             </div>
 
         </div>
