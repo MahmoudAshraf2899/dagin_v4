@@ -12,7 +12,8 @@ const initialState = {
   isSuspendActive: false,
   workAreas_ids: [],
   workAreas_text: "",
-  showUserProfile: false
+  showUserProfile: false,
+  userName: ""
 };
 export const UsersSlice = createSlice({
   name: "Users",
@@ -38,6 +39,9 @@ export const UsersSlice = createSlice({
     setUserId: (state, action) => {
       state.userId = action.payload.userId;
     },
+    setUserName: (state, action) => {
+      state.userName = action.payload.userName
+    },
     setActiveUserData: (state, action) => {
       state.activeUserData = action.payload.activeUserData;
     },
@@ -55,7 +59,7 @@ export const UsersSlice = createSlice({
 
   },
 });
-export const { selectedUsersType, toggleShowAddUser, toggleShowEditUser, setSelectedStage, setSelectedSpecialties, setUserId, setActiveUserData, toggleShowSuspendPopUp, setSelectedWorkAreas,
+export const { selectedUsersType, toggleShowAddUser, toggleShowEditUser, setSelectedStage, setSelectedSpecialties, setUserId, setActiveUserData, toggleShowSuspendPopUp, setSelectedWorkAreas, setUserName,
   toggleShowUserProfile } = UsersSlice.actions;
 
 export default UsersSlice.reducer;

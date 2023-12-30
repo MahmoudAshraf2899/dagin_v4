@@ -2,14 +2,19 @@ import './UserProfile.scss'
 import userIcon from "../../../Assets/Icons/40px.svg";
 import { useEffect, useState } from 'react';
 import { PersonalData } from './PersonalData/PersonalData';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setMainHeaderName } from '../../../redux/Slices/MainHeaderSlice';
 import { Loading } from '../../Loading/Loading';
 import { CurrentEvaluation } from './CurrentEvaluation/CurrentEvaluation';
+import { MissionHistory } from './MissionHistory/MissionHistory';
+import { AccountStatement } from './AccountStatement/AccountStatement';
 export const UserProfile = () => {
     const [isActive, setIsActive] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
+
     const dispatch = useDispatch();
+    const stateFromUserSlice = useSelector((state: any) => state.users);
+
     useEffect(
         () => {
             setIsLoading(true);
@@ -33,7 +38,7 @@ export const UserProfile = () => {
                     <div className='flex gap-4'>
                         <div><img src={userIcon} alt="User Icon" /></div>
                         <div className=''>
-                            <h3 className='user-name'>رحمة محمد</h3>
+                            <h3 className='user-name'>{stateFromUserSlice.userName}</h3>
                             <span className='flex position-type gap-4'>
                                 حديث التخرج
                                 <span className='user-status'>عضو  منذ 20/10/2024</span>
@@ -97,7 +102,7 @@ export const UserProfile = () => {
                 </div>
             </div>
             <div>
-                {isActive === 1 ? <PersonalData /> : isActive === 2 ? <CurrentEvaluation /> : null}
+                {isActive === 1 ? <PersonalData /> : isActive === 2 ? <CurrentEvaluation /> : isActive === 3 ? <MissionHistory /> : isActive === 4 ? <AccountStatement /> : null}
             </div>
 
         </div>

@@ -1,0 +1,98 @@
+.AccountStatement{
+    .title{
+        color: var(--Black-01, #2C3659);
+        text-align: right; 
+        font-family: MadaniArabic-SemiBold;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%; 
+    }
+    .filterWallet{
+        display: flex;
+        width: 350px;
+        height: 40px;
+        padding: 8px 12px 8px 17px;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        border-radius: 8px;
+        background: #F8FAFC;
+        color: var(--greyscale-500, #64748B);
+        text-align: center;
+        font-family: MadaniArabic-Medium;
+        font-size: 0.8rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%;  
+        letter-spacing: 0.8px;
+        background-color: #FFF;
+        
+        background-position: calc(100% - 10px) center; 
+        background-repeat: no-repeat;
+        background-size: 6%;
+        cursor: pointer;
+    }
+    .filterWallet:focus{
+        outline: none;
+    }
+    .bannerText{
+        color: #64748B;
+        font-family: MadaniArabic-Regular;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+   }
+    .wallet-date{
+        color: #28303F;
+        text-align: right;
+        font-family: MadaniArabic-Medium;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%; 
+    }
+    .wallet-client-name{
+             color: var(--Greyscale-900, #0F172A);
+             text-align: right;
+             font-family: MadaniArabic-SemiBold;
+             font-size: 14px;
+             font-style: normal;
+             font-weight: 400;
+             line-height: 160%; 
+             letter-spacing: 0.2px;
+        }
+        .wallet-price{
+            color: #28303F;
+            text-align: right;
+            font-family: MadaniArabic-Medium;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 160%;  
+        }
+        .number{
+            color: #70D44B;
+            font-family: MadaniArabic-Medium;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 160%;
+        }
+        .settelement{
+            display: inline-flex;
+            padding: 8px 36px 9px 36px;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            background: #124734;
+            color: #FFF;
+            font-family: MadaniArabic-Medium;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 16px;  
+        }
+}
