@@ -6,48 +6,16 @@ import { useDispatch } from "react-redux";
 import closeIcon from "../../../../Assets/Icons/closeicon.svg";
 import API from "../../../../Api";
 import { setSelectedStage, setSelectedWorkAreas } from "../../../../redux/Slices/UsersSlice";
-const items = [
-    {
-        "id": "1",
-        "name": "قسم التبين",
-        "governorate": {
-            "id": "1",
-            "name": "القاهرة"
-        }
-    },
-    {
-        "id": "2",
-        "name": "قسم حلوان",
-        "governorate": {
-            "id": "1",
-            "name": "القاهرة"
-        }
-    },
-    {
-        "id": "3",
-        "name": "قسم 15 مايو",
-        "governorate": {
-            "id": "1",
-            "name": "القاهرة"
-        }
-    },
-    {
-        "id": "4",
-        "name": "قسم المعادي",
-        "governorate": {
-            "id": "44",
-            "name": "بني سويف"
-        }
-    }
-]
+
 export const WorkRange = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState<any[]>([{}]);
+    const [result, setResult] = useState<any[]>([{}]);
     const [searchResults, setSearchResults] = useState<any[]>([{}]);
     const [workAreasIds, setWorkAreasIds] = useState<number[]>([]);
     const [workAreasNames, setWorkAreasNames] = useState<string[]>([]);
-    const [selectedItems, setSelectedItems] = useState<string[]>([]);
     const [groupedItems, setGroupedItems] = useState<Record<string, any>>({});
+    const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
     const options = {
         includeScore: true,
@@ -65,7 +33,8 @@ export const WorkRange = () => {
                 if (res.status === 403) {
                     toast.error(" عفوا انت ليس لديك صلاحية الوصول لهذه الصفحة ");
                 } else {
-                    const grouped = items.reduce((grouped: Record<string, any>, item) => {
+                    setResult(res.data)
+                    const grouped = res.data.reduce((grouped: Record<string, any>, item: any) => {
                         const { id, name, governorate } = item;
                         const governorateId = governorate.id;
 
@@ -78,9 +47,10 @@ export const WorkRange = () => {
                         return grouped;
                     }, {});
 
+
                     setGroupedItems(grouped);
-                    setSearchResults(items);
-                    setData(items);
+                    setSearchResults(grouped);
+                    setData(grouped);
                     setIsLoading(false);
                 }
             }
@@ -126,7 +96,12 @@ export const WorkRange = () => {
         }
     };
     const handleSubmitChoise = () => {
-        let rangeIds = workAreasIds;
+        console.log("selectedItems:", selectedItems);
+        let rangeIds = selectedItems;
+        for (let index = 0; index < selectedItems.length; index++) {
+            const city = result.find((c) => c.id === rangeIds[index]).name;
+            workAreasNames.push(city);
+        }
         let rangeTitle = workAreasNames[0];
         //Get First object from array
         if (workAreasNames.length > 0) {
@@ -145,6 +120,7 @@ export const WorkRange = () => {
             setSelectedItems([...selectedItems, itemId]);
         }
     };
+
 
     const handleParentToggle = (governorateId: string) => {
         const itemsToAdd = groupedItems[governorateId]?.items.map((item: any) => item.id) || [];
@@ -234,7 +210,6 @@ export const WorkRange = () => {
                                                 className="flex justify-between pl-4 py-2"
                                             >
                                                 <span className="list-text">{governorate}</span>
-
                                                 <input
                                                     type="checkbox"
                                                     className="checkbox checkbox-bordered-success"
@@ -263,6 +238,7 @@ export const WorkRange = () => {
                                                         </li>
                                                     ))}
                                                 </ul>
+
                                             </li>
                                             <div className="divider"></div>
                                         </>

@@ -32,6 +32,7 @@ export const AddUser = () => {
     const [showStagesPopUp, setShowStagesPopUp] = useState(false);
     const [showWorkRangePopUp, setShowWorkRangePopUp] = useState(false);
     const [showSpecialtiesPopUp, setShowSpecialtiesPopUp] = useState(false);
+    const [formData, setFormData] = useState<FormData>(new FormData());
 
     const dispatch = useDispatch();
     const handleShowAddComponent = () => {
@@ -131,54 +132,45 @@ export const AddUser = () => {
         userData.level_id = stateFromUserSlice.levelId;
         userData.specialty_id = stateFromUserSlice.specialtiesId;
 
-        const FormData = require('form-data');
-        let data = new FormData();
-        for (let index = 0; index < stateFromUserSlice.workAreas_ids.length; index++) {
-            const element = stateFromUserSlice.workAreas_ids[index];
-            data.append('work_area_ids', element);
-        }
-        data.append('name', userData.name);
-        data.append('mobile', userData.mobile);
-        data.append('whatsapp', userData.whatsapp);
-        data.append('ewallet_number', userData.ewallet_number);
-        data.append('email', userData.email);
-        data.append('national_id', userData.national_id);
-        data.append('specialty_id', userData.specialty_id);
-        data.append('level_id', userData.level_id);
-        data.append('password', userData.password);
+        const arrayData = stateFromUserSlice.workAreas_ids;
 
-        let config = {
-            method: 'post',
-            maxBodyLength: Infinity,
-            url: `${URL}dashboard/salesman`,
-            headers: {
-                'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                'Content-type': 'multipart/form-data', // Set the Content-Type for FormData
-                'Accept': 'multipart/form-data', // Set the Accept header if needed
-                'Access-Control-Allow-Credentials': true,
-                'Access-Control-Allow-Origin': URL,
-            },
-            data: data
+        const data = {
+            name: userData.name,
+            mobile: userData.mobile,
+            email: userData.email,
+            whatsapp: userData.whatsapp,
+            national_id: userData.national_id,
+            specialty_id: userData.specialty_id,
+            level_id: userData.level_id,
+            password: userData.password,
+            work_area_ids: arrayData.map((item: any) => Number(item)),
+
         };
 
-        axios.request(config)
-            .then((response) => {
-                if (response.status === 201) {
-                    toast.success("تمت اضافة المستخدم بنجاح");
-                    handleShowAddComponent();
-                    setIsLoading(false);
-                } else if (response.status === 400) {
-                    toast.error("هذا المستخدم موجود من قبل")
-                    setIsLoading(false);
-                }
-                else {
-                    toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين")
-                    setIsLoading(false);
-                }
-            }).catch((error) => {
+        axios.post(`${URL}dashboard/salesman`, data, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                "Content-Type": "multipart/form-data"
+            }
+        }).then((res) => {
+            if (res.status === 201) {
+                toast.success("تمت اضافة المستخدم بنجاح");
+                handleShowAddComponent();
+                setIsLoading(false);
+            } else if (res.status === 400) {
                 toast.error("هذا المستخدم موجود من قبل")
                 setIsLoading(false);
-            });
+            }
+            else {
+                toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين")
+                setIsLoading(false);
+            }
+        }).catch((error) => {
+            toast.error("هذا المستخدم موجود من قبل")
+            setIsLoading(false);
+        });
+
+
     }
 
     return (
