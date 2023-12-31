@@ -35,8 +35,8 @@ const items = [
         "id": "4",
         "name": "قسم المعادي",
         "governorate": {
-            "id": "1",
-            "name": "القاهرة"
+            "id": "44",
+            "name": "بني سويف"
         }
     }
 ]
@@ -48,7 +48,6 @@ export const WorkRange = () => {
     const [workAreasNames, setWorkAreasNames] = useState<string[]>([]);
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
     const [groupedItems, setGroupedItems] = useState<Record<string, any>>({});
-    const [expandedParents, setExpandedParents] = useState<string[]>([]);
 
     const options = {
         includeScore: true,
@@ -151,7 +150,10 @@ export const WorkRange = () => {
         const itemsToAdd = groupedItems[governorateId]?.items.map((item: any) => item.id) || [];
 
         if (selectedItems.includes(governorateId)) {
-            setSelectedItems(selectedItems.filter((id) => !itemsToAdd.includes(id)));
+
+            let newSelected = selectedItems.filter(item => item !== governorateId);
+
+            setSelectedItems(newSelected.filter((id) => !itemsToAdd.includes(id)));
         } else {
             setSelectedItems([...selectedItems, ...itemsToAdd, governorateId]);
         }
@@ -225,40 +227,45 @@ export const WorkRange = () => {
                             <div className="types-list">
                                 <ul className="list-none scrollable-list">
                                     {Object.entries(groupedItems).map(([governorateId, { governorate, items }]) => (
-                                        <li
-                                            key={governorateId}
-                                            className="flex justify-between pl-4 py-2"
-                                        >
-                                            <span className="list-text">{governorate}</span>
-                                            <div>
+                                        <>
+                                            <li
+                                                key={governorateId}
+                                                id={governorateId}
+                                                className="flex justify-between pl-4 py-2"
+                                            >
+                                                <span className="list-text">{governorate}</span>
+
                                                 <input
                                                     type="checkbox"
                                                     className="checkbox checkbox-bordered-success"
                                                     checked={selectedItems.includes(governorateId)}
                                                     onChange={() => handleParentToggle(governorateId)}
                                                 />
-                                            </div>
 
-                                            <ul className="list-none scrollable-list absolute pt-8">
-                                                {items.map((item: any) => (
-                                                    <li
-                                                        key={item.id}
-                                                        className="flex justify-between pl-4 py-2"
-                                                    >
-                                                        <span className="list-text">{item.name}</span>
-                                                        <div>
-                                                            <input
-                                                                type="checkbox"
-                                                                className="checkbox checkbox-bordered-success"
-                                                                checked={selectedItems.includes(item.id)}
-                                                                onChange={() => handleItemToggle(item.id)}
-                                                            />
-                                                        </div>
 
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </li>
+                                                <ul className="list-none scrollable-list ">
+                                                    {items.map((item: any) => (
+                                                        <li
+                                                            id={item.id}
+                                                            key={item.id}
+                                                            className="flex justify-between pl-4 py-2"
+                                                        >
+                                                            <span className="list-text">{item.name}</span>
+                                                            <div>
+                                                                <input
+                                                                    type="checkbox"
+                                                                    className="checkbox checkbox-bordered-success"
+                                                                    checked={selectedItems.includes(item.id)}
+                                                                    onChange={() => handleItemToggle(item.id)}
+                                                                />
+                                                            </div>
+
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </li>
+                                            <div className="divider"></div>
+                                        </>
                                     ))}
                                 </ul>
                             </div>
