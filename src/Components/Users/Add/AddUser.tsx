@@ -5,7 +5,7 @@ import API, { URL } from '../../../Api';
 import { Loading } from '../../Loading/Loading';
 import { useSelector, useDispatch } from "react-redux";
 import { setMainHeaderName } from '../../../redux/Slices/MainHeaderSlice';
-import { toggleShowAddUser } from '../../../redux/Slices/UsersSlice';
+import { setSelectedWorkAreas, toggleShowAddUser } from '../../../redux/Slices/UsersSlice';
 import { useEffect, useState } from "react";
 import arrow from "../../../Assets/Icons/arrow.jpeg";
 import { Stages } from '../SubComponents/Stages/StagesPopUp';
@@ -13,6 +13,7 @@ import { Specialization } from '../SubComponents/Specialization/Specialization';
 import axios from 'axios';
 import { WorkRange } from '../SubComponents/work-range/WorkRange';
 import eye from '../../../Assets/Icons/eye.svg'
+import { string } from 'yup';
 const userData = {
     name: "",
     mobile: "",
@@ -118,12 +119,10 @@ export const AddUser = () => {
         else if (userData.password === "") {
             toast.error("من فضلك قم بأدخال كلمة المرور");
             setIsLoading(false);
-
         }
         else {
             confirmAddUser();
         }
-
     }
     const confirmAddUser = () => {
         setIsLoading(true);
@@ -154,6 +153,10 @@ export const AddUser = () => {
         }).then((res) => {
             if (res.status === 201) {
                 toast.success("تمت اضافة المستخدم بنجاح");
+                var rangeIds: string[] = new Array<string>();
+                let rangeTitle = ""
+                dispatch(setSelectedWorkAreas({ rangeIds, rangeTitle }));
+
                 handleShowAddComponent();
                 setIsLoading(false);
             } else if (res.status === 400) {

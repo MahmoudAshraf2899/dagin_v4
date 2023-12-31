@@ -96,7 +96,7 @@ export const WorkRange = () => {
         }
     };
     const handleSubmitChoise = () => {
-        console.log("selectedItems:", selectedItems);
+
         let rangeIds = selectedItems;
         for (let index = 0; index < selectedItems.length; index++) {
             const city = result.find((c) => c.id === rangeIds[index]).name;
