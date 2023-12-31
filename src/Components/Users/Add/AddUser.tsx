@@ -32,7 +32,6 @@ export const AddUser = () => {
     const [showStagesPopUp, setShowStagesPopUp] = useState(false);
     const [showWorkRangePopUp, setShowWorkRangePopUp] = useState(false);
     const [showSpecialtiesPopUp, setShowSpecialtiesPopUp] = useState(false);
-    const [formData, setFormData] = useState<FormData>(new FormData());
 
     const dispatch = useDispatch();
     const handleShowAddComponent = () => {
