@@ -115,10 +115,7 @@ export const AddUser = () => {
             toast.error("من فضلك قم بأدخال البريد الألكتروني");
             setIsLoading(false);
         }
-        else if (userData.ewallet_number === "") {
-            toast.error("من فضلك قم بأدخال رقم المحفظة");
-            setIsLoading(false);
-        } else if (userData.password === "") {
+        else if (userData.password === "") {
             toast.error("من فضلك قم بأدخال كلمة المرور");
             setIsLoading(false);
 

@@ -6,15 +6,50 @@ import { useDispatch } from "react-redux";
 import closeIcon from "../../../../Assets/Icons/closeicon.svg";
 import API from "../../../../Api";
 import { setSelectedStage, setSelectedWorkAreas } from "../../../../redux/Slices/UsersSlice";
-
+const items = [
+    {
+        "id": "1",
+        "name": "قسم التبين",
+        "governorate": {
+            "id": "1",
+            "name": "القاهرة"
+        }
+    },
+    {
+        "id": "2",
+        "name": "قسم حلوان",
+        "governorate": {
+            "id": "1",
+            "name": "القاهرة"
+        }
+    },
+    {
+        "id": "3",
+        "name": "قسم 15 مايو",
+        "governorate": {
+            "id": "1",
+            "name": "القاهرة"
+        }
+    },
+    {
+        "id": "4",
+        "name": "قسم المعادي",
+        "governorate": {
+            "id": "1",
+            "name": "القاهرة"
+        }
+    }
+]
 export const WorkRange = () => {
     const [isLoading, setIsLoading] = useState(false);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState<any[]>([{}]);
     const [searchResults, setSearchResults] = useState<any[]>([{}]);
-    const [selectedItemId, setSelectedItemId] = useState(0);
-    const [selectedItemName, setSelectedItemName] = useState("");
     const [workAreasIds, setWorkAreasIds] = useState<number[]>([]);
     const [workAreasNames, setWorkAreasNames] = useState<string[]>([]);
+    const [selectedItems, setSelectedItems] = useState<string[]>([]);
+    const [groupedItems, setGroupedItems] = useState<Record<string, any>>({});
+    const [expandedParents, setExpandedParents] = useState<string[]>([]);
+
     const options = {
         includeScore: true,
         includeMatches: true,
@@ -25,13 +60,28 @@ export const WorkRange = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         setIsLoading(true);
+
         API.get(`work-areas`).then((res) => {
             if (res) {
                 if (res.status === 403) {
                     toast.error(" عفوا انت ليس لديك صلاحية الوصول لهذه الصفحة ");
                 } else {
-                    setSearchResults(res.data);
-                    setData(res.data);
+                    const grouped = items.reduce((grouped: Record<string, any>, item) => {
+                        const { id, name, governorate } = item;
+                        const governorateId = governorate.id;
+
+                        if (!grouped[governorateId]) {
+                            grouped[governorateId] = { governorate: governorate.name, items: [] };
+                        }
+
+                        grouped[governorateId].items.push({ id, name });
+
+                        return grouped;
+                    }, {});
+
+                    setGroupedItems(grouped);
+                    setSearchResults(items);
+                    setData(items);
                     setIsLoading(false);
                 }
             }
@@ -88,6 +138,25 @@ export const WorkRange = () => {
         }
         dispatch(setSelectedWorkAreas({ rangeIds, rangeTitle }));
     };
+
+    const handleItemToggle = (itemId: string) => {
+        if (selectedItems.includes(itemId)) {
+            setSelectedItems(selectedItems.filter((id) => id !== itemId));
+        } else {
+            setSelectedItems([...selectedItems, itemId]);
+        }
+    };
+
+    const handleParentToggle = (governorateId: string) => {
+        const itemsToAdd = groupedItems[governorateId]?.items.map((item: any) => item.id) || [];
+
+        if (selectedItems.includes(governorateId)) {
+            setSelectedItems(selectedItems.filter((id) => !itemsToAdd.includes(id)));
+        } else {
+            setSelectedItems([...selectedItems, ...itemsToAdd, governorateId]);
+        }
+    };
+
     return (
         <div className="WorkRange">
             <input className="modal-state" id="modal-784" type="checkbox" />
@@ -155,23 +224,42 @@ export const WorkRange = () => {
                         <div className="col-span-full mb-4 pr-4 pl-4 h-40 overflow-y-auto">
                             <div className="types-list">
                                 <ul className="list-none scrollable-list">
-                                    {searchResults.map((item) => {
-                                        return (
-                                            <li className="flex justify-between pl-4 py-2">
-                                                <span className="list-text">{item.name}</span>
-                                                <div>
-                                                    <input
-                                                        id={`checkbox ${item.id}`}
-                                                        type="checkbox"
-                                                        className="checkbox checkbox-bordered-success"
-                                                        onChange={(e) =>
-                                                            handleSelectRange(item.id, item.name)
-                                                        }
-                                                    />
-                                                </div>
-                                            </li>
-                                        );
-                                    })}
+                                    {Object.entries(groupedItems).map(([governorateId, { governorate, items }]) => (
+                                        <li
+                                            key={governorateId}
+                                            className="flex justify-between pl-4 py-2"
+                                        >
+                                            <span className="list-text">{governorate}</span>
+                                            <div>
+                                                <input
+                                                    type="checkbox"
+                                                    className="checkbox checkbox-bordered-success"
+                                                    checked={selectedItems.includes(governorateId)}
+                                                    onChange={() => handleParentToggle(governorateId)}
+                                                />
+                                            </div>
+
+                                            <ul className="list-none scrollable-list absolute pt-8">
+                                                {items.map((item: any) => (
+                                                    <li
+                                                        key={item.id}
+                                                        className="flex justify-between pl-4 py-2"
+                                                    >
+                                                        <span className="list-text">{item.name}</span>
+                                                        <div>
+                                                            <input
+                                                                type="checkbox"
+                                                                className="checkbox checkbox-bordered-success"
+                                                                checked={selectedItems.includes(item.id)}
+                                                                onChange={() => handleItemToggle(item.id)}
+                                                            />
+                                                        </div>
+
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                         </div>

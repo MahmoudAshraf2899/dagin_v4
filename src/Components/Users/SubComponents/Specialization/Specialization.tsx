@@ -112,7 +112,7 @@ export const Specialization = () => {
                                 </div>
                             </div>
 
-                            <div className="col-span-full mb-4 pr-4 pl-4 h-32">
+                            <div className="col-span-full mb-4 pr-4 pl-4  h-40 overflow-y-auto">
                                 <div className="types-list">
                                     <ul className="list-none scrollable-list">
                                         {searchResults.map((item) => {

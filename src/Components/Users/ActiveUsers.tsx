@@ -17,6 +17,37 @@ export const ActiveUsers = () => {
 
     useEffect(() => {
         setIsLoading(true);
+        const items = [{
+            id: 1,
+            category: "cat_1",
+            title: "My title 1"
+        }, {
+            id: 2,
+            category: "cat_2",
+            title: "My title 2"
+        }, {
+            id: 6,
+            category: "cat_1",
+            title: "Another title 1"
+        }, {
+            id: 1,
+            category: "cat_3",
+            title: "My title 3"
+        }, {
+            id: 8,
+            category: "cat_1",
+            title: "Third Title"
+        }, {
+            id: 2,
+            category: "cat_2",
+            title: "Another title 2 "
+        }];
+        const cats = items.reduce((catsSoFar: any, { category, title }) => {
+            if (!catsSoFar[category]) catsSoFar[category] = [];
+            catsSoFar[category].push(title);
+            return catsSoFar;
+        }, {});
+        console.log(cats);
         API.get('dashboard/salesman?account_status=2&limit=50000000').then((res) => {
             if (res) {
                 setUsers(res.data.items);
