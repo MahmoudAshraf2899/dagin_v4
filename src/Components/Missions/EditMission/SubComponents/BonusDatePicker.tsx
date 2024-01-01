@@ -6,6 +6,7 @@ import "./BonusDatePicker.scss";
 import { setBonusDate } from "../../../../redux/Slices/MissionSlice";
 type BonusDatePickerProps = {
   activation: boolean;
+  isEdit?: boolean
 };
 export const BonusDatePicker = (props: BonusDatePickerProps) => {
   const [startDate, setStartDate] = useState(new Date());
@@ -14,9 +15,9 @@ export const BonusDatePicker = (props: BonusDatePickerProps) => {
   const handleChangeDate = (date: any) => {
     setStartDate(date);
     setChanged(true);
-    let BonusDate = date;
+    let bonusDate = date;
     let isBonusDateChanged = true;
-    dispatch(setBonusDate({ BonusDate, isBonusDateChanged }));
+    dispatch(setBonusDate({ bonusDate, isBonusDateChanged }));
   };
   return (
     <div className="BonusDatePicker">
@@ -26,6 +27,7 @@ export const BonusDatePicker = (props: BonusDatePickerProps) => {
         className="date-picker-input"
         disabled={props.activation}
         minDate={new Date()}
+
       />
     </div>
   );

@@ -86,6 +86,11 @@ export const EditMission = () => {
             moment.locale("ar");
 
             setApiResponse(res.data);
+            if (res.data.early_bonus === null) {
+              setHasBonus(false);
+            } else {
+              setHasBonus(true);
+            }
             setData(res.data);
             setIsLoading(false);
           }
@@ -170,7 +175,7 @@ export const EditMission = () => {
 
   const submitEditMission = () => {
     moment.locale("en");
-    let x = stateFromMissionSlice.workAreasIds;
+
     setIsLoading(true);
     let values = {
       type_id:
@@ -466,47 +471,48 @@ export const EditMission = () => {
                       <input
                         type="checkbox"
                         className="switch switch-success"
-                        checked={
-                          values.apiResponse?.early_bonus === 0 ? false : true
-                        }
+                        // checked={
+                        //   values.apiResponse?.early_bonus === null ? false : true
+                        // }
+                        checked={hasBonus}
                         onChange={() => setHasBonus(!hasBonus)}
                       />
                     </div>
                   </div>
 
-                  {apiResponse?.early_bonus !== 0 &&
-                    apiResponse?.early_bonus != null ? (
-                    <>
-                      <div className="col-start-2 mt-4  pr-4">
-                        <div className="bonus flex gap-4 items-center">
-                          <span className="bonus-text">
-                            تاريخ الحافز الاستثنائي{" "}
-                          </span>
+                  {hasBonus
+                    ? (
+                      <>
+                        <div className="col-start-2 mt-4  pr-4">
+                          <div className="bonus flex gap-4 items-center">
+                            <span className="bonus-text">
+                              تاريخ الحافز الاستثنائي
+                            </span>
+                          </div>
                         </div>
-                      </div>
-                      <div className="col-start-1 mt-4 mb-4 pr-4 pl-20">
-                        <div>
-                          <input
-                            type="text"
-                            placeholder="00"
-                            className="mission-map-input"
-                            value={values.apiResponse?.early_bonus}
-                            onChange={(e) =>
-                              handleChangeMission(
-                                e.target.value,
-                                "early_bonus",
-                                setValues
-                              )
-                            }
-                          />
+                        <div className="col-start-1 mt-4 mb-4 pr-4 pl-20">
+                          <div>
+                            <input
+                              type="text"
+                              placeholder="00"
+                              className="mission-map-input"
+                              value={values.apiResponse?.early_bonus}
+                              onChange={(e) =>
+                                handleChangeMission(
+                                  e.target.value,
+                                  "early_bonus",
+                                  setValues
+                                )
+                              }
+                            />
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="col-start-2 mt-4 mb-4 pl-4">
-                        <BonusDatePicker activation={false} />
-                      </div>
-                    </>
-                  ) : null}
+                        <div className="col-start-2 mt-4 mb-4 pl-4">
+                          <BonusDatePicker activation={false} />
+                        </div>
+                      </>
+                    ) : null}
                 </div>
               </div>
               {/* Fourth Section [Done Or cancel] */}

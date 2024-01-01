@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import { Loading } from "../../Loading/Loading";
 import moment from "moment";
 import { setMainHeaderName } from "../../../redux/Slices/MainHeaderSlice";
+import { BonusDatePicker } from "../EditMission/SubComponents/BonusDatePicker";
 
 const missionData = {
   type_id: 0,
@@ -20,7 +21,7 @@ const missionData = {
   details: "",
   reward: 0,
   maps_url: "",
-  early_bonus_due_at: new Date(),
+  early_bonus_due_at: "",
   early_bonus: 0,
   work_area_ids: [],
   assignment: {
@@ -123,6 +124,7 @@ export const AddMission = () => {
     missionData.due_at = moment(stateFromMissionSlice.dueDate).format(
       "YYYY-MM-DD"
     );
+    missionData.early_bonus_due_at = moment(stateFromMissionSlice.BonusDate).format("YYYY-MM-DD");
 
     if (
       /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(
@@ -300,7 +302,7 @@ export const AddMission = () => {
 
       {/* Third Section [المقابل المادي] */}
       <div className="add-reward-section mb-4">
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 gap-4">
           <div className="col-start-1 mt-4 mb-4 pr-4">
             <h2 className="flex justify-start mission-details">
               المقابل المادي
@@ -312,7 +314,7 @@ export const AddMission = () => {
           <div className="col-start-1 mt-4  pr-4">
             <h3 className="mission-type"> المقابل المادي</h3>
           </div>
-          <div className="col-span-full mt-4 mb-4 pr-4 pl-20">
+          <div className="col-span-full   mb-4 pr-4 pl-20">
             <div>
               <input
                 type="text"
@@ -323,7 +325,7 @@ export const AddMission = () => {
             </div>
           </div>
 
-          <div className="col-start-1 mt-4  pr-4">
+          <div className="col-start-1 pr-4">
             <div className="bonus flex gap-4 items-center">
               <span className="bonus-text">حافز للأداء الإستثنائي ؟</span>
               <input
@@ -336,7 +338,14 @@ export const AddMission = () => {
           </div>
           {hasBonus === true ? (
             <>
-              <div className="col-span-full mt-4 mb-4 pr-4 pl-20">
+              <div className="col-start-2  pr-4">
+                <div className="bonus flex gap-4 items-center">
+                  <span className="bonus-text">
+                    تاريخ الحافز الاستثنائي
+                  </span>
+                </div>
+              </div>
+              <div className="col-start-1  pr-4">
                 <div>
                   <input
                     type="text"
@@ -348,7 +357,9 @@ export const AddMission = () => {
                   />
                 </div>
               </div>
-              {/* //Todo : Add Date Picker Here : i think in edit case only */}
+              <div className="col-start-2  mb-4 ">
+                <BonusDatePicker activation={false} />
+              </div>
             </>
           ) : null}
         </div>
