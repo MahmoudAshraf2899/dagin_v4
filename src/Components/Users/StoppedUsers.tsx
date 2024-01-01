@@ -21,8 +21,8 @@ export const StoppedUsers = () => {
         })
     }, []);
     const showEditUser = (userId: number) => {
-        let visible = true;
-        dispatch(toggleShowEditUser({ visible }))
+        let isVisible = true;
+        dispatch(toggleShowEditUser({ isVisible }))
         dispatch(setUserId({ userId }))
     }
     return (

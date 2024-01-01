@@ -26,10 +26,10 @@ export const MissionSlice = createSlice({
       state.selectedMission = action.payload.type;
     },
     toggleShowAddMission: (state, action) => {
-      state.showAddMission = action.payload.visible;
+      state.showAddMission = action.payload.isVisible;
     },
     toggleShowEditMission: (state, action) => {
-      state.showEditMission = action.payload.editIsVisible;
+      state.showEditMission = action.payload.isVisible;
       state.markAfterEdit = action.payload.markAfterEdit;
     },
     setSelectedMissionType: (state, action) => {

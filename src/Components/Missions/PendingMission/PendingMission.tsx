@@ -53,8 +53,8 @@ export const PendingMission = () => {
   };
   const handleShowEditMission = (missionId: number) => {
     dispatch(sendMissionIdToPopUp({ missionId }));
-    let editIsVisible = true;
-    dispatch(toggleShowEditMission({ editIsVisible }));
+    let isVisible = true;
+    dispatch(toggleShowEditMission({ isVisible }));
   };
   return (
     <div className="grid grid-cols-1  my-4 PendingMission">

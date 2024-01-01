@@ -68,10 +68,10 @@ export const EditUser = () => {
         setShowPassword(!showPassword);
     }
     const handleShowEditComponent = () => {
-        let visible = false;
+        let isVisible = false;
         let mainHeaderName = "الداش بورد";
         dispatch(setMainHeaderName({ mainHeaderName }));
-        dispatch(toggleShowEditUser({ visible }));
+        dispatch(toggleShowEditUser({ isVisible }));
     };
     const handleShowStagesPopUp = () => {
         setShowStagesPopUp(!showStagesPopUp);

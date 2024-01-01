@@ -23,10 +23,10 @@ export const UsersSlice = createSlice({
       state.selectedUserType = action.payload.type;
     },
     toggleShowAddUser: (state, action) => {
-      state.showAddUser = action.payload.visible;
+      state.showAddUser = action.payload.isVisible;
     },
     toggleShowEditUser: (state, action) => {
-      state.showEditUser = action.payload.visible;
+      state.showEditUser = action.payload.isVisible;
     },
     setSelectedStage: (state, action) => {
       state.levelId = action.payload.levelId;

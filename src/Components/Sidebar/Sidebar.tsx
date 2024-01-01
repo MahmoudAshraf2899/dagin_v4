@@ -3,6 +3,8 @@ import "./Sidebar.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { setActiveModule } from "../../redux/Slices/SidebarSlice";
 import { setMainHeaderName } from "../../redux/Slices/MainHeaderSlice";
+import { toggleShowAddMission, toggleShowEditMission } from "../../redux/Slices/MissionSlice";
+import { toggleShowAddUser, toggleShowEditUser, toggleShowUserProfile } from "../../redux/Slices/UsersSlice";
 
 export const Sidebar = () => {
   const dispatch = useDispatch();
@@ -54,6 +56,12 @@ export const Sidebar = () => {
     }
     dispatch(setMainHeaderName({ mainHeaderName }))
     dispatch(setActiveModule({ currentActiveModule }));
+    let isVisible = false;
+    dispatch(toggleShowAddMission({ isVisible }))
+    dispatch(toggleShowEditMission({ isVisible }))
+    dispatch(toggleShowAddUser({ isVisible }))
+    dispatch(toggleShowEditUser({ isVisible }))
+    dispatch(toggleShowUserProfile({ isVisible }))
   };
   return (
     <aside className="sidebar bg-white sidebar-customize sidebar-fixed-sm  sidebar-mobile h-full justify-start max-sm:fixed max-sm:-translate-x-full SidebarContainer">

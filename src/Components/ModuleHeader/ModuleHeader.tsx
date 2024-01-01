@@ -20,8 +20,8 @@ export const ModuleHeader = () => {
     dispatch(selectedMissionType({ type }));
   };
   const showAddMission = () => {
-    let visible = true;
-    dispatch(toggleShowAddMission({ visible }));
+    let isVisible = true;
+    dispatch(toggleShowAddMission({ isVisible }));
   };
   return (
     <div className="ModuleHeader" >

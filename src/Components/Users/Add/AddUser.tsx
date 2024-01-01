@@ -36,10 +36,10 @@ export const AddUser = () => {
 
     const dispatch = useDispatch();
     const handleShowAddComponent = () => {
-        let visible = false;
+        let isVisible = false;
         let mainHeaderName = "الداش بورد";
         dispatch(setMainHeaderName({ mainHeaderName }));
-        dispatch(toggleShowAddUser({ visible }));
+        dispatch(toggleShowAddUser({ isVisible }));
     };
     useEffect(
         () => {

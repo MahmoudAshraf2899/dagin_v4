@@ -104,10 +104,10 @@ export const EditMission = () => {
     setShowMissionAssignPopUp(!showMissionAssignPopUp);
   };
   const handleShowEditComponent = () => {
-    let editIsVisible = false;
+    let isVisible = false;
     let mainHeaderName = "الداش بورد";
     dispatch(setMainHeaderName({ mainHeaderName }));
-    dispatch(toggleShowEditMission({ editIsVisible }));
+    dispatch(toggleShowEditMission({ isVisible }));
   };
   const handleChangeMission = (
     value: string | number | boolean,
@@ -210,8 +210,8 @@ export const EditMission = () => {
         .then((response) => {
           if (response) {
             toast.success("تمت تعديل المهمة وتعيينها كتامة بنجاح");
-            let editIsVisible = false;
-            dispatch(toggleShowEditMission({ editIsVisible }));
+            let isVisible = false;
+            dispatch(toggleShowEditMission({ isVisible }));
             setIsLoading(false);
           }
         })
@@ -226,8 +226,8 @@ export const EditMission = () => {
         .then((response) => {
           if (response) {
             toast.success("تمت تعديل المهمة بنجاح");
-            let editIsVisible = false;
-            dispatch(toggleShowEditMission({ editIsVisible }));
+            let isVisible = false;
+            dispatch(toggleShowEditMission({ isVisible }));
             setIsLoading(false);
           }
         })

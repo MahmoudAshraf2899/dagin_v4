@@ -110,8 +110,8 @@ export const DetailsPopUp = () => {
   const handleShowEditMission = (missionId: number) => {
     hideMissionDetailsPopUp();
     dispatch(sendMissionIdToPopUp({ missionId }));
-    let editIsVisible = true;
-    dispatch(toggleShowEditMission({ editIsVisible }));
+    let isVisible = true;
+    dispatch(toggleShowEditMission({ isVisible }));
   };
   return (
     <div className="InProgressMission">

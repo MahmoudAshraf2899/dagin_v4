@@ -29,8 +29,8 @@ export const InProgressMission = () => {
   };
   const handleShowEditMission = (missionId: number) => {
     dispatch(sendMissionIdToPopUp({ missionId }));
-    let editIsVisible = true;
-    dispatch(toggleShowEditMission({ editIsVisible }));
+    let isVisible = true;
+    dispatch(toggleShowEditMission({ isVisible }));
   };
   const handleShowDeletePopUp = (missionId: number) => {
     dispatch(sendMissionIdToPopUp({ missionId }));

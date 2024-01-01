@@ -13,8 +13,8 @@ export const Header = () => {
     dispatch(selectedUsersType({ type }));
   };
   const showAddUser = () => {
-    let visible = true;
-    dispatch(toggleShowAddUser({ visible }))
+    let isVisible = true;
+    dispatch(toggleShowAddUser({ isVisible }))
   }
   return (
     <div className="grid grid-cols-2 xs:grid-col-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 p-4  Header">

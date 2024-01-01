@@ -38,10 +38,10 @@ export const AddMission = () => {
 
   const dispatch = useDispatch();
   const handleShowAddComponent = () => {
-    let visible = false;
+    let isVisible = false;
     let mainHeaderName = "الداش بورد";
     dispatch(setMainHeaderName({ mainHeaderName }));
-    dispatch(toggleShowAddMission({ visible }));
+    dispatch(toggleShowAddMission({ isVisible }));
   };
 
   const handleShowTypePopUp = () => {

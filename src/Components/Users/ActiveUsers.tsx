@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import API from '../../Api';
 import { Loading } from '../Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleShowEditMission } from '../../redux/Slices/MissionSlice';
+
 import { setActiveUserData, setUserId, setUserName, toggleShowEditUser, toggleShowUserProfile } from '../../redux/Slices/UsersSlice';
 import { SuspendPopUp } from './SubComponents/suspend/SuspendPopUp';
 export const ActiveUsers = () => {
@@ -28,8 +28,8 @@ export const ActiveUsers = () => {
         })
     }, []);
     const showEditUser = (userId: number) => {
-        let visible = true;
-        dispatch(toggleShowEditUser({ visible }))
+        let isVisible = true;
+        dispatch(toggleShowEditUser({ isVisible }))
         dispatch(setUserId({ userId }))
     }
     const showUserDetailsComponent = (userId: Number, userName: string) => {

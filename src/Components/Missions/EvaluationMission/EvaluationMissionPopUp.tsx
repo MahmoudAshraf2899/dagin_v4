@@ -125,9 +125,9 @@ export const EvaluationMissionPopUp = () => {
   const handleShowEditMission = (missionId: number) => {
     hideMissionDetailsPopUp();
     dispatch(sendMissionIdToPopUp({ missionId }));
-    let editIsVisible = true;
+    let isVisible = true;
     let markAfterEdit = true;
-    dispatch(toggleShowEditMission({ editIsVisible, markAfterEdit }));
+    dispatch(toggleShowEditMission({ isVisible, markAfterEdit }));
   };
 
   return (
