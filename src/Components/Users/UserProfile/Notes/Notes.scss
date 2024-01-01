@@ -1,0 +1,86 @@
+.Notes {
+    .title{
+        color: var(--Black-01, #2C3659);
+        text-align: right;  
+        font-family: MadaniArabic-SemiBold;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%;  
+        margin-bottom: 20px;
+    }
+    .add-new{
+        display: flex;
+        height: 40px;
+        padding: 8px 12px 8px 17px;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+        border-radius: 8px;
+        background: #124734;
+        color: #FFF;
+        text-align: right;  
+        font-family: MadaniArabic-Medium;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%;  
+        letter-spacing: 0.2px;
+    }
+    .note-container{
+        border-radius: 10px;
+        background: var(--White-General, #FFF);
+        box-shadow: 0px 4px 120px 0px rgba(169, 173, 180, 0.15);       
+        height: auto;
+        flex-shrink: 0;
+        padding-bottom: 40px;
+    }
+    .accordion-title{
+        color: var(--Black-01, #2C3659);
+        text-align: right; 
+        font-family: MadaniArabic-SemiBold;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%; 
+    }
+    .added-at{
+        margin-top: 10px;
+        display: flex;
+        padding: 6px 8px;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        border-radius: 8px;
+        background: var(--Lgrey-02, #F9F9F9);
+        color: var(--Grey-01, #A7AEC1);
+        text-align: right; 
+        font-family: MadaniArabic-Medium;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%;  
+    }
+    .description{
+        color: var(--Greyscale-900, #0F172A);
+        text-align: right;
+
+        /* body/medium/semibold */
+        font-family: MadaniArabic-SemiBold;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%; /* 22.4px */
+        letter-spacing: 0.2px;
+    }
+    .details{
+        color: var(--Greyscale-500, #64748B);
+        text-align: right; 
+        font-family: MadaniArabic-Regular;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 160%;  
+    }
+}
