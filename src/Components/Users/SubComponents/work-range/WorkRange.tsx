@@ -41,8 +41,9 @@ export const WorkRange = () => {
                         if (!grouped[governorateId]) {
                             grouped[governorateId] = { governorate: governorate.name, items: [] };
                         }
+                        const modifiedId = `${id}_city`;
 
-                        grouped[governorateId].items.push({ id, name });
+                        grouped[governorateId].items.push({ id: modifiedId, name });
 
                         return grouped;
                     }, {});
@@ -70,36 +71,15 @@ export const WorkRange = () => {
         const items = results.map((result) => result.item);
         setSearchResults(items);
     };
-    const handleSelectRange = (cityId: number, cityName: string) => {
-        const isSelectedBefore = workAreasIds.includes(cityId);
 
-        if (isSelectedBefore) {
-            const indexToRemove = workAreasIds.indexOf(cityId);
-            const titleToRemove = workAreasNames.indexOf(cityName);
-            // Remove the ID if it exists in the array
-            if (indexToRemove !== -1 && titleToRemove !== -1) {
-                workAreasIds.splice(indexToRemove, 1);
-                workAreasNames.splice(indexToRemove, 1);
-                setWorkAreasIds(workAreasIds);
-                setWorkAreasNames(workAreasNames);
-            } else {
-                workAreasIds.push(cityId);
-                workAreasNames.push(cityName);
-                setWorkAreasIds(workAreasIds);
-                setWorkAreasNames(workAreasNames);
-            }
-        } else {
-            workAreasIds.push(cityId);
-            workAreasNames.push(cityName);
-            setWorkAreasIds(workAreasIds);
-            setWorkAreasNames(workAreasNames);
-        }
-    };
     const handleSubmitChoise = () => {
 
-        let rangeIds = selectedItems;
-        for (let index = 0; index < selectedItems.length; index++) {
-            const city = result.find((c) => c.id === rangeIds[index]).name;
+
+        const cityValues = selectedItems
+            .filter(value => value.includes('_city'))
+            .map(value => value.replace('_city', ''));
+        for (let index = 0; index < cityValues.length; index++) {
+            const city = result.find((c) => c.id === cityValues[index]).name;
             workAreasNames.push(city);
         }
         let rangeTitle = workAreasNames[0];
@@ -110,6 +90,7 @@ export const WorkRange = () => {
             let text = `${cityName} و ${count} أخري`;
             rangeTitle = text;
         }
+        let rangeIds = cityValues
         dispatch(setSelectedWorkAreas({ rangeIds, rangeTitle }));
     };
 
