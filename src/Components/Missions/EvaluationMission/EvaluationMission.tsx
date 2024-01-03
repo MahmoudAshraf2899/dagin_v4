@@ -22,6 +22,8 @@ export const EvaluationMission = () => {
   const [totalRows, setTotalRows] = useState(0);
   const [data, setData] = useState([]);
   const [showDeletePopUp, seShowDeletePopUp] = useState(false);
+  const [pageSize, setPageSize] = useState(10);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -29,7 +31,7 @@ export const EvaluationMission = () => {
     let mainHeaderName = "المهام";
     dispatch(setMainHeaderName({ mainHeaderName }));
     API.get(
-      `dashboard/missions?status=revision&sort_by=id&sort_order=DESC&page=1&limit=${10}`
+      `dashboard/missions?status=revision&sort_by=id&sort_order=DESC&page=${pageNumber}&limit=${pageSize}`
     ).then((res) => {
       if (res) {
         if (res.status === 403) {
@@ -58,6 +60,50 @@ export const EvaluationMission = () => {
     let isVisible = true;
     dispatch(toggleShowEditMission({ isVisible }));
   };
+  const hanldeChangePage = (targetPN: number) => {
+    setIsLoading(true);
+    API.get(
+      `dashboard/missions?status=revision&sort_by=id&sort_order=DESC&page=${targetPN}&limit=${pageSize}`
+    ).then((res) => {
+      if (res) {
+        if (res.status === 403) {
+          toast.error(" عفوا انت ليس لديك صلاحية الوصول لهذه الصفحة ");
+        } else {
+          setData(res.data.items);
+          setTotalRows(res.data.totalCount);
+          setPageNumber(targetPN);
+          setIsLoading(false);
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
+        }
+      }
+    });
+  }
+  const renderPagination = () => {
+    const nPages = Math.ceil(totalRows / pageSize);
+    const numbers = Array.from({ length: nPages }, (_, index) => index + 1);
+    let paginationItem = numbers.map((n) => {
+      return (
+        <>
+          <button
+            className={pageNumber === n ? "btn btn-pagination-active" : "btn"}
+            onClick={() => hanldeChangePage(n)}>{n}
+          </button>
+        </>
+      )
+    })
+    return (
+      <div className={totalRows > 5 ? "pagination w-full max-w-xs overflow-auto" : "pagination"}>
+
+        {paginationItem}
+
+      </div >
+    );
+  }
+
+
   return (
     <div className="grid grid-cols-1 my-4 EvaluationMission">
       {isLoading === true ? (
@@ -265,6 +311,10 @@ export const EvaluationMission = () => {
           </div>
         );
       })}
+
+      <div className="flex justify-center">
+        {renderPagination()}
+      </div>
     </div>
   );
 };

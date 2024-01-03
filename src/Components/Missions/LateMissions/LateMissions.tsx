@@ -19,6 +19,8 @@ import "./LateMissions.scss";
 import { setMainHeaderName } from "../../../redux/Slices/MainHeaderSlice";
 export const LateMissions = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [pageSize, setPageSize] = useState(10);
+  const [pageNumber, setPageNumber] = useState(1);
   const [totalRows, setTotalRows] = useState(0);
   const [data, setData] = useState([]);
   const [showDeletePopUp, seShowDeletePopUp] = useState(false);
@@ -29,7 +31,7 @@ export const LateMissions = () => {
     let mainHeaderName = "المهام";
     dispatch(setMainHeaderName({ mainHeaderName }));
     API.get(
-      `dashboard/missions?status=late&sort_by=id&sort_order=DESC&page=1&limit=${10}`
+      `dashboard/missions?status=late&sort_by=id&sort_order=DESC&page=${pageNumber}&limit=${pageSize}`
     ).then((res) => {
       if (res) {
         if (res.status === 403) {
@@ -57,6 +59,49 @@ export const LateMissions = () => {
     let isVisible = true;
     dispatch(toggleShowEditMission({ isVisible }));
   };
+  const hanldeChangePage = (targetPN: number) => {
+    setIsLoading(true);
+    API.get(
+
+      `dashboard/missions?status=late&sort_by=id&sort_order=DESC&page=${targetPN}&limit=${pageSize}`
+    ).then((res) => {
+      if (res) {
+        if (res.status === 403) {
+          toast.error(" عفوا انت ليس لديك صلاحية الوصول لهذه الصفحة ");
+        } else {
+          setData(res.data.items);
+          setTotalRows(res.data.totalCount);
+          setPageNumber(targetPN);
+          setIsLoading(false);
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
+        }
+      }
+    });
+  }
+  const renderPagination = () => {
+    const nPages = Math.ceil(totalRows / pageSize);
+    const numbers = Array.from({ length: nPages }, (_, index) => index + 1);
+    let paginationItem = numbers.map((n) => {
+      return (
+        <>
+          <button
+            className={pageNumber === n ? "btn btn-pagination-active" : "btn"}
+            onClick={() => hanldeChangePage(n)}>{n}
+          </button>
+        </>
+      )
+    })
+    return (
+      <div className="pagination w-full max-w-xs overflow-auto">
+
+        {paginationItem}
+
+      </div>
+    );
+  }
   return (
     <div className="grid grid-cols-1 my-4 LateMissions">
       {isLoading === true ? (
@@ -263,6 +308,11 @@ export const LateMissions = () => {
           </div>
         );
       })}
+
+      {/* Pagination */}
+      <div className="flex justify-center">
+        {renderPagination()}
+      </div>
     </div>
   );
 };
