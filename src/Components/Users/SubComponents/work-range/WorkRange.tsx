@@ -16,7 +16,6 @@ export const WorkRange = () => {
     const [workAreasNames, setWorkAreasNames] = useState<string[]>([]);
     const [groupedItems, setGroupedItems] = useState<Record<string, any>>({});
     const [selectedItems, setSelectedItems] = useState<string[]>([]);
-
     const options = {
         includeScore: true,
         includeMatches: true,
@@ -50,25 +49,44 @@ export const WorkRange = () => {
 
 
                     setGroupedItems(grouped);
-                    setSearchResults(grouped);
+                    setSearchResults(res.data);
                     setData(grouped);
                     setIsLoading(false);
+
                 }
             }
         });
     }, [setSearchResults]);
     const handleSearch = (event: any) => {
+        setIsLoading(true);
+
         const { value } = event.target;
-        // If the user searched for an empty string,
-        // display all data.
+
         if (value.length === 0) {
             setSearchResults(data);
+            setIsLoading(false);
+
             return;
         }
 
         const results = fuse.search(value);
         const items = results.map((result) => result.item);
-        setSearchResults(items);
+        const grouped = items.reduce((grouped: Record<string, any>, item: any) => {
+            const { id, name, governorate } = item;
+            const governorateId = governorate.id;
+
+            if (!grouped[governorateId]) {
+                grouped[governorateId] = { governorate: governorate.name, items: [] };
+            }
+            const modifiedId = `${id}_city`;
+
+            grouped[governorateId].items.push({ id: modifiedId, name });
+
+            return grouped;
+        }, {});
+        setGroupedItems(grouped);
+
+        setIsLoading(false);
     };
 
     const handleSubmitChoise = () => {
