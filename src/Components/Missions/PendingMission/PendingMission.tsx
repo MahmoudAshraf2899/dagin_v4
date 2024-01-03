@@ -18,6 +18,8 @@ import { setMainHeaderName } from "../../../redux/Slices/MainHeaderSlice";
 export const PendingMission = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [totalRows, setTotalRows] = useState(0);
+  const [pageSize, setPageSize] = useState(2);
+  const [pageNumber, setPageNumber] = useState(1);
   const [data, setData] = useState([]);
   const [showDeletePopUp, seShowDeletePopUp] = useState(false);
 
@@ -28,7 +30,7 @@ export const PendingMission = () => {
     let mainHeaderName = "المهام";
     dispatch(setMainHeaderName({ mainHeaderName }));
     API.get(
-      `dashboard/missions?status=pending&sort_by=id&sort_order=DESC&page=1&limit=${10}`
+      `dashboard/missions?status=pending&sort_by=id&sort_order=DESC&page=${pageNumber}&limit=${pageSize}`
     ).then((res) => {
       if (res) {
         if (res.status === 403) {
@@ -41,6 +43,7 @@ export const PendingMission = () => {
       }
     });
   }, [setData]);
+
   const ShowMissionDetailsPopUp = (missionId: number) => {
     dispatch(sendMissionIdToPopUp({ missionId }));
     let isDetailsActive = true;
@@ -56,6 +59,54 @@ export const PendingMission = () => {
     let isVisible = true;
     dispatch(toggleShowEditMission({ isVisible }));
   };
+  const hanldeChangePage = (targetPN: number) => {
+    setIsLoading(true);
+    API.get(
+      `dashboard/missions?status=pending&sort_by=id&sort_order=DESC&page=${targetPN}&limit=${pageSize}`
+    ).then((res) => {
+      if (res) {
+        if (res.status === 403) {
+          toast.error(" عفوا انت ليس لديك صلاحية الوصول لهذه الصفحة ");
+        } else {
+          setData(res.data.items);
+          setTotalRows(res.data.totalCount);
+          setPageNumber(targetPN);
+          setIsLoading(false);
+        }
+      }
+    });
+  }
+
+  const renderPagination = () => {
+    const nPages = Math.ceil(totalRows / pageSize);
+    const numbers = Array.from({ length: nPages }, (_, index) => index + 1);
+    let paginationItem = numbers.map((n) => {
+      return (
+        <>
+          <button
+            className={pageNumber === n ? "btn btn-pagination-active" : "btn"}
+            onClick={() => hanldeChangePage(n)}>{n}
+          </button>
+        </>
+      )
+    })
+    return (
+      <div className="pagination">
+        <button className="btn">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fillRule="evenodd" clipRule="evenodd" d="M12.2574 5.59165C11.9324 5.26665 11.4074 5.26665 11.0824 5.59165L7.25742 9.41665C6.93242 9.74165 6.93242 10.2667 7.25742 10.5917L11.0824 14.4167C11.4074 14.7417 11.9324 14.7417 12.2574 14.4167C12.5824 14.0917 12.5824 13.5667 12.2574 13.2417L9.02409 9.99998L12.2574 6.76665C12.5824 6.44165 12.5741 5.90832 12.2574 5.59165Z" fill="#969696" />
+          </svg>
+        </button>
+        {paginationItem}
+        <button className="btn">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fillRule="evenodd" clipRule="evenodd" d="M7.74375 5.2448C7.41875 5.5698 7.41875 6.0948 7.74375 6.4198L10.9771 9.65314L7.74375 12.8865C7.41875 13.2115 7.41875 13.7365 7.74375 14.0615C8.06875 14.3865 8.59375 14.3865 8.91875 14.0615L12.7437 10.2365C13.0687 9.91147 13.0687 9.38647 12.7437 9.06147L8.91875 5.23647C8.60208 4.9198 8.06875 4.9198 7.74375 5.2448Z" fill="#969696" />
+          </svg>
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="grid grid-cols-1  my-4 PendingMission">
       {isLoading === true ? (
@@ -244,6 +295,10 @@ export const PendingMission = () => {
           </div>
         );
       })}
+      {/* Pagination */}
+      <div className="flex justify-center">
+        {renderPagination()}
+      </div>
     </div>
   );
 };

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
 import "./RefusedMissions.scss";
 import userIcon from "../../../Assets/Icons/user.jpeg";
 import API from "../../../Api";
@@ -9,226 +8,278 @@ import { toast } from "react-toastify";
 import {
   sendMissionIdToPopUp,
   showDetailsPopUp,
-   
+
 } from "../../../redux/Slices/MissionSlice";
 import moment from "moment";
 import { setMainHeaderName } from "../../../redux/Slices/MainHeaderSlice";
-export const RefusedMission = ()=>{
-    const [isLoading, setIsLoading] = useState(false);
-    const [totalRows, setTotalRows] = useState(0);
-    const [data, setData] = useState([]);
-    
-    const dispatch = useDispatch();
-    const ShowMissionDetailsPopUp = (missionId: number) => {
-        dispatch(sendMissionIdToPopUp({ missionId }));
-        let isDetailsActive = true;
-        dispatch(showDetailsPopUp({ isDetailsActive }));
-      };
-      useEffect(() => {
-        let mainHeaderName = "المهام";
-        dispatch(setMainHeaderName({ mainHeaderName }));
-        setIsLoading(true);
-        API.get(
-          `dashboard/missions?status=rejected&sort_by=id&sort_order=DESC&page=1&limit=${10}`
-        ).then((res) => {
-          if (res) {
-            if (res.status === 403) {
-              toast.error(" عفوا انت ليس لديك صلاحية الوصول لهذه الصفحة ");
-              setIsLoading(false);
-    
-            } else {
-              setData(res.data.items);
-              setTotalRows(res.data.totalCount);
-              setIsLoading(false);
-            }
-          }
-        });
-      }, [setData]);
+export const RefusedMission = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [totalRows, setTotalRows] = useState(0);
+  const [pageSize, setPageSize] = useState(2);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [data, setData] = useState([]);
+
+  const dispatch = useDispatch();
+  const ShowMissionDetailsPopUp = (missionId: number) => {
+    dispatch(sendMissionIdToPopUp({ missionId }));
+    let isDetailsActive = true;
+    dispatch(showDetailsPopUp({ isDetailsActive }));
+  };
+  useEffect(() => {
+    let mainHeaderName = "المهام";
+    dispatch(setMainHeaderName({ mainHeaderName }));
+    setIsLoading(true);
+    API.get(
+      `dashboard/missions?status=rejected&sort_by=id&sort_order=DESC&page=${pageNumber}&limit=${pageSize}`
+    ).then((res) => {
+      if (res) {
+        if (res.status === 403) {
+          toast.error(" عفوا انت ليس لديك صلاحية الوصول لهذه الصفحة ");
+          setIsLoading(false);
+
+        } else {
+          setData(res.data.items);
+          setTotalRows(res.data.totalCount);
+          setIsLoading(false);
+        }
+      }
+    });
+  }, [setData]);
+  const hanldeChangePage = (targetPN: number) => {
+    setIsLoading(true);
+    API.get(
+      `dashboard/missions?status=rejected&sort_by=id&sort_order=DESC&page=${targetPN}&limit=${pageSize}`
+    ).then((res) => {
+      if (res) {
+        if (res.status === 403) {
+          toast.error(" عفوا انت ليس لديك صلاحية الوصول لهذه الصفحة ");
+        } else {
+          setData(res.data.items);
+          setTotalRows(res.data.totalCount);
+          setPageNumber(targetPN);
+          setIsLoading(false);
+        }
+      }
+    });
+  }
+  const renderPagination = () => {
+    const nPages = Math.ceil(totalRows / pageSize);
+    const numbers = Array.from({ length: nPages }, (_, index) => index + 1);
+    let paginationItem = numbers.map((n) => {
+      return (
+        <>
+          <button
+            className={pageNumber === n ? "btn btn-pagination-active" : "btn"}
+            onClick={() => hanldeChangePage(n)}>{n}
+          </button>
+        </>
+      )
+    })
     return (
-        <div className="grid grid-cols-1 my-4 RefusedMissions">
-        {isLoading === true ? (
-          <>
-            <Loading />
-          </>
-        ) : null}
-        {data.map((item: any) => {
-          const createdAtDate = moment(item.created_at);
-          const dueDate = moment(item.due_at == null ? new Date() : item.due_at);
-  
-          // Set the locale to Arabic
-          moment.locale("ar");
-          const createdAtDate_Arabic = createdAtDate.format("DD MMM YYYY");
-          const dueDate_Arabic = dueDate.format("DD MMMM YYYY");
-          return (
-            <div className="grid grid-cols-2 mission-content">
-               
-              <div className="col-start-1">
-                <span className="mission-type">
-                  {item.type != null ? item.type.name : ""}
-                </span>
-              </div>
-              <div className="col-start-2 flex justify-end">
-                <div className="popover" style={{ backgroundColor: "white" }}>
-                  <svg
-                    className="popover-trigger arrow"
-                    tabIndex={0}
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M5 10C3.9 10 3 10.9 3 12C3 13.1 3.9 14 5 14C6.1 14 7 13.1 7 12C7 10.9 6.1 10 5 10Z"
-                      fill="#A7AEC1"
-                    />
-                    <path
-                      d="M19 10C17.9 10 17 10.9 17 12C17 13.1 17.9 14 19 14C20.1 14 21 13.1 21 12C21 10.9 20.1 10 19 10Z"
-                      fill="#A7AEC1"
-                    />
-                    <path
-                      d="M12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10Z"
-                      fill="#A7AEC1"
-                    />
-                  </svg>
-                  <div
-                    className="popover-content popover-bottom-left"
-                    tabIndex={0}
-                  >
-                    <ul>
-                      <label
-                        className="three-dots-li"
-                        htmlFor="modal-1"
-                        onClick={() => ShowMissionDetailsPopUp(item.id)}
-                      >
-                        عرض المهمة
-                      </label>
-                      <input
-                        className="modal-state"
-                        id="modal-1"
-                        type="checkbox"
-                      /> 
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div className="col-start-1">
-                <span className="mission-address">{item.name}</span>
-              </div>
-              <div className="col-start-2"></div>
-              <div className="col-start-1">
-                <div className="flex gap-4">
-                  <div className="mission-reward">السعر {item.reward} جنيه</div>
-                  <div className="created-at">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="15"
-                      height="16"
-                      viewBox="0 0 15 16"
-                      fill="none"
+      <div className="pagination">
+        <button className="btn">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fillRule="evenodd" clipRule="evenodd" d="M12.2574 5.59165C11.9324 5.26665 11.4074 5.26665 11.0824 5.59165L7.25742 9.41665C6.93242 9.74165 6.93242 10.2667 7.25742 10.5917L11.0824 14.4167C11.4074 14.7417 11.9324 14.7417 12.2574 14.4167C12.5824 14.0917 12.5824 13.5667 12.2574 13.2417L9.02409 9.99998L12.2574 6.76665C12.5824 6.44165 12.5741 5.90832 12.2574 5.59165Z" fill="#969696" />
+          </svg>
+        </button>
+        {paginationItem}
+        <button className="btn">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fillRule="evenodd" clipRule="evenodd" d="M7.74375 5.2448C7.41875 5.5698 7.41875 6.0948 7.74375 6.4198L10.9771 9.65314L7.74375 12.8865C7.41875 13.2115 7.41875 13.7365 7.74375 14.0615C8.06875 14.3865 8.59375 14.3865 8.91875 14.0615L12.7437 10.2365C13.0687 9.91147 13.0687 9.38647 12.7437 9.06147L8.91875 5.23647C8.60208 4.9198 8.06875 4.9198 7.74375 5.2448Z" fill="#969696" />
+          </svg>
+        </button>
+      </div>
+    );
+  }
+  return (
+    <div className="grid grid-cols-1 my-4 RefusedMissions">
+      {isLoading === true ? (
+        <>
+          <Loading />
+        </>
+      ) : null}
+      {data.map((item: any) => {
+        const createdAtDate = moment(item.created_at);
+        const dueDate = moment(item.due_at == null ? new Date() : item.due_at);
+
+        // Set the locale to Arabic
+        moment.locale("ar");
+        const createdAtDate_Arabic = createdAtDate.format("DD MMM YYYY");
+        const dueDate_Arabic = dueDate.format("DD MMMM YYYY");
+        return (
+          <div className="grid grid-cols-2 mission-content">
+
+            <div className="col-start-1">
+              <span className="mission-type">
+                {item.type != null ? item.type.name : ""}
+              </span>
+            </div>
+            <div className="col-start-2 flex justify-end">
+              <div className="popover" style={{ backgroundColor: "white" }}>
+                <svg
+                  className="popover-trigger arrow"
+                  tabIndex={0}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <path
+                    d="M5 10C3.9 10 3 10.9 3 12C3 13.1 3.9 14 5 14C6.1 14 7 13.1 7 12C7 10.9 6.1 10 5 10Z"
+                    fill="#A7AEC1"
+                  />
+                  <path
+                    d="M19 10C17.9 10 17 10.9 17 12C17 13.1 17.9 14 19 14C20.1 14 21 13.1 21 12C21 10.9 20.1 10 19 10Z"
+                    fill="#A7AEC1"
+                  />
+                  <path
+                    d="M12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10Z"
+                    fill="#A7AEC1"
+                  />
+                </svg>
+                <div
+                  className="popover-content popover-bottom-left"
+                  tabIndex={0}
+                >
+                  <ul>
+                    <label
+                      className="three-dots-li"
+                      htmlFor="modal-1"
+                      onClick={() => ShowMissionDetailsPopUp(item.id)}
                     >
-                      <path
-                        d="M1.875 6.6875C1.875 4.47836 3.66586 2.6875 5.875 2.6875H9.125C11.3341 2.6875 13.125 4.47836 13.125 6.6875V10.25C13.125 12.4591 11.3341 14.25 9.125 14.25H5.875C3.66586 14.25 1.875 12.4591 1.875 10.25V6.6875Z"
-                        stroke="#9BA0B1"
-                        stroke-width="1.5"
-                      />
-                      <path
-                        d="M1.875 6.125H13.125"
-                        stroke="#9BA0B1"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                      />
-                      <path
-                        d="M5 1.75L5 3.625"
-                        stroke="#9BA0B1"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                      <path
-                        d="M10 1.75V3.625"
-                        stroke="#9BA0B1"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                      <circle cx="7.5" cy="9.875" r="0.625" fill="#9BA0B1" />
-                      <circle cx="10" cy="9.875" r="0.625" fill="#9BA0B1" />
-                      <circle cx="5" cy="9.875" r="0.625" fill="#9BA0B1" />
-                    </svg>
-                    انشئت في : {createdAtDate_Arabic}
-                  </div>
-  
-                  <div className="created-at">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="15"
-                      height="16"
-                      viewBox="0 0 15 16"
-                      fill="none"
-                    >
-                      <path
-                        d="M1.875 6.6875C1.875 4.47836 3.66586 2.6875 5.875 2.6875H9.125C11.3341 2.6875 13.125 4.47836 13.125 6.6875V10.25C13.125 12.4591 11.3341 14.25 9.125 14.25H5.875C3.66586 14.25 1.875 12.4591 1.875 10.25V6.6875Z"
-                        stroke="#9BA0B1"
-                        stroke-width="1.5"
-                      />
-                      <path
-                        d="M1.875 6.125H13.125"
-                        stroke="#9BA0B1"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                      />
-                      <path
-                        d="M5 1.75L5 3.625"
-                        stroke="#9BA0B1"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                      <path
-                        d="M10 1.75V3.625"
-                        stroke="#9BA0B1"
-                        stroke-width="1.5"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      />
-                      <circle cx="7.5" cy="9.875" r="0.625" fill="#9BA0B1" />
-                      <circle cx="10" cy="9.875" r="0.625" fill="#9BA0B1" />
-                      <circle cx="5" cy="9.875" r="0.625" fill="#9BA0B1" />
-                    </svg>
-                    تنتهي في : {dueDate_Arabic}
-                  </div>
-                </div>
-              </div>
-              <div className="col-start-2 flex justify-end">
-                <div className="flex gap-4 mission-status">
-                  <div className="inprogress">مهمة مرفوضة</div>
-                  {item.salesman != null || item.salesman !== undefined ? (
-                    <>
-                      <div className="flex gap-4 assigned-to">
-                        <div>
-                          <img src={userIcon} alt="user" />
-                        </div>
-                        <div className=" flex gap-1">
-                          <span className="assigned-to-txt">اسند لي:</span>
-                          <span className="assinged-user-name">
-                            {item.salesman.name}
-                          </span>
-                        </div>
-                      </div>
-                    </>
-                  ) : null}
-                </div>
-              </div>
-  
-              <div className="col-start-1">
-                <div className="mission-history">
-                  اخر تعديل تم بواسطة : Mahmoud ELnabwy
+                      عرض المهمة
+                    </label>
+                    <input
+                      className="modal-state"
+                      id="modal-1"
+                      type="checkbox"
+                    />
+                  </ul>
                 </div>
               </div>
             </div>
-          );
-        })}
+            <div className="col-start-1">
+              <span className="mission-address">{item.name}</span>
+            </div>
+            <div className="col-start-2"></div>
+            <div className="col-start-1">
+              <div className="flex gap-4">
+                <div className="mission-reward">السعر {item.reward} جنيه</div>
+                <div className="created-at">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="16"
+                    viewBox="0 0 15 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M1.875 6.6875C1.875 4.47836 3.66586 2.6875 5.875 2.6875H9.125C11.3341 2.6875 13.125 4.47836 13.125 6.6875V10.25C13.125 12.4591 11.3341 14.25 9.125 14.25H5.875C3.66586 14.25 1.875 12.4591 1.875 10.25V6.6875Z"
+                      stroke="#9BA0B1"
+                      stroke-width="1.5"
+                    />
+                    <path
+                      d="M1.875 6.125H13.125"
+                      stroke="#9BA0B1"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M5 1.75L5 3.625"
+                      stroke="#9BA0B1"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M10 1.75V3.625"
+                      stroke="#9BA0B1"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <circle cx="7.5" cy="9.875" r="0.625" fill="#9BA0B1" />
+                    <circle cx="10" cy="9.875" r="0.625" fill="#9BA0B1" />
+                    <circle cx="5" cy="9.875" r="0.625" fill="#9BA0B1" />
+                  </svg>
+                  انشئت في : {createdAtDate_Arabic}
+                </div>
+
+                <div className="created-at">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="16"
+                    viewBox="0 0 15 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M1.875 6.6875C1.875 4.47836 3.66586 2.6875 5.875 2.6875H9.125C11.3341 2.6875 13.125 4.47836 13.125 6.6875V10.25C13.125 12.4591 11.3341 14.25 9.125 14.25H5.875C3.66586 14.25 1.875 12.4591 1.875 10.25V6.6875Z"
+                      stroke="#9BA0B1"
+                      stroke-width="1.5"
+                    />
+                    <path
+                      d="M1.875 6.125H13.125"
+                      stroke="#9BA0B1"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M5 1.75L5 3.625"
+                      stroke="#9BA0B1"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M10 1.75V3.625"
+                      stroke="#9BA0B1"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <circle cx="7.5" cy="9.875" r="0.625" fill="#9BA0B1" />
+                    <circle cx="10" cy="9.875" r="0.625" fill="#9BA0B1" />
+                    <circle cx="5" cy="9.875" r="0.625" fill="#9BA0B1" />
+                  </svg>
+                  تنتهي في : {dueDate_Arabic}
+                </div>
+              </div>
+            </div>
+            <div className="col-start-2 flex justify-end">
+              <div className="flex gap-4 mission-status">
+                <div className="inprogress">مهمة مرفوضة</div>
+                {item.salesman != null || item.salesman !== undefined ? (
+                  <>
+                    <div className="flex gap-4 assigned-to">
+                      <div>
+                        <img src={userIcon} alt="user" />
+                      </div>
+                      <div className=" flex gap-1">
+                        <span className="assigned-to-txt">اسند لي:</span>
+                        <span className="assinged-user-name">
+                          {item.salesman.name}
+                        </span>
+                      </div>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+            </div>
+
+            <div className="col-start-1">
+              <div className="mission-history">
+                اخر تعديل تم بواسطة : Mahmoud ELnabwy
+              </div>
+            </div>
+          </div>
+        );
+      })}
+      {/* Pagination */}
+      <div className="flex justify-center">
+        {renderPagination()}
       </div>
-    );
+    </div>
+  );
 }
