@@ -26,6 +26,13 @@ interface ApiResponse {
     whatsapp_number: string;
     ewallet_number: string;
     password: string;
+    workAreas: {
+        id: string;
+        name: string;
+        governorate_id: string
+
+    }[];
+
 }
 export const EditUser = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -117,7 +124,7 @@ export const EditUser = () => {
             toast.error("من فضلك قم بأختيار المرحلة")
             setIsLoading(false);
 
-        } else if (stateFromUserSlice.workAreas_ids.length === 0) {
+        } else if (apiResponse?.workAreas.length === 0 && stateFromUserSlice.workAreaChanged === false) {
             toast.error("من فضلك قم بأختيار نطاق العمل");
             setIsLoading(false);
         } else {
@@ -131,49 +138,58 @@ export const EditUser = () => {
             apiResponse.specialty_id = stateFromUserSlice.specialtiesId
             apiResponse.level_id = stateFromUserSlice.levelId
         }
-        const FormData = require('form-data');
-        let data = new FormData();
-        data.append('name', apiResponse?.name);
-        data.append('mobile_number', apiResponse?.mobile_number);
 
-        data.append('whatsapp_number', apiResponse?.mobile_number);
-        data.append('national_id', apiResponse?.national_id);
-        data.append('specialty_id', apiResponse?.specialty_id);
-        data.append('level_id', apiResponse?.level_id);
+        const arrayData = stateFromUserSlice.workAreaChanged === true ? stateFromUserSlice.workAreas_ids : apiResponse?.workAreas.map((item) => item.id);
 
+        const data = {
+            name: apiResponse?.name,
+            mobile: apiResponse?.mobile_number,
+            email: apiResponse?.email,
+            whatsapp: apiResponse?.whatsapp_number,
+            national_id: apiResponse?.national_id,
+            specialty_id: apiResponse?.specialty_id,
+            level_id: apiResponse?.level_id,
+            password: apiResponse?.password,
+            work_area_ids: arrayData.map((item: any) => Number(item)),
+            ewallet_number: apiResponse?.ewallet_number
 
-        let config = {
-            method: 'patch',
-            maxBodyLength: Infinity,
-            url: `${URL}dashboard/salesman/${stateFromUserSlice.userId}`,
+        };
+        axios.patch(`${URL}dashboard/salesman/${stateFromUserSlice.userId}`, data, {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                'Content-type': 'multipart/form-data', // Set the Content-Type for FormData
-                'Accept': 'multipart/form-data', // Set the Accept header if needed
-                'Access-Control-Allow-Credentials': true,
-                'Access-Control-Allow-Origin': URL,
-            },
-            data: data
-        };
-
-        axios.request(config)
-            .then((response) => {
-                if (response.status === 200) {
-                    toast.success("تمت تعديل المستخدم بنجاح")
-                    setIsLoading(false);
-                    handleShowEditComponent();
-                } else if (response.status === 400) {
-                    toast.error("هذا المستخدم موجود من قبل")
-                    setIsLoading(false);
-                }
-                else {
-                    toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين")
-                    setIsLoading(false);
-                    handleShowEditComponent();
-                }
-            })
+                "Content-Type": "multipart/form-data"
+            }
+        }).then((response) => {
+            if (response.status === 200) {
+                toast.success("تمت تعديل المستخدم بنجاح")
+                setIsLoading(false);
+                handleShowEditComponent();
+            } else if (response.status === 400) {
+                toast.error("هذا المستخدم موجود من قبل")
+                setIsLoading(false);
+            }
+            else {
+                toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين")
+                setIsLoading(false);
+                handleShowEditComponent();
+            }
+        })
 
     }
+    const workRangeText =
+        <div className="select-stage pr-4">
+            {stateFromUserSlice.workAreaChanged === false ?
+                apiResponse?.workAreas != null && apiResponse.workAreas.length > 0 ?
+                    apiResponse?.workAreas.length > 1 ?
+                        `${apiResponse?.workAreas[0].name} و ${apiResponse?.workAreas.length - 1} اخري` : apiResponse?.workAreas[0].name
+                    : "قم بأختيار نطاق العمل"
+                :
+
+                stateFromUserSlice.workAreas_ids.length !== 0
+                    ? stateFromUserSlice.workAreas_text
+                    : "قم بأختيار نطاق العمل"}
+
+        </div>;
     return (
         <div className='EditUser'>
             {isLoading === true ? (
@@ -403,11 +419,7 @@ export const EditUser = () => {
                                     <div className='col-span-full pr-4'>
                                         <label htmlFor="modal-784">
                                             <div className="flex justify-between select-stage-container">
-                                                <div className="select-stage pr-4">
-                                                    {stateFromUserSlice.workAreas_ids.length !== 0
-                                                        ? stateFromUserSlice.workAreas_text
-                                                        : "قم بأختيار نطاق العمل"}
-                                                </div>
+                                                {workRangeText}
                                                 <div className="arrow">
                                                     <img
                                                         src={arrow}

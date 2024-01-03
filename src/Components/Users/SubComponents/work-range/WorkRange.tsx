@@ -59,7 +59,6 @@ export const WorkRange = () => {
     }, [setSearchResults]);
     const handleSearch = (event: any) => {
         const { value } = event.target;
-
         // If the user searched for an empty string,
         // display all data.
         if (value.length === 0) {
@@ -73,8 +72,6 @@ export const WorkRange = () => {
     };
 
     const handleSubmitChoise = () => {
-
-
         const cityValues = selectedItems
             .filter(value => value.includes('_city'))
             .map(value => value.replace('_city', ''));
@@ -84,14 +81,15 @@ export const WorkRange = () => {
         }
         let rangeTitle = workAreasNames[0];
         //Get First object from array
-        if (workAreasNames.length > 0) {
+        if (workAreasNames.length > 1) {
             let cityName = workAreasNames[0];
             let count = workAreasNames.length - 1;
             let text = `${cityName} و ${count} أخري`;
             rangeTitle = text;
         }
         let rangeIds = cityValues
-        dispatch(setSelectedWorkAreas({ rangeIds, rangeTitle }));
+        let workAreaChanged = rangeIds.length > 0 ? true : false
+        dispatch(setSelectedWorkAreas({ rangeIds, rangeTitle, workAreaChanged }));
     };
 
     const handleItemToggle = (itemId: string) => {

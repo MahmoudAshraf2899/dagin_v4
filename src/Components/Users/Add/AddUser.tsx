@@ -142,6 +142,7 @@ export const AddUser = () => {
             level_id: userData.level_id,
             password: userData.password,
             work_area_ids: arrayData.map((item: any) => Number(item)),
+            ewallet_number: userData.ewallet_number
 
         };
 
@@ -153,9 +154,6 @@ export const AddUser = () => {
         }).then((res) => {
             if (res.status === 201) {
                 toast.success("تمت اضافة المستخدم بنجاح");
-                var rangeIds: string[] = new Array<string>();
-                let rangeTitle = ""
-                dispatch(setSelectedWorkAreas({ rangeIds, rangeTitle }));
 
                 handleShowAddComponent();
                 setIsLoading(false);

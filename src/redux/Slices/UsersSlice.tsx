@@ -11,6 +11,7 @@ const initialState = {
   activeUserData: [],
   isSuspendActive: false,
   workAreas_ids: [],
+  workAreaChanged: false,
   workAreas_text: "",
   showUserProfile: false,
   userName: ""
@@ -27,6 +28,9 @@ export const UsersSlice = createSlice({
     },
     toggleShowEditUser: (state, action) => {
       state.showEditUser = action.payload.isVisible;
+      if (action.payload.isVisible === false) {
+        Object.assign(state, initialState);
+      }
     },
     setSelectedStage: (state, action) => {
       state.levelId = action.payload.levelId;
@@ -51,6 +55,7 @@ export const UsersSlice = createSlice({
     setSelectedWorkAreas: (state, action) => {
       state.workAreas_ids = action.payload.rangeIds;
       state.workAreas_text = action.payload.rangeTitle;
+      state.workAreaChanged = action.payload.workAreaChanged
     },
     toggleShowUserProfile: (state, action) => {
       state.showUserProfile = action.payload.isVisible;

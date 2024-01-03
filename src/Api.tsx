@@ -1,7 +1,7 @@
 import axios from "axios";
 const token = localStorage.getItem("token");
 
-export const URL = "https://nestjs-api.dajin-platform.com/";
+export const URL = "https://dajintest.environ-adapt.tk/";
 //  testUrl : "https://dajintest.environ-adapt.tk/";
 //Production Url : "https://nestjs-api.dajin-platform.com/"
 

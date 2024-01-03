@@ -19,6 +19,12 @@ interface ApiResponse {
     whatsapp_number: string;
     ewallet_number: string;
     password: string;
+    workAreas: {
+        id: string;
+        name: string;
+        governorate_id: string
+
+    }[];
 }
 export const PersonalData = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -244,7 +250,10 @@ export const PersonalData = () => {
                         <div className="flex justify-between select-stage-container">
                             <div className="select-stage pr-4">
 
-                                قم بأختيار نطاق العمل
+                                {apiResponse?.workAreas != null && apiResponse.workAreas.length > 0 ?
+                                    apiResponse?.workAreas.length > 1 ?
+                                        `${apiResponse?.workAreas[0].name} و ${apiResponse?.workAreas.length - 1} اخري` : apiResponse?.workAreas[0].name
+                                    : "قم بأختيار نطاق العمل"}
                             </div>
                             <div className="arrow">
                                 <img
