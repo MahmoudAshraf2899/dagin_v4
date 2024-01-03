@@ -63,7 +63,6 @@ export const WorkRange = () => {
         const { value } = event.target;
 
         if (value.length === 0) {
-            setSearchResults(data);
             setIsLoading(false);
 
             return;
