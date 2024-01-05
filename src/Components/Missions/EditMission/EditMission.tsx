@@ -47,6 +47,8 @@ interface ApiResponse {
   workAreas: {
     id: string;
     name: string;
+
+
   }[];
   assignedUsers: {
     id: string;
@@ -86,7 +88,7 @@ export const EditMission = () => {
             moment.locale("ar");
 
             setApiResponse(res.data);
-            if (res.data.early_bonus === null) {
+            if (res.data.early_bonus === null || res.data.early_bonus === 0) {
               setHasBonus(false);
             } else {
               setHasBonus(true);
@@ -165,7 +167,7 @@ export const EditMission = () => {
     } else if (apiResponse?.name === "") {
       toast.warn("من فضلك قم بأدخال عنوان المهمة");
       setIsLoading(false);
-    } else if (apiResponse?.early_bonus === 0) {
+    } else if (apiResponse?.early_bonus === 0 && hasBonus === true) {
       toast.warn("من فضلك قم بأختيار قيمة الحافز");
       setIsLoading(false);
     } else {
@@ -244,7 +246,22 @@ export const EditMission = () => {
         });
     }
   };
+  const workRangeText =
+    <div className="select-stage pr-4">
+      {stateFromMissionSlice.workAreaChanged === false ?
+        apiResponse?.workAreas != null && apiResponse.workAreas.length > 0 ?
+          apiResponse?.workAreas.length > 1 ?
+            `${apiResponse?.workAreas[0].name} و ${apiResponse?.workAreas.length - 1} اخري` : apiResponse?.workAreas[0].name
+          : "قم بأختيار نطاق العمل"
+        :
+
+        stateFromMissionSlice.workAreasIds.length !== 0
+          ? stateFromMissionSlice.workAreasTitle
+          : "قم بأختيار نطاق العمل"}
+
+    </div>;
   return (
+
     <div className="EditMission">
 
       <Formik
@@ -371,9 +388,7 @@ export const EditMission = () => {
                     <label htmlFor="modal-9">
                       <div className="flex justify-between select-mission-container">
                         <div className="select-mission-type pr-4">
-                          {stateFromMissionSlice.workAreasIds.length !== 0
-                            ? stateFromMissionSlice.workAreasTitle
-                            : " اختر محافظة او مدينة او اكثر"}
+                          {workRangeText}
                         </div>
                         <div className="arrow">
                           <img
@@ -471,9 +486,6 @@ export const EditMission = () => {
                       <input
                         type="checkbox"
                         className="switch switch-success"
-                        // checked={
-                        //   values.apiResponse?.early_bonus === null ? false : true
-                        // }
                         checked={hasBonus}
                         onChange={() => setHasBonus(!hasBonus)}
                       />

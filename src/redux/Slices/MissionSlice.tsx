@@ -6,6 +6,7 @@ const initialState = {
   selecteTypeId: 0,
   selectedTypeName: "",
   workAreasIds: [],
+  workAreaChanged: false,
   workAreasTitle: "",
   assignedIds: [],
   assignedType: "",
@@ -39,6 +40,7 @@ export const MissionSlice = createSlice({
     setSelectedWorkAreas: (state, action) => {
       state.workAreasIds = action.payload.rangeIds;
       state.workAreasTitle = action.payload.rangeTitle;
+      state.workAreaChanged = action.payload.workAreaChanged
     },
     setSelectedAssignTo: (state, action) => {
       state.assignedIds = action.payload.assignedIds;
