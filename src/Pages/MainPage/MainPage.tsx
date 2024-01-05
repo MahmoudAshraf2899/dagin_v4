@@ -99,8 +99,8 @@ export const MainPage = () => {
           <div
             className="h-full"
           >
-            <div className="grid grid-cols-2 h-full MainPage">
-              <div>
+            <div className="grid grid-cols-2 gap-4 h-full MainPage">
+              <div className="bg-white">
                 <ResponsiveContainer width="100%" height="50%">
                   <AreaChart
                     width={500}

@@ -11,6 +11,12 @@ export const ActiveUsers = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [users, setUsers] = useState([]);
     const [showSuspendPopUp, setShowSuspendPopUp] = useState(false);
+    const [pageSize, setPageSize] = useState(10);
+
+    const [totalRows, setTotalRows] = useState(0);
+
+    const [pageNumber, setPageNumber] = useState(1);
+
     const dispatch = useDispatch();
     const stateFromUserSlice = useSelector((state: any) => state.users);
 
@@ -18,15 +24,58 @@ export const ActiveUsers = () => {
     useEffect(() => {
         setIsLoading(true);
 
-        API.get('dashboard/salesman?account_status=2&limit=50000000').then((res) => {
+        API.get(`dashboard/salesman?account_status=2&page=${pageNumber}&limit=${pageSize}`).then((res) => {
             if (res) {
                 setUsers(res.data.items);
+                setTotalRows(res.data.totalCount);
                 let activeUserData = res.data.items
                 dispatch(setActiveUserData({ activeUserData }))
                 setIsLoading(false);
             }
         })
-    }, []);
+    }, [dispatch, pageNumber, pageSize, setUsers]);
+    const hanldeChangePage = (targetPN: number) => {
+        setIsLoading(true);
+        API.get(
+            `dashboard/salesman?account_status=2&page=${pageNumber}&limit=${pageSize}`
+        ).then((res) => {
+            if (res) {
+                setUsers(res.data.items);
+                setTotalRows(res.data.totalCount);
+                setPageNumber(targetPN);
+                let activeUserData = res.data.items
+                dispatch(setActiveUserData({ activeUserData }))
+                setIsLoading(false);
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth',
+                });
+
+            }
+        });
+    }
+
+    const renderPagination = () => {
+        const nPages = Math.ceil(totalRows / pageSize);
+        const numbers = Array.from({ length: nPages }, (_, index) => index + 1);
+        let paginationItem = numbers.map((n) => {
+            return (
+                <>
+                    <button
+                        className={pageNumber === n ? "btn btn-pagination-active" : "btn"}
+                        onClick={() => hanldeChangePage(n)}>{n}
+                    </button>
+                </>
+            )
+        })
+        return (
+            <div className={totalRows > 5 ? "pagination w-full max-w-xs overflow-auto" : "pagination"}>
+
+                {paginationItem}
+
+            </div >
+        );
+    }
     const showEditUser = (userId: number) => {
         let isVisible = true;
         dispatch(toggleShowEditUser({ isVisible }))
@@ -51,7 +100,7 @@ export const ActiveUsers = () => {
                 </>
             ) : null}
             <div className='grid grid-cols-2'>
-                {stateFromUserSlice.activeUserData.map((user: any, index: any) => (
+                {users.map((user: any, index: any) => (
                     <div key={index} className={`grid col-start-${index % 2 === 0 ? 1 : 2} p-4`}>
 
                         <div className='userCard pr-4 pt-8'>
@@ -138,6 +187,11 @@ export const ActiveUsers = () => {
                         </div>
                     </div>
                 ))}
+
+            </div>
+            {/* Pagination */}
+            <div className="flex justify-center">
+                {renderPagination()}
             </div>
         </div>
     );
