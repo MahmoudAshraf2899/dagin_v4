@@ -14,6 +14,8 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+
+
 export const MainPage = () => {
   const data = [
     {
@@ -54,27 +56,80 @@ export const MainPage = () => {
     {
       name: "السبت",
       المهام: 3490,
-
       amt: 2100,
     },
   ];
-  const cardinal = curveCardinal.tension(0.2);
+  const listOfMonths = [
+    {
+      id: 1,
+      name: "يناير"
+    },
+    {
+      id: 2, name: "فبراير"
+    }, {
+      id: 3, name: "مارس"
+    }, {
+      id: 4, name: "أبريل"
+    }, {
+      id: 5, name: "مايو"
+    }, {
+      id: 6, name: "يونيو "
+    }, {
+      id: 7, name: "يوليو "
+    }, {
+      id: 8, name: "أغسطس "
+    },
+    {
+      id: 9, name: "سبتمبر "
+    }, {
+      id: 10, name: "أكتوبر "
+    }, {
+      id: 11, name: "نوفمبر "
+    }, {
+      id: 12, name: "ديسمبر "
+    }
+  ]
+
   const [currentDay, setCurrentDay] = useState(1);
+  const [currentMonthName, setCurrentMonthName] = useState('يناير');
+  const [currentYearName, setCurrentYearName] = useState('2024');
+  const [activeReportType, setActiveReportType] = useState(1);
   useEffect(() => {
-    // Center the slider on the current day when the component mounts
-    const centerSlide = Math.max(0, currentDay - 4); // Adjust the number based on your desired visible range
-    setCurrentDay(centerSlide);
-  }, [currentDay]);
+    const currentDate = new Date();
+    const monthOptions = { month: 'long', timeZone: 'UTC' } as Intl.DateTimeFormatOptions;
+    const yearOptions = { year: 'numeric', timeZone: 'UTC' } as Intl.DateTimeFormatOptions;
+
+    const arabicMonthName = new Intl.DateTimeFormat('ar', monthOptions).format(currentDate);
+    const arabicYear = new Intl.DateTimeFormat('ar', yearOptions).format(currentDate);
 
 
+    setCurrentMonthName(arabicMonthName);
+    setCurrentYearName(arabicYear)
+  }, []);
 
-  const handlePrevClick = () => {
-    setCurrentDay((prevDay) => Math.max(1, prevDay - 1));
+  const getArabicMonthName = (monthNumber: number) => {
+    const currentDate = new Date();
+    const monthOptions = { month: 'long', timeZone: 'UTC' } as Intl.DateTimeFormatOptions;
+
+    // Set the month to the provided monthNumber
+    currentDate.setMonth(monthNumber - 1); // JavaScript months are 0-indexed
+
+    const arabicMonthName = new Intl.DateTimeFormat('ar', monthOptions).format(currentDate);
+
+    return arabicMonthName;
   };
 
-  const handleNextClick = () => {
-    setCurrentDay((prevDay) => Math.min(31, prevDay + 1));
-  };
+  const handleSelectedMonth = (item: number) => {
+    let monthName = getArabicMonthName(item);
+    setCurrentMonthName(monthName);
+  }
+
+  function getDaysInMonth(year: number, month: number) {
+    // Month is 0-indexed, so January is 0, February is 1, etc.
+    return new Date(year, month + 1, 0).getDate();
+  }
+  // const month = 2; // March (0-indexed)
+  // const daysInMonth = getDaysInMonth(year, month);
 
   const handleDayClick = (day: number) => {
     setCurrentDay(day);
@@ -123,7 +178,7 @@ export const MainPage = () => {
           >
             <div className="grid grid-cols-2 gap-4 h-full MainPage">
               <div className="bg-white">
-                <ResponsiveContainer width="100%" height="50%">
+                <ResponsiveContainer width="100%" height="100%">
                   <AreaChart
                     width={500}
                     height={400}
@@ -267,26 +322,213 @@ export const MainPage = () => {
                   </div>
                 </div>
               </div>
+              { /* Month Picker */}
+              <div className="col-start-1">
+                <div className="flex justify-start">
+                  <div className="dropdown-container justify-center">
+                    <div className="dropdown" style={{ textAlign: "right" }}>
+                      <label className="monthYearLabel" tabIndex={0}>{currentMonthName} {currentYearName} <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
+                        <path d="M14.9401 7.21249L10.0501 12.1025C9.47256 12.68 8.52756 12.68 7.95006 12.1025L3.06006 7.21249" stroke="#2C3659" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg></label>
+                      <div className="dropdown-menu dropdown-menu-bottom-center-customize">
+                        {listOfMonths.map((item) => {
+                          return (
+                            <button className="dropdown-item text-lg"
+                              tabIndex={-1}
+                              onClick={(e) => handleSelectedMonth(Number(item.id))}>
+                              {item.name}
+                            </button>
+                          )
+                        })}
 
-              {/* <div className="col-span-full">
-                <div className="arrow left" onClick={() => handlePrevClick()}>{'<'}</div>
-                <div className="month-slider">
-                  <div className="slider-container">
-                    {Array.from({ length: 31 }, (_, index) => {
-                      const day = index + 1;
-                      const isActive = day === currentDay;
-                      const classNames = isActive ? 'day active' : 'day';
-
-                      return (
-                        <div key={day} className={classNames} onClick={() => handleDayClick(day)}>
-                          {day}
-                        </div>
-                      );
-                    })}
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className="arrow right" onClick={() => handleNextClick()}>{'>'}</div>
-              </div> */}
+              </div>
+              <div className="col-span-full">
+
+                <div className="month-slider">
+
+                  {Array.from({ length: 31 }, (_, index) => {
+                    const day = index + 1;
+                    const isActive = day === currentDay;
+                    const classNames = isActive ? 'day active' : 'day';
+
+                    return (
+                      <div key={day} className={classNames} onClick={() => handleDayClick(day)}>
+                        {day}
+                      </div>
+                    );
+                  })}
+                </div>
+
+              </div>
+              {/*  Report Type */}
+              <div className="col-span-full">
+                <div className="flex gap-6">
+                  <div
+                    className={activeReportType === 1 ? "report-type-active" : "report-type"}
+                    onClick={() => setActiveReportType(1)}>
+                    المهام
+                  </div>
+                  <div
+                    className={activeReportType === 2 ? "report-type-active" : "report-type"}
+                    onClick={() => setActiveReportType(2)}
+                  >المسابقات
+                  </div>
+                  <div
+                    className={activeReportType === 3 ? "report-type-active" : "report-type"}
+                    onClick={() => setActiveReportType(3)}
+                  >الاختبارات
+                  </div>
+                </div>
+              </div>
+              <div className="col-span-full">
+                <div className="flex justify-between">
+                  <h1 className="currentMissions">مهام اليوم</h1>
+                  <h1 className="showAll pl-4">عرض الكل</h1>
+                </div>
+              </div>
+              <div className="col-span-full">
+                <div className="grid grid-cols-2 mb-4 animate_animated animate_fadeIn mission-content">
+
+                  <div className="col-start-1">
+                    <span className="mission-type">
+                      مهمة تسكين مزرعة
+                    </span>
+                  </div>
+                  <div className="col-start-2 flex justify-end">
+                    <div className="popover" style={{ backgroundColor: "white" }}>
+                      <svg
+                        className="popover-trigger arrow"
+                        tabIndex={0}
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                      >
+                        <path
+                          d="M5 10C3.9 10 3 10.9 3 12C3 13.1 3.9 14 5 14C6.1 14 7 13.1 7 12C7 10.9 6.1 10 5 10Z"
+                          fill="#A7AEC1"
+                        />
+                        <path
+                          d="M19 10C17.9 10 17 10.9 17 12C17 13.1 17.9 14 19 14C20.1 14 21 13.1 21 12C21 10.9 20.1 10 19 10Z"
+                          fill="#A7AEC1"
+                        />
+                        <path
+                          d="M12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10Z"
+                          fill="#A7AEC1"
+                        />
+                      </svg>
+
+                    </div>
+                  </div>
+
+                  <div className="col-start-1">
+                    <span className="mission-address"> مهمة اضافة مزرعة في الجيزة</span>
+                  </div>
+                  <div className="col-start-2"></div>
+
+                  <div className="col-start-1">
+                    <div className="flex gap-4">
+                      <div className="mission-reward">السعر 100 جنيه</div>
+                      <div className="created-at">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="15"
+                          height="16"
+                          viewBox="0 0 15 16"
+                          fill="none"
+                        >
+                          <path
+                            d="M1.875 6.6875C1.875 4.47836 3.66586 2.6875 5.875 2.6875H9.125C11.3341 2.6875 13.125 4.47836 13.125 6.6875V10.25C13.125 12.4591 11.3341 14.25 9.125 14.25H5.875C3.66586 14.25 1.875 12.4591 1.875 10.25V6.6875Z"
+                            stroke="#9BA0B1"
+                            stroke-width="1.5"
+                          />
+                          <path
+                            d="M1.875 6.125H13.125"
+                            stroke="#9BA0B1"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                          />
+                          <path
+                            d="M5 1.75L5 3.625"
+                            stroke="#9BA0B1"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path
+                            d="M10 1.75V3.625"
+                            stroke="#9BA0B1"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <circle cx="7.5" cy="9.875" r="0.625" fill="#9BA0B1" />
+                          <circle cx="10" cy="9.875" r="0.625" fill="#9BA0B1" />
+                          <circle cx="5" cy="9.875" r="0.625" fill="#9BA0B1" />
+                        </svg>
+                        انشئت في : ٢٠ يوليو ٢٠٢٣
+                      </div>
+
+                      <div className="created-at">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="15"
+                          height="16"
+                          viewBox="0 0 15 16"
+                          fill="none"
+                        >
+                          <path
+                            d="M1.875 6.6875C1.875 4.47836 3.66586 2.6875 5.875 2.6875H9.125C11.3341 2.6875 13.125 4.47836 13.125 6.6875V10.25C13.125 12.4591 11.3341 14.25 9.125 14.25H5.875C3.66586 14.25 1.875 12.4591 1.875 10.25V6.6875Z"
+                            stroke="#9BA0B1"
+                            stroke-width="1.5"
+                          />
+                          <path
+                            d="M1.875 6.125H13.125"
+                            stroke="#9BA0B1"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                          />
+                          <path
+                            d="M5 1.75L5 3.625"
+                            stroke="#9BA0B1"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <path
+                            d="M10 1.75V3.625"
+                            stroke="#9BA0B1"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                          <circle cx="7.5" cy="9.875" r="0.625" fill="#9BA0B1" />
+                          <circle cx="10" cy="9.875" r="0.625" fill="#9BA0B1" />
+                          <circle cx="5" cy="9.875" r="0.625" fill="#9BA0B1" />
+                        </svg>
+                        تنتهي في : ٢٠ يوليو ٢٠٢٣
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-start-2 flex justify-end">
+                    <div className="flex gap-4 mission-status">
+                      <div className="inprogress">قيد الأنتظار</div>
+                      <div className="not-assigned-yet">لم تستند بعد</div>
+                    </div>
+                  </div>
+
+                  <div className="col-start-1">
+                    <div className="mission-history">
+                      اخر تعديل تم بواسطة : Mahmoud ELnabwy
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
 
