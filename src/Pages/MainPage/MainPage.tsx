@@ -1,7 +1,7 @@
 import { MainHeader } from "../../Components/MainHeader/MainHeader";
 import { ModuleHeader } from "../../Components/ModuleHeader/ModuleHeader";
 import { Sidebar } from "../../Components/Sidebar/Sidebar";
-import React, { PureComponent } from "react";
+import React, { PureComponent, useEffect, useState } from "react";
 import { curveCardinal } from "d3-shape";
 import './MainPage.scss';
 import alarm from '../../Assets/Icons/Alarm.svg';
@@ -59,6 +59,28 @@ export const MainPage = () => {
     },
   ];
   const cardinal = curveCardinal.tension(0.2);
+  const [currentDay, setCurrentDay] = useState(1);
+  useEffect(() => {
+    // Center the slider on the current day when the component mounts
+    const centerSlide = Math.max(0, currentDay - 4); // Adjust the number based on your desired visible range
+    setCurrentDay(centerSlide);
+  }, [currentDay]);
+
+
+
+  const handlePrevClick = () => {
+    setCurrentDay((prevDay) => Math.max(1, prevDay - 1));
+  };
+
+  const handleNextClick = () => {
+    setCurrentDay((prevDay) => Math.min(31, prevDay + 1));
+  };
+
+  const handleDayClick = (day: number) => {
+    setCurrentDay(day);
+    // Add any other logic you want to perform when a day is clicked
+  };
+
   return (
     <div className="flex flex-row " style={{ direction: "rtl" }}>
       <div className="sm:w-full sm:max-w-[18rem]">
@@ -245,6 +267,26 @@ export const MainPage = () => {
                   </div>
                 </div>
               </div>
+
+              {/* <div className="col-span-full">
+                <div className="arrow left" onClick={() => handlePrevClick()}>{'<'}</div>
+                <div className="month-slider">
+                  <div className="slider-container">
+                    {Array.from({ length: 31 }, (_, index) => {
+                      const day = index + 1;
+                      const isActive = day === currentDay;
+                      const classNames = isActive ? 'day active' : 'day';
+
+                      return (
+                        <div key={day} className={classNames} onClick={() => handleDayClick(day)}>
+                          {day}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="arrow right" onClick={() => handleNextClick()}>{'>'}</div>
+              </div> */}
             </div>
 
 

@@ -211,4 +211,43 @@
         line-height: 160%; /* 19.2px */
         text-align: end;
     }
+    .month-slider {
+        border-top: 1px solid #F5F5F5;
+        border-bottom: 1px solid #F5F5F5;
+        display: flex;
+        overflow-x: auto;
+         
+      }
+      
+      .day {
+        width: 60px;
+        height: 50px;
+        padding: 20px 0px 13px 0px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;        
+        background-color: #fff;
+        cursor: pointer;
+        color: var(--Black-01, #2C3659);
+        text-align: center; 
+        font-family: MadaniArabic-Medium;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 130%; /* 20.8px */
+      }
+      
+      .active {
+        background-color: #4caf50; /* Set your desired active day background color */
+        color: #fff; /* Set your desired active day text color */
+      }
+      .slider-container {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-padding: 0 10px; /* Adjust as needed */
+        scroll-behavior: smooth;
+        gap: 4rem;
+      }
 }   
