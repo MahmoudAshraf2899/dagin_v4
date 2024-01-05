@@ -30,7 +30,8 @@ export const PersonalData = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [apiResponse, setApiResponse] = useState<ApiResponse | null>(null);
     const [data, setData] = useState<{}>({});
-
+    const [selectedSpecialties, setSelectedSpecialties] = useState('قم بأختيار التخصص');
+    const [selectedLevel, setSelectedLevel] = useState('قم بأختيار المرحلة');
     const dispatch = useDispatch();
     const stateFromUserSlice = useSelector((state: any) => state.users);
 
@@ -46,9 +47,26 @@ export const PersonalData = () => {
                         } else {
                             // Set the locale to Arabic
                             moment.locale("ar");
-
                             setApiResponse(res.data);
                             setData(res.data);
+                            API.get(`specialties`).then((response) => {
+                                if (response) {
+
+                                    if (response.data.length > 0) {
+                                        let selectedName = response.data.find((c: any) => c.id === res.data.specialty_id).name;
+                                        setSelectedSpecialties(selectedName);
+                                    }
+
+                                }
+                            });
+                            API.get(`levels`).then((resp) => {
+                                if (resp) {
+
+                                    let selectedName = resp.data.find((item: any) => item.id === res.data.level_id).name;
+                                    setSelectedLevel(selectedName);
+
+                                }
+                            });
                             setIsLoading(false);
                         }
                     }
@@ -195,7 +213,7 @@ export const PersonalData = () => {
                             style={{ marginTop: "-40px", right: "28rem" }}
                         >
                             <img src={eye} alt="eye-pw"
-                            // onClick={() => togglePasswordVisibility()}
+
                             />
                         </span>
                     </div>
@@ -209,7 +227,7 @@ export const PersonalData = () => {
                         <div className="flex justify-between select-stage-container">
                             <div className="select-stage pr-4">
 
-                                المرحلة
+                                {selectedSpecialties}
                             </div>
                             <div className="arrow">
                                 <img
@@ -228,7 +246,7 @@ export const PersonalData = () => {
                     <label htmlFor="modal-9">
                         <div className="flex justify-between select-stage-container">
                             <div className="select-stage pr-4">
-                                التخصص
+                                {selectedLevel}
                             </div>
                             <div className="arrow">
                                 <img
