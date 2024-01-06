@@ -128,8 +128,7 @@ export const MainPage = () => {
     // Month is 0-indexed, so January is 0, February is 1, etc.
     return new Date(year, month + 1, 0).getDate();
   }
-  // const month = 2; // March (0-indexed)
-  // const daysInMonth = getDaysInMonth(year, month);
+
 
   const handleDayClick = (day: number) => {
     setCurrentDay(day);
