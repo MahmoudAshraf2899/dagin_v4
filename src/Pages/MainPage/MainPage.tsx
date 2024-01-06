@@ -133,7 +133,7 @@ export const MainPage = () => {
 
   const handleDayClick = (day: number) => {
     setCurrentDay(day);
-    // Add any other logic you want to perform when a day is clicked
+
   };
 
   return (
