@@ -20,7 +20,7 @@ export const APISUBMIT = axios.create({
   baseURL: URL,
   timeout: 5000,
   headers: {
-    // // 'Content-Type': '*/*',
+    // 'Content-Type': '*/*',
     Authorization: `Bearer ${token}`,
     "Content-Type": "multipart/form-data",
     Accept: "*/*",

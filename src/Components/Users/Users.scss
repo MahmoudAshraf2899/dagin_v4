@@ -102,4 +102,11 @@
     .pagination{
         padding-bottom: 10px;
     }
+    ::-webkit-scrollbar {
+        width: 8px; /* Width of the entire scrollbar */
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: #70D44B; /* Color of the scrollbar handle */
+        border-radius: 25px; /* Roundness of the scrollbar handle */
+      }
 }

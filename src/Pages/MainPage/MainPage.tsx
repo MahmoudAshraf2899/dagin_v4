@@ -4,7 +4,7 @@ import { Sidebar } from "../../Components/Sidebar/Sidebar";
 import React, { PureComponent, useEffect, useState } from "react";
 import { curveCardinal } from "d3-shape";
 import './MainPage.scss';
-import alarm from '../../Assets/Icons/Alarm.svg';
+
 import {
   AreaChart,
   Area,
@@ -14,6 +14,9 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { MissionReport } from "../../Components/MainPage/MissionReports/MissionReport";
+import { TodayCompetitions } from "../../Components/MainPage/TodayCompetitions/TodayCompetitions";
+import { Assessments } from "../../Components/MainPage/Assessments/Assessments";
 
 
 export const MainPage = () => {
@@ -128,11 +131,12 @@ export const MainPage = () => {
     // Month is 0-indexed, so January is 0, February is 1, etc.
     return new Date(year, month + 1, 0).getDate();
   }
-
+  // const month = 2; // March (0-indexed)
+  // const daysInMonth = getDaysInMonth(year, month);
 
   const handleDayClick = (day: number) => {
     setCurrentDay(day);
-
+    // Add any other logic you want to perform when a day is clicked
   };
 
   return (
@@ -329,7 +333,8 @@ export const MainPage = () => {
                       <label className="monthYearLabel" tabIndex={0}>{currentMonthName} {currentYearName} <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
                         <path d="M14.9401 7.21249L10.0501 12.1025C9.47256 12.68 8.52756 12.68 7.95006 12.1025L3.06006 7.21249" stroke="#2C3659" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                       </svg></label>
-                      <div className="dropdown-menu dropdown-menu-bottom-center-customize">
+                      <div className="dropdown-menu dropdown-menu-bottom-center-customize bg-white"
+                      >
                         {listOfMonths.map((item) => {
                           return (
                             <button className="dropdown-item text-lg"
@@ -385,149 +390,11 @@ export const MainPage = () => {
               </div>
               <div className="col-span-full">
                 <div className="flex justify-between">
-                  <h1 className="currentMissions">مهام اليوم</h1>
+                  <h1 className="currentMissions">{activeReportType === 1 ? "مهام اليوم" : activeReportType === 2 ? "مسابقات اليوم" : "أختبارات اليوم"} </h1>
                   <h1 className="showAll pl-4">عرض الكل</h1>
                 </div>
               </div>
-              <div className="col-span-full">
-                <div className="grid grid-cols-2 mb-4 animate_animated animate_fadeIn mission-content">
-
-                  <div className="col-start-1">
-                    <span className="mission-type">
-                      مهمة تسكين مزرعة
-                    </span>
-                  </div>
-                  <div className="col-start-2 flex justify-end">
-                    <div className="popover" style={{ backgroundColor: "white" }}>
-                      <svg
-                        className="popover-trigger arrow"
-                        tabIndex={0}
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                      >
-                        <path
-                          d="M5 10C3.9 10 3 10.9 3 12C3 13.1 3.9 14 5 14C6.1 14 7 13.1 7 12C7 10.9 6.1 10 5 10Z"
-                          fill="#A7AEC1"
-                        />
-                        <path
-                          d="M19 10C17.9 10 17 10.9 17 12C17 13.1 17.9 14 19 14C20.1 14 21 13.1 21 12C21 10.9 20.1 10 19 10Z"
-                          fill="#A7AEC1"
-                        />
-                        <path
-                          d="M12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10Z"
-                          fill="#A7AEC1"
-                        />
-                      </svg>
-
-                    </div>
-                  </div>
-
-                  <div className="col-start-1">
-                    <span className="mission-address"> مهمة اضافة مزرعة في الجيزة</span>
-                  </div>
-                  <div className="col-start-2"></div>
-
-                  <div className="col-start-1">
-                    <div className="flex gap-4">
-                      <div className="mission-reward">السعر 100 جنيه</div>
-                      <div className="created-at">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="15"
-                          height="16"
-                          viewBox="0 0 15 16"
-                          fill="none"
-                        >
-                          <path
-                            d="M1.875 6.6875C1.875 4.47836 3.66586 2.6875 5.875 2.6875H9.125C11.3341 2.6875 13.125 4.47836 13.125 6.6875V10.25C13.125 12.4591 11.3341 14.25 9.125 14.25H5.875C3.66586 14.25 1.875 12.4591 1.875 10.25V6.6875Z"
-                            stroke="#9BA0B1"
-                            stroke-width="1.5"
-                          />
-                          <path
-                            d="M1.875 6.125H13.125"
-                            stroke="#9BA0B1"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                          />
-                          <path
-                            d="M5 1.75L5 3.625"
-                            stroke="#9BA0B1"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M10 1.75V3.625"
-                            stroke="#9BA0B1"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <circle cx="7.5" cy="9.875" r="0.625" fill="#9BA0B1" />
-                          <circle cx="10" cy="9.875" r="0.625" fill="#9BA0B1" />
-                          <circle cx="5" cy="9.875" r="0.625" fill="#9BA0B1" />
-                        </svg>
-                        انشئت في : ٢٠ يوليو ٢٠٢٣
-                      </div>
-
-                      <div className="created-at">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="15"
-                          height="16"
-                          viewBox="0 0 15 16"
-                          fill="none"
-                        >
-                          <path
-                            d="M1.875 6.6875C1.875 4.47836 3.66586 2.6875 5.875 2.6875H9.125C11.3341 2.6875 13.125 4.47836 13.125 6.6875V10.25C13.125 12.4591 11.3341 14.25 9.125 14.25H5.875C3.66586 14.25 1.875 12.4591 1.875 10.25V6.6875Z"
-                            stroke="#9BA0B1"
-                            stroke-width="1.5"
-                          />
-                          <path
-                            d="M1.875 6.125H13.125"
-                            stroke="#9BA0B1"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                          />
-                          <path
-                            d="M5 1.75L5 3.625"
-                            stroke="#9BA0B1"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <path
-                            d="M10 1.75V3.625"
-                            stroke="#9BA0B1"
-                            stroke-width="1.5"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          />
-                          <circle cx="7.5" cy="9.875" r="0.625" fill="#9BA0B1" />
-                          <circle cx="10" cy="9.875" r="0.625" fill="#9BA0B1" />
-                          <circle cx="5" cy="9.875" r="0.625" fill="#9BA0B1" />
-                        </svg>
-                        تنتهي في : ٢٠ يوليو ٢٠٢٣
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-start-2 flex justify-end">
-                    <div className="flex gap-4 mission-status">
-                      <div className="inprogress">قيد الأنتظار</div>
-                      <div className="not-assigned-yet">لم تستند بعد</div>
-                    </div>
-                  </div>
-
-                  <div className="col-start-1">
-                    <div className="mission-history">
-                      اخر تعديل تم بواسطة : Mahmoud ELnabwy
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {activeReportType === 1 ? <MissionReport /> : activeReportType === 2 ? <TodayCompetitions /> : <Assessments />}
             </div>
 
 

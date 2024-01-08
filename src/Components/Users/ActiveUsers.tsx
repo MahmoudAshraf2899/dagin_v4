@@ -4,7 +4,10 @@ import { useEffect, useState } from 'react';
 import API from '../../Api';
 import { Loading } from '../Loading/Loading';
 import { useDispatch, useSelector } from 'react-redux';
-
+import moment from "moment";
+import "moment/locale/ar"; // Import the Arabic locale
+import { ar, enUS } from "date-fns/locale";
+import { format } from "date-fns";
 import { setActiveUserData, setUserId, setUserName, toggleShowEditUser, toggleShowUserProfile } from '../../redux/Slices/UsersSlice';
 import { SuspendPopUp } from './SubComponents/suspend/SuspendPopUp';
 export const ActiveUsers = () => {
@@ -23,9 +26,10 @@ export const ActiveUsers = () => {
 
     useEffect(() => {
         setIsLoading(true);
-
+        moment.locale("ar");
         API.get(`dashboard/salesman?account_status=2&page=${pageNumber}&limit=${pageSize}`).then((res) => {
             if (res) {
+
                 setUsers(res.data.items);
                 setTotalRows(res.data.totalCount);
                 let activeUserData = res.data.items
@@ -116,7 +120,7 @@ export const ActiveUsers = () => {
                                         <div className='flex'>
                                             <span className='typeOfSpecialization'>التخصص</span>
                                             <span className='type-status'>
-                                                {`. ${user.graduationStatus} . عضو منذ ${user.memberSince}`}
+                                                {`. ${user.graduationStatus} . عضو منذ ${moment(user.created_at).format("YYYY/MM/DD")}`}
                                             </span>
                                         </div>
                                     </div>
