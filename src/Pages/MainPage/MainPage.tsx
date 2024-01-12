@@ -155,7 +155,7 @@ export const MainPage = () => {
         {/* Side bar*/}
         <Sidebar />
       </div>
-      <div className="flex w-full flex-col p-4 bg-white">
+      <div className="flex w-full flex-col p-4">
         {/* Expand Button */}
         <div className="w-fit">
           <label

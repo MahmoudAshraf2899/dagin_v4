@@ -11,35 +11,32 @@ import { AccountStatement } from './AccountStatement/AccountStatement';
 import { Courses } from './Courses/Courses';
 import { Exams } from './Exams/Exams';
 import { Competions } from './Competions/Competions';
+import { toggleShowUserProfile } from '../../../redux/Slices/UsersSlice';
 import { Notes } from './Notes/Notes';
-import moment from "moment";
-import "moment/locale/ar"; // Import the Arabic locale
-import { ar, enUS } from "date-fns/locale";
-import { format } from "date-fns";
-import { useNavigate } from 'react-router-dom';
 export const UserProfile = () => {
     const [isActive, setIsActive] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-
     const stateFromUserSlice = useSelector((state: any) => state.users);
 
-    useEffect(() => {
-        setIsLoading(true);
-        moment.locale("ar");
-        let mainHeaderName = "صفحة المستخدم";
-        dispatch(setMainHeaderName({ mainHeaderName }));
-        setIsLoading(false);
-    }, []);
+    useEffect(
+        () => {
+            setIsLoading(true);
+            let mainHeaderName = "صفحة المستخدم";
+            dispatch(setMainHeaderName({ mainHeaderName }));
+            setIsLoading(false);
+        },
+        []
+    );
     const handleSelectActiveElement = (id: number) => {
         setIsLoading(true);
         setIsActive(id)
         setIsLoading(false);
     }
     const handleShowUserProfile = () => {
-        navigate(-1);
+        let isVisible = false;
+        dispatch(toggleShowUserProfile({ isVisible }))
     }
     return (
         <div className="UserProfile grid-cols-1 pt-10">
@@ -53,7 +50,7 @@ export const UserProfile = () => {
                             <h3 className='user-name'>{stateFromUserSlice.userName}</h3>
                             <span className='flex position-type gap-4'>
                                 حديث التخرج
-                                <span className='user-status'>عضو  منذ {moment(stateFromUserSlice.creationDate).format("YYYY/MM/DD")} </span>
+                                <span className='user-status'>عضو  منذ 20/10/2024</span>
                             </span>
                         </div>
                     </div>

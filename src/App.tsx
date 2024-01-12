@@ -11,8 +11,6 @@ import { Users } from "./Pages/Users/Users";
 import { Wallets } from "./Pages/Wallets/Wallets";
 import { Competitions } from "./Pages/Competitions/Competitions";
 import './App.css'
-import { FarmsPage } from "./Pages/Farms/FarmsPage";
-import { Views } from "./app-layout/Views";
 function App() {
   const stateFromSidebar = useSelector((state: any) => state.sideBar);
   const token = localStorage.getItem("token");
@@ -22,7 +20,14 @@ function App() {
       {/* <Loading /> */}
       {token != null ? (
         <>
-          <Views />
+          {stateFromSidebar.currentActiveModule === 1 ? (
+            <MissionsPage />
+          ) : stateFromSidebar.currentActiveModule === 5 ? (
+            <Users />
+          ) : stateFromSidebar.currentActiveModule === 6 ? (
+            <Wallets />
+          ) : stateFromSidebar.currentActiveModule === 0 ? <MainPage /> :
+            stateFromSidebar.currentActiveModule === 3 ? <Competitions /> : <MainPage />}
           <ToastContainer rtl />
         </>
       ) : (

@@ -4,16 +4,12 @@ import { useEffect, useState } from 'react';
 import API from '../../Api';
 import { Loading } from '../Loading/Loading';
 import { useDispatch } from 'react-redux';
-import { setUserCreationDate, setUserId, setUserName, toggleShowEditUser } from '../../redux/Slices/UsersSlice';
-import { useNavigate } from 'react-router-dom';
+import { setUserId, toggleShowEditUser } from '../../redux/Slices/UsersSlice';
 
 export const StoppedUsers = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [users, setUsers] = useState([]);
-
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-
 
     useEffect(() => {
         setIsLoading(true);
@@ -25,16 +21,9 @@ export const StoppedUsers = () => {
         })
     }, []);
     const showEditUser = (userId: number) => {
-        navigate(`Edit/${userId}`)
+        let isVisible = true;
+        dispatch(toggleShowEditUser({ isVisible }))
         dispatch(setUserId({ userId }))
-    }
-    const showUserDetailsComponent = (userId: Number, userName: string, creationDate: string) => {
-
-        dispatch(setUserId({ userId }))
-        dispatch(setUserName({ userName }))
-        dispatch(setUserCreationDate({ creationDate }))
-        navigate(`Profile/${userId}`)
-
     }
     return (
         <div className="Users">
@@ -43,11 +32,11 @@ export const StoppedUsers = () => {
                     <Loading />
                 </>
             ) : null}
-            <div className='grid grid-cols-2 gap-4'>
+            <div className='grid grid-cols-2'>
 
                 {users.map((user: any, index) => (
                     <div key={index} className={`grid col-start-${index % 2 === 0 ? 1 : 2} p-4`}>
-                        <div className='userCard pr-4 pt-8 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300'>
+                        <div className='userCard pr-4 pt-8'>
 
                             <div className='flex justify-between'>
                                 <div className='flex gap-4'>
@@ -82,8 +71,8 @@ export const StoppedUsers = () => {
                                             <ul>
                                                 <label
                                                     className="three-dots-li flex justify-between"
-                                                    // htmlFor="modal-1"
-                                                    onClick={() => showUserDetailsComponent(Number(user.id), user.name, user.created_at)}
+                                                // htmlFor="modal-1"
+                                                //   onClick={() => ShowMissionDetailsPopUp(item.id)}
                                                 >
                                                     <span>تصفح الحساب</span>
                                                     <div>

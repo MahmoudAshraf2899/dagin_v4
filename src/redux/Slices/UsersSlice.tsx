@@ -14,8 +14,7 @@ const initialState = {
   workAreaChanged: false,
   workAreas_text: "",
   showUserProfile: false,
-  userName: "",
-  creationDate: ""
+  userName: ""
 };
 export const UsersSlice = createSlice({
   name: "Users",
@@ -47,9 +46,6 @@ export const UsersSlice = createSlice({
     setUserName: (state, action) => {
       state.userName = action.payload.userName
     },
-    setUserCreationDate: (state, action) => {
-      state.creationDate = action.payload.creationDate;
-    },
     setActiveUserData: (state, action) => {
       state.activeUserData = action.payload.activeUserData;
     },
@@ -69,6 +65,6 @@ export const UsersSlice = createSlice({
   },
 });
 export const { selectedUsersType, toggleShowAddUser, toggleShowEditUser, setSelectedStage, setSelectedSpecialties, setUserId, setActiveUserData, toggleShowSuspendPopUp, setSelectedWorkAreas, setUserName,
-  toggleShowUserProfile, setUserCreationDate } = UsersSlice.actions;
+  toggleShowUserProfile } = UsersSlice.actions;
 
 export default UsersSlice.reducer;

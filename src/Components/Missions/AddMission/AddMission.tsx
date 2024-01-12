@@ -13,7 +13,6 @@ import { Loading } from "../../Loading/Loading";
 import moment from "moment";
 import { setMainHeaderName } from "../../../redux/Slices/MainHeaderSlice";
 import { BonusDatePicker } from "../EditMission/SubComponents/BonusDatePicker";
-import { useNavigate } from "react-router-dom";
 
 const missionData = {
   type_id: 0,
@@ -39,12 +38,11 @@ export const AddMission = () => {
   const stateFromMissionSlice = useSelector((state: any) => state.missions);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const handleShowAddComponent = () => {
     let isVisible = false;
     let mainHeaderName = "الداش بورد";
     dispatch(setMainHeaderName({ mainHeaderName }));
-    navigate(-1);
+    dispatch(toggleShowAddMission({ isVisible }));
   };
 
   const handleShowTypePopUp = () => {
@@ -57,10 +55,13 @@ export const AddMission = () => {
     setShowMissionAssignPopUp(!showMissionAssignPopUp);
   };
 
-  useEffect(() => {
-    let mainHeaderName = "اضافة مهمة";
-    dispatch(setMainHeaderName({ mainHeaderName }));
-  }, []);
+  useEffect(
+    () => {
+      let mainHeaderName = "اضافة مهمة";
+      dispatch(setMainHeaderName({ mainHeaderName }));
+    },
+    []
+  );
   const handleChangeMission = (e: any, field: string) => {
     if (field === "name") {
       missionData.name = e;
@@ -138,7 +139,7 @@ export const AddMission = () => {
           if (response) {
             toast.success("تمت أضافة المهمة بنجاح");
             setIsLoading(false);
-            navigate(-1);
+            handleShowAddComponent();
           }
         })
         .catch((error) => {

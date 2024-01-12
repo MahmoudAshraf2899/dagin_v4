@@ -53,7 +53,7 @@ export const PersonalData = () => {
                                 if (response) {
 
                                     if (response.data.length > 0) {
-                                        let selectedName = res.data.specialty_id != null ? response.data.find((c: any) => c.id === res.data.specialty_id).name : "";
+                                        let selectedName = response.data.find((c: any) => c.id === res.data.specialty_id).name;
                                         setSelectedSpecialties(selectedName);
                                     }
 
@@ -62,7 +62,7 @@ export const PersonalData = () => {
                             API.get(`levels`).then((resp) => {
                                 if (resp) {
 
-                                    let selectedName = res.data.level_id != null ? resp.data.find((item: any) => item.id === res.data.level_id).name : "";
+                                    let selectedName = resp.data.find((item: any) => item.id === res.data.level_id).name;
                                     setSelectedLevel(selectedName);
 
                                 }

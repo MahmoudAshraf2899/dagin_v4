@@ -1,14 +1,12 @@
 import "./MainHeader.scss";
 import userProfileImg from "../../Assets/Icons/40px.svg";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 export const MainHeader = () => {
-  const navigate = useNavigate();
   const stateFromMissionSlice = useSelector((state: any) => state.mainHeader);
   const submitSignOut = () => {
-    localStorage.clear();
-    navigate("/Login");
+    localStorage.removeItem("token");
+    window.location.reload();
   };
   return (
     <div className="grid grid-cols-2 xs:grid-col-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 p-4 gap-4 MainHeader">
@@ -21,7 +19,7 @@ export const MainHeader = () => {
           <div className="form-control relative">
             <input
               type="email"
-              className="input input-lg max-w-full search-input bg-white"
+              className="input input-lg max-w-full search-input"
               placeholder="ابحث"
             />
 
@@ -95,8 +93,8 @@ export const MainHeader = () => {
                 <ul>
                   <label
                     className="three-dots-li"
-                  // htmlFor="modal-1"
-                  // onClick={() => ShowMissionDetailsPopUp(item.id)}
+                    // htmlFor="modal-1"
+                    // onClick={() => ShowMissionDetailsPopUp(item.id)}
                   >
                     اعدادات الحساب
                   </label>

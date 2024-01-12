@@ -101,7 +101,7 @@ export const RefusedMission = () => {
         const createdAtDate_Arabic = createdAtDate.format("DD MMM YYYY");
         const dueDate_Arabic = dueDate.format("DD MMMM YYYY");
         return (
-          <div className="grid grid-cols-2 mr-4 ml-4 mt-4 mission-content">
+          <div className="grid grid-cols-2 mission-content">
 
             <div className="col-start-1">
               <span className="mission-type">

@@ -68,7 +68,7 @@ export const MissionsPage = () => {
         {/* Side bar*/}
         <Sidebar />
       </div>
-      <div className="flex w-full flex-col p-4 bg-white">
+      <div className="flex w-full flex-col p-4">
         {/* Expand Button */}
         <div className="w-fit">
           <label
@@ -94,42 +94,51 @@ export const MissionsPage = () => {
           </div>
         </div>
         {/* Content Will Be Here */}
-
-        <>
-          <div
-            className="h-full"
-            style={{ backgroundColor: "var(--Greyscale-50, #F8FAFC)" }}
-          >
-            {stateFromMission.selectedMission === 1 ? (
-              <>
+        {stateFromMission.showAddMission === true ? (
+          <>
+            {" "}
+            <AddMission />
+          </>
+        ) : stateFromMission.showEditMission === true ? (
+          <>
+            <EditMission />
+          </>
+        ) : (
+          <>
+            <div
+              className="h-full"
+              style={{ backgroundColor: "var(--Greyscale-50, #F8FAFC)" }}
+            >
+              {stateFromMission.selectedMission === 1 ? (
+                <>
+                  <PendingMission />
+                </>
+              ) : stateFromMission.selectedMission === 2 ? (
+                <>
+                  <InProgressMission />
+                </>
+              ) : stateFromMission.selectedMission === 3 ? (
+                <>
+                  <LateMissions />
+                </>
+              ) : stateFromMission.selectedMission === 4 ? (
+                <>
+                  <EvaluationMission />
+                </>
+              ) : stateFromMission.selectedMission === 5 ? (
+                <>
+                  <FinishedMission />
+                </>
+              ) : stateFromMission.selectedMission === 6 ? (
+                <>
+                  <RefusedMission />
+                </>
+              ) : <>
                 <PendingMission />
-              </>
-            ) : stateFromMission.selectedMission === 2 ? (
-              <>
-                <InProgressMission />
-              </>
-            ) : stateFromMission.selectedMission === 3 ? (
-              <>
-                <LateMissions />
-              </>
-            ) : stateFromMission.selectedMission === 4 ? (
-              <>
-                <EvaluationMission />
-              </>
-            ) : stateFromMission.selectedMission === 5 ? (
-              <>
-                <FinishedMission />
-              </>
-            ) : stateFromMission.selectedMission === 6 ? (
-              <>
-                <RefusedMission />
-              </>
-            ) : <>
-              <PendingMission />
-            </>}
-          </div>
-        </>
-
+              </>}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

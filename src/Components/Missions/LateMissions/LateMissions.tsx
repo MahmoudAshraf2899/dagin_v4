@@ -17,7 +17,6 @@ import userIcon from "../../../Assets/Icons/user.jpeg";
 
 import "./LateMissions.scss";
 import { setMainHeaderName } from "../../../redux/Slices/MainHeaderSlice";
-import { useNavigate } from "react-router-dom";
 export const LateMissions = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [pageSize, setPageSize] = useState(10);
@@ -27,9 +26,6 @@ export const LateMissions = () => {
   const [showDeletePopUp, seShowDeletePopUp] = useState(false);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-
   useEffect(() => {
     setIsLoading(true);
     let mainHeaderName = "المهام";
@@ -60,7 +56,8 @@ export const LateMissions = () => {
   };
   const handleShowEditMission = (missionId: number) => {
     dispatch(sendMissionIdToPopUp({ missionId }));
-    navigate(`Edit/${missionId}`)
+    let isVisible = true;
+    dispatch(toggleShowEditMission({ isVisible }));
   };
   const hanldeChangePage = (targetPN: number) => {
     setIsLoading(true);
@@ -121,7 +118,7 @@ export const LateMissions = () => {
         const createdAtDate_Arabic = createdAtDate.format("DD MMM YYYY");
         const dueDate_Arabic = dueDate.format("DD MMMM YYYY");
         return (
-          <div className="grid grid-cols-2 mr-4 ml-4 mt-4 mission-content">
+          <div className="grid grid-cols-2 mission-content">
             {showDeletePopUp === true ? <DeleteMission /> : null}
 
             <div className="col-start-1">
