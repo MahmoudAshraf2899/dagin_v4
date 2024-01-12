@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.css": "/dagin_v4/static/css/main.11b16cbb.css",
-    "main.js": "/dagin_v4/static/js/main.1a1080bc.js",
+    "main.css": "/dagin_v4/static/css/main.87c43307.css",
+    "main.js": "/dagin_v4/static/js/main.4438aed2.js",
     "static/js/787.aeaa6d49.chunk.js": "/dagin_v4/static/js/787.aeaa6d49.chunk.js",
-    "static/media/UserTwo.svg": "/dagin_v4/static/media/UserTwo.5dbdb03c7706ac8d3b49159685c0e18b.svg",
+    "static/media/UserTwo.svg": "/dagin_v4/static/media/UserTwo.b009b9b74bb36519998ac87d5a61100b.svg",
     "static/media/Chicken.jpg": "/dagin_v4/static/media/Chicken.4200cb37ecd28c412802.jpg",
     "static/media/alfont_com_Madani-Arabic-Semi-Bold.ttf": "/dagin_v4/static/media/alfont_com_Madani-Arabic-Semi-Bold.2fa121d1ab7b3156c65f.ttf",
     "static/media/alfont_com_Madani-Arabic-Medium.ttf": "/dagin_v4/static/media/alfont_com_Madani-Arabic-Medium.6f3cfceb8644d1131c4e.ttf",
@@ -11,21 +11,20 @@
     "static/media/alfont_com_Madani-Arabic-Light.ttf": "/dagin_v4/static/media/alfont_com_Madani-Arabic-Light.091e0bdebdf7445c5a62.ttf",
     "static/media/alfont_com_Madani-Arabic-Extra-Light.ttf": "/dagin_v4/static/media/alfont_com_Madani-Arabic-Extra-Light.6d28cd860b9a2951baab.ttf",
     "static/media/din-next-lt-w23-regular.ttf": "/dagin_v4/static/media/din-next-lt-w23-regular.d215eb8db524d88ae951.ttf",
-    "static/media/40px.svg": "/dagin_v4/static/media/40px.67f7a217023d2afc2aafb0af56fc7971.svg",
-    "static/media/Mapsicle Map.png": "/dagin_v4/static/media/Mapsicle Map.d469ce3bb72e274ab50c.png",
+    "static/media/40px.svg": "/dagin_v4/static/media/40px.418d529ea14197a77bc51777e0e0f37f.svg",
     "static/media/Vector (Stroke).png": "/dagin_v4/static/media/Vector (Stroke).9770c80041938e541d22.png",
     "static/media/document-text.svg": "/dagin_v4/static/media/document-text.65cf0bfaa61177fa200ce85201f8f361.svg",
-    "static/media/Group.svg": "/dagin_v4/static/media/Group.ccaaf239b61b645b745d.svg",
-    "static/media/eye.svg": "/dagin_v4/static/media/eye.52d0d1832ed36b91bb1f06db1e1d410f.svg",
+    "static/media/Group.svg": "/dagin_v4/static/media/Group.4481fe772a5980d1d5e4.svg",
+    "static/media/eye.svg": "/dagin_v4/static/media/eye.95af804d847f464ab7bf0a72096add20.svg",
     "index.html": "/dagin_v4/index.html",
-    "static/media/closeicon.svg": "/dagin_v4/static/media/closeicon.e45a792751983dbd9e513228f4e89f14.svg",
+    "static/media/closeicon.svg": "/dagin_v4/static/media/closeicon.123e26606a26f70d4d8b02b580c9dc12.svg",
     "static/media/Ellipse 9.svg": "/dagin_v4/static/media/Ellipse 9.e478570d9eb5a152ae5a2fc0e9fc4725.svg",
-    "main.11b16cbb.css.map": "/dagin_v4/static/css/main.11b16cbb.css.map",
-    "main.1a1080bc.js.map": "/dagin_v4/static/js/main.1a1080bc.js.map",
+    "main.87c43307.css.map": "/dagin_v4/static/css/main.87c43307.css.map",
+    "main.4438aed2.js.map": "/dagin_v4/static/js/main.4438aed2.js.map",
     "787.aeaa6d49.chunk.js.map": "/dagin_v4/static/js/787.aeaa6d49.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.11b16cbb.css",
-    "static/js/main.1a1080bc.js"
+    "static/css/main.87c43307.css",
+    "static/js/main.4438aed2.js"
   ]
 }
