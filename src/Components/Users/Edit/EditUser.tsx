@@ -14,6 +14,7 @@ import { Specialization } from '../SubComponents/Specialization/Specialization';
 import axios from 'axios';
 import { WorkRange } from '../SubComponents/work-range/WorkRange';
 import eye from '../../../Assets/Icons/eye.svg'
+import { useNavigate } from 'react-router-dom';
 interface ApiResponse {
     id: string;
     created_at: string;
@@ -47,6 +48,8 @@ export const EditUser = () => {
     const stateFromUserSlice = useSelector((state: any) => state.users);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     useEffect(
         () => {
             setIsLoading(true);
@@ -68,16 +71,15 @@ export const EditUser = () => {
                                 if (response) {
 
                                     if (response.data.length > 0) {
-                                        let selectedName = response.data.find((c: any) => c.id === res.data.specialty_id).name;
+                                        let selectedName = res.data.specialty_id != null ? response.data.find((c: any) => c.id === res.data.specialty_id).name : "";
                                         setSelectedSpecialties(selectedName);
                                     }
-
                                 }
                             });
                             API.get(`levels`).then((resp) => {
                                 if (resp) {
 
-                                    let selectedName = resp.data.find((item: any) => item.id === res.data.level_id).name;
+                                    let selectedName = res.data.level_id != null ? resp.data.find((item: any) => item.id === res.data.level_id).name : "";
                                     setSelectedLevel(selectedName);
 
                                 }
@@ -95,10 +97,9 @@ export const EditUser = () => {
         setShowPassword(!showPassword);
     }
     const handleShowEditComponent = () => {
-        let isVisible = false;
-        let mainHeaderName = "الداش بورد";
+        let mainHeaderName = "ادارة المستخدمين";
         dispatch(setMainHeaderName({ mainHeaderName }));
-        dispatch(toggleShowEditUser({ isVisible }));
+        navigate(-1);
     };
     const handleShowStagesPopUp = () => {
         setShowStagesPopUp(!showStagesPopUp);
@@ -181,7 +182,7 @@ export const EditUser = () => {
             }
         }).then((response) => {
             if (response.status === 200) {
-                toast.success("تمت تعديل المستخدم بنجاح")
+                toast.success("تمت تعديل المستخدم بنجاح");
                 setIsLoading(false);
                 handleShowEditComponent();
             } else if (response.status === 400) {

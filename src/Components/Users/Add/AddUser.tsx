@@ -14,6 +14,7 @@ import axios from 'axios';
 import { WorkRange } from '../SubComponents/work-range/WorkRange';
 import eye from '../../../Assets/Icons/eye.svg'
 import { string } from 'yup';
+import { useNavigate } from 'react-router-dom';
 const userData = {
     name: "",
     mobile: "",
@@ -35,11 +36,13 @@ export const AddUser = () => {
     const [showSpecialtiesPopUp, setShowSpecialtiesPopUp] = useState(false);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const handleShowAddComponent = () => {
-        let isVisible = false;
+
         let mainHeaderName = "الداش بورد";
         dispatch(setMainHeaderName({ mainHeaderName }));
-        dispatch(toggleShowAddUser({ isVisible }));
+        navigate(-1);
     };
     useEffect(
         () => {

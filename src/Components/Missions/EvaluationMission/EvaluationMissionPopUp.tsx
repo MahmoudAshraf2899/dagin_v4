@@ -18,6 +18,7 @@ import {
 } from "../../../redux/Slices/MissionSlice";
 import { MarkAsCompleted } from "./SubComponents/MarkAsCompleted/MarkAsCompleted";
 import { RefuseMission } from "./SubComponents/RefuseMission/RefuseMission";
+import { useNavigate } from "react-router-dom";
 interface ApiResponse {
   id: string;
   created_at: string;
@@ -72,6 +73,7 @@ export const EvaluationMissionPopUp = () => {
 
   const stateFromMissionSlice = useSelector((state: any) => state.missions);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoading(true);
@@ -106,9 +108,7 @@ export const EvaluationMissionPopUp = () => {
     );
   }, [setData]);
 
-  const handleShowDeletePopUp = () => {
-    seShowDeletePopUp(!showDeletePopUp);
-  };
+
   const handleShowMarkAsCompletedPopUp = (missionId: Number) => {
     dispatch(sendMissionIdToPopUp({ missionId }));
     setShowMarkAsCompleted(!showMarkAsCompletedPopUp);
@@ -128,6 +128,7 @@ export const EvaluationMissionPopUp = () => {
     let isVisible = true;
     let markAfterEdit = true;
     dispatch(toggleShowEditMission({ isVisible, markAfterEdit }));
+    navigate(`Edit/${missionId}`)
   };
 
   return (

@@ -48,11 +48,7 @@ export const FinishedMission = () => {
     let isDetailsActive = true;
     dispatch(showDetailsPopUp({ isDetailsActive }));
   };
-  const handleShowDeletePopUp = (missionId: number) => {
-    dispatch(sendMissionIdToPopUp({ missionId }));
 
-    seShowDeletePopUp(!showDeletePopUp);
-  };
   const hanldeChangePage = (targetPN: number) => {
     setIsLoading(true);
     API.get(
@@ -111,7 +107,7 @@ export const FinishedMission = () => {
         const createdAtDate_Arabic = createdAtDate.format("DD MMM YYYY");
         const dueDate_Arabic = dueDate.format("DD MMMM YYYY");
         return (
-          <div className="grid grid-cols-2 mission-content">
+          <div className="grid grid-cols-2 mr-4 ml-4 mt-4 mission-content">
             {showDeletePopUp === true ? <DeleteMission /> : null}
 
             <div className="col-start-1">

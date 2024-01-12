@@ -1,12 +1,13 @@
 .EvaluationMission{
     background: white;
-    border-radius: 15px;
-    
      
     .mission-content{        
         height: 145px;
         padding: 10px;
         flex-shrink: 0;
+        flex-shrink: 0;
+        border-radius: 15px;
+        background-color: white;
     }
     .mission-type{
         color: var(--Grey-01, #A7AEC1);

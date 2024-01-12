@@ -10,8 +10,10 @@ import axios from 'axios';
 import { useState } from "react";
 import { selectedWalletType, toggleShowSettlementsComponent } from "../../../redux/Slices/WalletsSlice";
 import { setMainHeaderName } from "../../../redux/Slices/MainHeaderSlice";
+import { useNavigate } from "react-router-dom";
 export const Settlements = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const stateFromWalletsSlice = useSelector((state: any) => state.wallets);
 
 
@@ -63,12 +65,11 @@ export const Settlements = () => {
         }
     }
     const handleCancelSettlement = () => {
-        let isVisible = false;
-        dispatch(toggleShowSettlementsComponent({ isVisible }));
         let mainHeaderName = "ادارة المحافظ";
         dispatch(setMainHeaderName({ mainHeaderName }));
         let type = 4;
         dispatch(selectedWalletType({ type }));
+        navigate(-1);
     }
     const handleSubmitSettlement = () => {
         setIsLoading(true);
@@ -97,8 +98,7 @@ export const Settlements = () => {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,
                     'Content-type': 'multipart/form-data', // Set the Content-Type for FormData
                     'Accept': 'multipart/form-data', // Set the Accept header if needed
-                    // 'Access-Control-Allow-Credentials': true,
-                    // 'Access-Control-Allow-Origin': URL,
+
                 },
                 data: data
             };
@@ -112,15 +112,11 @@ export const Settlements = () => {
                     } else if (response.status === 400) {
                         toast.error("غير مسموح بأن المبلغ المتاح للتسوية يساوي صفر")
                         setIsLoading(false);
-                        handleCancelSettlement();
-
                     }
                     else {
                         toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين")
                         setIsLoading(false);
                         handleCancelSettlement();
-
-
                     }
                 }).catch((error) => {
                     toast.error("غير مسموح بأن المبلغ المتاح للتسوية يساوي صفر")

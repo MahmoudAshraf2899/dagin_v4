@@ -14,6 +14,7 @@ import { BonusDatePicker } from "./SubComponents/BonusDatePicker";
 import { Formik, FormikHelpers } from "formik";
 import { toggleShowEditMission } from "../../../redux/Slices/MissionSlice";
 import { setMainHeaderName } from "../../../redux/Slices/MainHeaderSlice";
+import { useNavigate } from "react-router-dom";
 
 interface ApiResponse {
   id: string;
@@ -70,6 +71,7 @@ export const EditMission = () => {
 
   const stateFromMissionSlice = useSelector((state: any) => state.missions);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     moment.locale("en");
@@ -82,6 +84,7 @@ export const EditMission = () => {
         if (res) {
           if (res.status === 403) {
             toast.error(" عفوا انت ليس لديك صلاحية الوصول لهذه الصفحة ");
+            navigate(-1);
             setIsLoading(false);
           } else {
             // Set the locale to Arabic
@@ -111,10 +114,9 @@ export const EditMission = () => {
     setShowMissionAssignPopUp(!showMissionAssignPopUp);
   };
   const handleShowEditComponent = () => {
-    let isVisible = false;
     let mainHeaderName = "الداش بورد";
     dispatch(setMainHeaderName({ mainHeaderName }));
-    dispatch(toggleShowEditMission({ isVisible }));
+    navigate(-1);
   };
   const handleChangeMission = (
     value: string | number | boolean,

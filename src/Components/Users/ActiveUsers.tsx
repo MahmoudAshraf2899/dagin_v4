@@ -8,21 +8,19 @@ import moment from "moment";
 import "moment/locale/ar"; // Import the Arabic locale
 import { ar, enUS } from "date-fns/locale";
 import { format } from "date-fns";
-import { setActiveUserData, setUserId, setUserName, toggleShowEditUser, toggleShowUserProfile } from '../../redux/Slices/UsersSlice';
+import { setActiveUserData, setUserCreationDate, setUserId, setUserName, toggleShowUserProfile } from '../../redux/Slices/UsersSlice';
 import { SuspendPopUp } from './SubComponents/suspend/SuspendPopUp';
+import { useNavigate } from 'react-router-dom';
 export const ActiveUsers = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [users, setUsers] = useState([]);
     const [showSuspendPopUp, setShowSuspendPopUp] = useState(false);
     const [pageSize, setPageSize] = useState(10);
-
     const [totalRows, setTotalRows] = useState(0);
-
     const [pageNumber, setPageNumber] = useState(1);
 
     const dispatch = useDispatch();
-    const stateFromUserSlice = useSelector((state: any) => state.users);
-
+    const navigate = useNavigate();
 
     useEffect(() => {
         setIsLoading(true);
@@ -81,15 +79,17 @@ export const ActiveUsers = () => {
         );
     }
     const showEditUser = (userId: number) => {
-        let isVisible = true;
-        dispatch(toggleShowEditUser({ isVisible }))
+        navigate(`Edit/${userId}`)
+
         dispatch(setUserId({ userId }))
     }
-    const showUserDetailsComponent = (userId: Number, userName: string) => {
-        let isVisible = true;
+    const showUserDetailsComponent = (userId: Number, userName: string, creationDate: string) => {
+
         dispatch(setUserId({ userId }))
         dispatch(setUserName({ userName }))
-        dispatch(toggleShowUserProfile({ isVisible }))
+        dispatch(setUserCreationDate({ creationDate }))
+        navigate(`Profile/${userId}`)
+
     }
     const handleShowSuspendPopUp = (userId: number) => {
 
@@ -103,11 +103,11 @@ export const ActiveUsers = () => {
                     <Loading />
                 </>
             ) : null}
-            <div className='grid grid-cols-2'>
+            <div className='grid grid-cols-2 gap-4'>
                 {users.map((user: any, index: any) => (
                     <div key={index} className={`grid col-start-${index % 2 === 0 ? 1 : 2} p-4`}>
 
-                        <div className='userCard pr-4 pt-8'>
+                        <div className='userCard pr-4 pt-8 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300'>
                             {showSuspendPopUp === true ? <SuspendPopUp /> : null}
 
                             <div className='flex justify-between'>
@@ -144,7 +144,7 @@ export const ActiveUsers = () => {
                                                 <label
                                                     className="three-dots-li flex justify-between"
 
-                                                    onClick={() => showUserDetailsComponent(Number(user.id), user.name)}
+                                                    onClick={() => showUserDetailsComponent(Number(user.id), user.name, user.created_at)}
                                                 >
                                                     <span>تصفح الحساب</span>
                                                     <div>
@@ -179,7 +179,7 @@ export const ActiveUsers = () => {
                                 </div>
                             </div>
 
-                            <div className='col-span-full mt-8'>
+                            <div className='col-span-full mt-8 flex justify-center'>
                                 <label htmlFor='modal-454'>
                                     <div className='de-active-btn'
                                         onClick={() => handleShowSuspendPopUp(Number(user.id))}

@@ -5,3 +5,6 @@
   background-color: #70D44B; /* Color of the scrollbar handle */
   border-radius: 25px; /* Roundness of the scrollbar handle */
 }
+::-webkit-scrollbar-track {
+  background-color: #ccc; /* Replace with your desired background color */
+}

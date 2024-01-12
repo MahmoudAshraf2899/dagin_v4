@@ -14,6 +14,7 @@ import {
 import moment from "moment";
 import { DeleteMission } from "../DeleteMission/DeleteMission";
 import { setMainHeaderName } from "../../../redux/Slices/MainHeaderSlice";
+import { useNavigate } from "react-router-dom";
 export const InProgressMission = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [totalRows, setTotalRows] = useState(0);
@@ -23,6 +24,8 @@ export const InProgressMission = () => {
   const [pageNumber, setPageNumber] = useState(1);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
 
   const ShowMissionDetailsPopUp = (missionId: number) => {
     dispatch(sendMissionIdToPopUp({ missionId }));
@@ -31,8 +34,7 @@ export const InProgressMission = () => {
   };
   const handleShowEditMission = (missionId: number) => {
     dispatch(sendMissionIdToPopUp({ missionId }));
-    let isVisible = true;
-    dispatch(toggleShowEditMission({ isVisible }));
+    navigate(`Edit/${missionId}`)
   };
   const handleShowDeletePopUp = (missionId: number) => {
     dispatch(sendMissionIdToPopUp({ missionId }));
@@ -119,7 +121,7 @@ export const InProgressMission = () => {
         const createdAtDate_Arabic = createdAtDate.format("DD MMM YYYY");
         const dueDate_Arabic = dueDate.format("DD MMMM YYYY");
         return (
-          <div className="grid grid-cols-2 mission-content">
+          <div className="grid grid-cols-2 mr-4 ml-4 mt-4 mission-content">
             {showDeletePopUp === true ? <DeleteMission /> : null}
 
             <div className="col-start-1">

@@ -2,9 +2,11 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectedUsersType, toggleShowAddUser } from "../../../redux/Slices/UsersSlice";
 import './Header.scss'
+import { useNavigate } from "react-router-dom";
 
 export const Header = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [activeElement, setActiveElement] = useState(1);
   const handleActiveElement = (id: number) => {
@@ -13,8 +15,8 @@ export const Header = () => {
     dispatch(selectedUsersType({ type }));
   };
   const showAddUser = () => {
-    let isVisible = true;
-    dispatch(toggleShowAddUser({ isVisible }))
+
+    navigate("Add")
   }
   return (
     <div className="grid grid-cols-2 xs:grid-col-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 p-4  Header">

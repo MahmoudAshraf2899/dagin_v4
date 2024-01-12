@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import frame from "../../Assets/Icons/Vector (Stroke).png";
 import logo from "../../Assets/Icons/Daginlogo.jpg";
@@ -9,8 +9,11 @@ import { toast } from "react-toastify";
 import * as Yup from "yup";
 
 import "./Login.scss";
-import { handleLogin } from "../../redux/Slices/LoginSlice";
+import { handleLogin, setUserType } from "../../redux/Slices/LoginSlice";
 import { Loading } from "../Loading/Loading";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../app-layout/auth";
+
 export const Login = () => {
   const LoginSchema = Yup.object().shape({
     // phone: Yup.number.required("required"),
@@ -27,7 +30,8 @@ export const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
-
+  const auth = useAuth();
+  const navigate = useNavigate();
   const handleChangeInput = (e: string, field: string) => {
     if (field === "phone") {
       let obj = {
@@ -45,6 +49,10 @@ export const Login = () => {
     }
   };
 
+  useEffect(() => {
+    localStorage.clear();
+  }, [])
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   }
@@ -59,10 +67,17 @@ export const Login = () => {
       .then((response) => {
         if (response) {
           setIsLoading(false);
+          //Todo : handle this from api response
+          let userType = 1
+          dispatch(setUserType({ userType }))
           localStorage.setItem("token", response.data.access_token);
           localStorage.setItem("userName", response.data.name);
+          auth?.login(userType);
+
+          // dispatch(setIsLogged({ isLogged }));
+          navigate("/Home");
           window.location.reload();
-          window.location.reload();
+          // window.location.reload();
         }
       })
       .catch((error) => {

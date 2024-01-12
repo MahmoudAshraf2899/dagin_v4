@@ -83,6 +83,29 @@ export const AddCompetitions = () => {
 
 
     }
+    const handleDeleteChoise = (questionId: number, choiceId: number) => {
+        // Assuming 'questions' and 'firstQuestion' are state variables
+        let updatedQuestions = [...questions]; // Copy the questions array to avoid mutating the state directly
+
+
+        const questionIndex = updatedQuestions.findIndex(q => q.q_Id === questionId);
+        if (questionIndex !== -1) {
+            const questionChoices = updatedQuestions[questionIndex].choices;
+
+            if (questionChoices != null && questionChoices.length > 1) {
+                // Filter out the choice with the given 'choiceId'
+                const updatedChoices = questionChoices.filter(item => item.c_Id !== choiceId);
+
+                // Update the choices for the specific question
+                updatedQuestions[questionIndex].choices = updatedChoices;
+
+                // Update the state with the modified 'firstQuestion'
+                setFirstQuestion(updatedChoices);
+            }
+        }
+
+
+    }
     function getArabicRanking(number: number): string {
         const arabicRankings = [
             'الأول',
@@ -113,7 +136,7 @@ export const AddCompetitions = () => {
             ) : null}
 
             {/* First Section [Competition Details] */}
-            <div className="add-section mb-4">
+            <div className="add-section mt-8 mb-4">
                 <div className="grid grid-cols-2">
                     <div className="col-start-1 mt-4 mb-4 pr-4">
                         <h2 className="flex justify-start mission-details">
@@ -185,14 +208,12 @@ export const AddCompetitions = () => {
                 <div className="grid grid-cols-2">
                     <div className="col-span-full mt-4 mb-4 pr-4">
                         <div className='flex justify-between pl-4'>
-
                             <h2 className="flex justify-start question-head">
                                 اسئلة الاختبار
                             </h2>
                             <div className='add-question flex gap-2 items-center justify-center'>
                                 <span>
                                     اضافة سؤال
-
                                 </span>
                                 <div>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
@@ -281,8 +302,11 @@ export const AddCompetitions = () => {
                                         <div className='col-span-full'>
                                             <div className='choise-section justify-between pl-4'>
                                                 <p className='choise-txt'>الاختيار {getArabicRanking(item.c_Id)}</p>
-                                                <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                <div
+                                                    onClick={() => handleDeleteChoise(1, item.c_Id)}>
+                                                    <svg
+
+                                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                                         <path d="M5 8V18C5 20.2091 6.79086 22 9 22H15C17.2091 22 19 20.2091 19 18V8M14 11V17M10 11L10 17M16 5L14.5937 2.8906C14.2228 2.3342 13.5983 2 12.9296 2H11.0704C10.4017 2 9.7772 2.3342 9.40627 2.8906L8 5M16 5H8M16 5H21M8 5H3" stroke="#EB001B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                                     </svg>
                                                 </div>
@@ -325,6 +349,81 @@ export const AddCompetitions = () => {
 
                         </div>
 
+                    </div>
+                    {/* معايير النجاح */}
+                    <div className='col-span-full success_criteria ml-10 mr-10 mt-4'>
+                        <div className='grid grid-cols-2'>
+                            <div className='col-span-full flex justify-start items-center mr-4 mt-4'>
+                                <div className=' criteria_title'>
+                                    معايير النجاح
+                                </div>
+                            </div>
+                            <div className='col-span-full mb-4'>
+                                <div className="divider"></div>
+                            </div>
+                            <div className='col-start-1 mb-4 pr-4'>
+                                <h3 className="mission-type"> معايير النجاح</h3>
+
+                            </div>
+                            <div className="col-span-full   mb-4 pr-4 pl-20">
+                                <div>
+                                    <input
+                                        type="text"
+                                        placeholder="80 -100"
+                                        className="mission-map-input"
+                                    // onChange={(e) => handleChangeMission(e.target.value, "reward")}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* المكافاه المادية */}
+                    <div className='col-span-full success_criteria ml-10 mr-10 mt-4'>
+                        <div className='grid grid-cols-2'>
+                            <div className='col-span-full flex justify-start items-center mr-4 mt-4'>
+                                <div className=' criteria_title'>
+                                    المكافأه المادية
+                                </div>
+                            </div>
+                            <div className='col-span-full mb-4'>
+                                <div className="divider"></div>
+                            </div>
+                            <div className='col-start-1 mb-4 pr-4'>
+                                <h3 className="mission-type"> المقابل المادي</h3>
+
+                            </div>
+                            <div className="col-span-full   mb-4 pr-4 pl-20">
+                                <div>
+                                    <input
+                                        type="text"
+                                        placeholder="00"
+                                        className="mission-map-input"
+                                    // onChange={(e) => handleChangeMission(e.target.value, "reward")}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Fourth Section [Done Or cancel] */}
+                    <div className="add-actions p-5">
+                        <div className="grid grid-cols-2">
+                            <div className="col-start-1">
+                                <div className="flex gap-4">
+                                    <div className="add-btn"
+                                    // onClick={() => handleAddNewMission()}
+                                    >
+                                        اضافة
+                                    </div>
+                                    <div
+                                        className="cancel-btn"
+                                    // onClick={() => handleShowAddComponent()}
+                                    >
+                                        الغاء
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

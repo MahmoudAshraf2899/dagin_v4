@@ -8,8 +8,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import userIcon from "../../../Assets/Icons/user.jpeg";
 import { setUserId, toggleShowSettlementsComponent } from '../../../redux/Slices/WalletsSlice';
 import { setMainHeaderName } from '../../../redux/Slices/MainHeaderSlice';
+import { useNavigate } from 'react-router-dom';
 export const CreditBalanceOnly = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState([]);
     const stateFromWalletsSlice = useSelector((state: any) => state.wallets);
@@ -24,13 +26,11 @@ export const CreditBalanceOnly = () => {
     }, []);
     const handleShowSettlementComponent = (userId: number) => {
         setIsLoading(true);
-
-        let isVisible = true;
         dispatch(setUserId({ userId }))
-        dispatch(toggleShowSettlementsComponent({ isVisible }))
-        setIsLoading(false);
         let mainHeaderName = "التسوية";
         dispatch(setMainHeaderName({ mainHeaderName }));
+        setIsLoading(false);
+        navigate(`Settlement/${userId}`)
 
     }
     return (
